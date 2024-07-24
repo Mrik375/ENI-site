@@ -7,6 +7,7 @@
 	<!-- Déclaration des CSS par défaut : -->
 	<link rel="stylesheet" data-th-href="@{/css/layout.css}">
 	<link rel="stylesheet" data-th-href="@{/css/general.css}">
+	<link rel="stylesheet" data-th-href="@{/css/accueil-form.css}">
 	
 	<!-- Permettre d’ajouter ou non des ressources CSS -->
 	<th:block data-th-replace="${ressourcesSupp} ?: ~{}"></th:block>
@@ -16,8 +17,9 @@
 <body>
 	<!-- Intégration du fragment d'entête -->
 	<div data-th-replace="~{fragments/fragment-entete :: frag-entete}"></div>
+	<!-- Intégration du fragment du cartouche -->
+	<div data-th-replace="~{fragments/fragment-cartouche :: frag-cartouche}"></div>
 	
-	<!-- ?FRAG-CARTOUCHE? IF !"/connexion" -->
 
 	<!-- Rendre variable le contenu de la page -->
 	<main data-th-replace="${contenuPage} ?: ~{}">

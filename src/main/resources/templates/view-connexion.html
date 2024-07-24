@@ -1,0 +1,29 @@
+<html xmlns:th="http://www.thymeleaf.org" data-th-replace="~{layouts/layout :: layout-projet( titrePage=~{:: title},
+																							  contenuPage=~{:: main},
+																							  ressourcesSupp=~{})}">
+<head>
+    <title>Connexion</title>
+</head>
+<body>
+<main>
+    <form action="@{/login}" method="post">
+        <div>
+            <label for="identifiant">Identifiant :</label>
+            <input type="text" id="identifiant" name="username" required>
+        </div>
+        <div>
+            <label for="motDePasse">Mot de passe :</label>
+            <input type="password" id="motDePasse" name="password" required>
+        </div>
+        <div>
+            <button type="submit">Connexion</button>
+        </div>
+        <div>
+            <a href="/forgot-password">Mot de passe oublié</a>
+        </div>
+        <div>
+            <button type="button" onclick="">Créer un compte</button>
+        </div>
+    </form>
+</main>
+</body>

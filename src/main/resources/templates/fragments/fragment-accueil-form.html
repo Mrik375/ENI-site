@@ -1,7 +1,7 @@
 <form xmlns:th="http://www.thymeleaf.org" data-th-fragment="frag-accueil-form">
 		
 	<!-- Fieldset pour grouper les filtres de recherche -->
-    <fieldset>
+    <fieldset class="accueil-form">
     	<legend>Filtres :</legend>
     			
     		<!-- Champ de texte pour entrer le nom de l'article recherché -->
@@ -10,9 +10,9 @@
 		    </div>
 		    		
 		    <!-- Menu déroulant pour sélectionner la catégorie de l'article -->
-		    <div>
+		    <div id="categorie">
 		        <label for="categorie">Catégorie :</label>
-		        <select id="categorie" name="categorie">
+		        <select name="categorie">
 				    <option value="toutes">Toutes</option>
 				    <option value="ameublement">Ameublement</option>
 				    <option value="informatique">Informatique</option>
@@ -20,14 +20,14 @@
 				    <option value="vetements">Vêtements</option>
 			</select>
 		</div>
+		
+		<!-- Boutons pour soumettre ou réinitialiser le formulaire -->
+	    <div>
+			<button type="submit">Rechercher</button>
+			<button type="reset">Annuler</button>
+	    </div>
 	</fieldset>
-		    
-	<!-- Boutons pour soumettre ou réinitialiser le formulaire -->
-    <div>
-		<button type="submit">Rechercher</button>
-		<button type="reset">Annuler</button>
-    </div>
-    		
+		    	
     <!-- Section SI utilisateur connecté -->
     <section>
     		
