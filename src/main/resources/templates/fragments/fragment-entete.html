@@ -1,0 +1,30 @@
+<header xmlns:th="http://www.thymeleaf.org" data-th-fragment="frag-entete">
+	<h1 id="nav-title">
+		<a data-th-href="@{/}"><img data-th-src="@{/images/logoENI.png}">Eni-Enchères</a>
+		<!-- CARTOUCHE (à séparer du Header?)-->
+		<span data-th-text=" 'LO/CAL/DATE' "></span>
+		<!--SI Connecté  -->
+		<th:block data-th-if="${membreEnSession != null && membreEnSession.id > 0}">
+			<span data-th-text=" 'Participant: ' + ${membreEnSession.pseudo} + ']' "></span>
+		</th:block>
+		<!-- Fin CARTOUCHE -->
+	</h1>
+
+	<nav>
+		<ul>
+			<!-- Tjrs affiché -->
+			<li><a data-th-href="@{/accueil}">Accueil</a></li>
+			<!-- SI PAS connecté  &&  SI PAS sur page de connexion -->
+			<th:block data-th-if="${membreEnSession = null && !#httpServletRequest.getRequestURI().contains('/connexion')}">
+				<li><a data-th-href="@{/connexion}">S'inscrire/Se connecter</a></li>
+			</th:block>
+			<!-- SI connecté -->
+			<th:block data-th-if="${membreEnSession != null && membreEnSession.id > 0}">
+				<li><a href="">Vendre un article</a></li>
+				<li><a href="">Mon profil</a></li>
+				<li><a href="">Se deconnecter</a></li>
+			</th:block>
+		</ul>
+	</nav>
+	
+</header>
