@@ -4,8 +4,8 @@
 		<!-- CARTOUCHE (à séparer du Header?)-->
 		<span data-th-text=" 'LO/CAL/DATE' "></span>
 		<!--SI Connecté  -->
-		<th:block data-th-if="${membreEnSession != null && membreEnSession.id > 0}">
-			<span data-th-text=" 'Participant: ' + ${membreEnSession.pseudo} + ']' "></span>
+		<th:block data-sec-authorize="isAuthenticated()">
+			<span data-th-text=" 'Participant: ' "></span>
 		</th:block>
 		<!-- Fin CARTOUCHE -->
 	</h1>
@@ -15,11 +15,11 @@
 			<!-- Tjrs affiché -->
 			<li><a data-th-href="@{/accueil}">Accueil</a></li>
 			<!-- SI PAS connecté  &&  SI PAS sur page de connexion -->
-			<th:block data-th-if="${membreEnSession = null && !#httpServletRequest.getRequestURI().contains('/connexion')}">
+			<th:block>
 				<li><a data-th-href="@{/connexion}">S'inscrire/Se connecter</a></li>
 			</th:block>
 			<!-- SI connecté -->
-			<th:block data-th-if="${membreEnSession != null && membreEnSession.id > 0}">
+			<th:block >
 				<li><a href="">Vendre un article</a></li>
 				<li><a href="">Mon profil</a></li>
 				<li><a href="">Se deconnecter</a></li>

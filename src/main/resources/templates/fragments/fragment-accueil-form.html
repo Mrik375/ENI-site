@@ -1,5 +1,4 @@
-<!-- FORMULAIRE -->
-<form action="/rechercher" method="get">
+<form xmlns:th="http://www.thymeleaf.org" data-th-fragment="frag-accueil-form">
 		
 	<!-- Fieldset pour grouper les filtres de recherche -->
     <fieldset>
@@ -30,22 +29,22 @@
     </div>
     		
     <!-- Section SI utilisateur connecté -->
-    <section data-th-if="${membreEnSession != null && membreEnSession.id > 0}">
+    <section>
     		
     	<!-- Bouton radio pour sélectionner la section "Achats", sélectionné par défaut-->
         <div>
-	        <input type="radio" id="achats" name="section" value="achats" data-th-field="*{section}" data-th-change="submitForm()" checked>
+	        <input type="radio" id="achats" name="section" value="achats" checked>
             <label for="achats">Achats</label>
 		</div>
 		        
 		<!-- Bouton radio pour sélectionner la section "Mes ventes" -->
 		<div>
-		    <input type="radio" id="ventes" name="section" value="ventes" data-th-field="*{section}" data-th-change="submitForm()">
+		    <input type="radio" id="ventes" name="section" value="ventes">
 		    <label for="ventes">Mes ventes</label>
 		</div>
 		        
 		<!-- Menu déroulant conditionnel SI "Achats" -->
-		<div data-th-if="${section == 'achats'}">
+		<div>
 		    <select id="achats-dropdown" name="achats_dropdown">
 		        <option value="encheres_ouvertes">Enchères ouvertes</option>
 		        <option value="mes_encheres_en_cours">Mes enchères en cours</option>
@@ -54,7 +53,7 @@
 		</div>
 		        
 		<!-- Menu déroulant conditionnel SI "Mes ventes" -->
-		<div data-th-if="${section == 'ventes'}">
+		<div>
 		    <select id="ventes-dropdown" name="ventes_dropdown">
 		        <option value="mes_ventes_en_cours">Mes ventes en cours</option>
 		        <option value="mes_ventes_non_debutees">Mes ventes non débutées</option>
