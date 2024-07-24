@@ -3,14 +3,17 @@ package fr.eni.site.dal;
 import fr.eni.site.bo.Adresse;
 import fr.eni.site.bo.ArticleAVendre;
 import fr.eni.site.bo.Utilisateur;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+@Repository
 public class UtilisateurDAOImpl implements UtilisateurDAO {
 	public static final String SQL_SELECT = "SELECT * FROM UTILISATEURS WHERE pseudo = :pseudo";
 	private static final String SQL_INSERT = "INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, mot_de_passe, credit, administrateur, no_adresse) VALUES (:pseudo, :nom, :prenom, :email, :telephone, :mot_de_passe, :credit, :administrateur, :no_adresse)";
@@ -18,10 +21,10 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	private static final String SQL_SELECT_ALL = "SELECT * FROM UTILISATEURS";
 
 	private final NamedParameterJdbcTemplate jdbcTemplate;
-	private final AdresseDAOImpl adresseDAO;
-	private final ArticleAVendreDAOImpl articleDAO;
+	private final AdresseDAO adresseDAO;
+	private final ArticleAVendreDAO articleDAO;
 
-	public UtilisateurDAOImpl(NamedParameterJdbcTemplate jdbcTemplate, AdresseDAOImpl adresseDAO, ArticleAVendreDAOImpl articleDAO) {
+	public UtilisateurDAOImpl(NamedParameterJdbcTemplate jdbcTemplate, AdresseDAO adresseDAO, @Lazy ArticleAVendreDAO articleDAO) {
 		this.jdbcTemplate = jdbcTemplate;
 		this.adresseDAO = adresseDAO;
 		this.articleDAO = articleDAO;

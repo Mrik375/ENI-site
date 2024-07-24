@@ -4,11 +4,13 @@ import fr.eni.site.bo.Categorie;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+@Repository
 public class CategorieDAOImpl implements CategorieDAO {
 	private static final String SQL_INSERT = "INSERT INTO CATEGORIES (libelle) VALUES (:libelle)";
 	private static final String SQL_SELECT_BY_ID = "SELECT * FROM CATEGORIES WHERE no_categorie = :id";

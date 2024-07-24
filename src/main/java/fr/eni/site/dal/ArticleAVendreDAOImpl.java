@@ -7,12 +7,14 @@ import fr.eni.site.bo.Utilisateur;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 
+@Repository
 public class ArticleAVendreDAOImpl implements ArticleAVendreDAO {
 	private static final String SQL_INSERT = "INSERT INTO ARTICLES_A_VENDRE (nom_article, description, photo, date_debut_encheres, date_fin_encheres, statut_enchere, prix_initial, prix_vente, id_utilisateur, no_categorie, no_adresse_retrait) VALUES (:nom_article, :description, :photo, :date_debut_encheres, :date_fin_encheres, :statut_enchere, :prix_initial, :prix_vente, :id_utilisateur, :no_categorie, :no_adresse_retrait)";
 	private static final String SQL_SELECT_BY_ID = "SELECT * FROM ARTICLES_A_VENDRE WHERE no_article = :id";
@@ -20,11 +22,11 @@ public class ArticleAVendreDAOImpl implements ArticleAVendreDAO {
 	private static final String SQL_SELECT_BY_UTILISATEUR = "SELECT * FROM ARTICLES_A_VENDRE WHERE id_utilisateur = :id_utilisateur";
 
 	private final NamedParameterJdbcTemplate jdbcTemplate;
-	private final UtilisateurDAOImpl utilisateurDAO;
-	private final AdresseDAOImpl adresseDAO;
-	private final CategorieDAOImpl categorieDAO;
+	private final UtilisateurDAO utilisateurDAO;
+	private final AdresseDAO adresseDAO;
+	private final CategorieDAO categorieDAO;
 
-	public ArticleAVendreDAOImpl(NamedParameterJdbcTemplate jdbcTemplate, UtilisateurDAOImpl utilisateurDAO, AdresseDAOImpl adresseDAO, CategorieDAOImpl categorieDAO) {
+	public ArticleAVendreDAOImpl(NamedParameterJdbcTemplate jdbcTemplate, UtilisateurDAO utilisateurDAO, AdresseDAO adresseDAO, CategorieDAO categorieDAO) {
 		this.jdbcTemplate = jdbcTemplate;
 		this.utilisateurDAO = utilisateurDAO;
 		this.adresseDAO = adresseDAO;

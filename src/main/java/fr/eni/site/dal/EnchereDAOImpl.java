@@ -6,12 +6,14 @@ import fr.eni.site.bo.Utilisateur;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 
+@Repository
 public class EnchereDAOImpl implements EnchereDAO {
 	private static final String SQL_INSERT = "INSERT INTO ENCHERES (id_utilisateur, no_article, montant_enchere, date_enchere) VALUES (:id_utilisateur, :no_article, :montant_enchere, :date_enchere)";
 	private static final String SQL_SELECT_BY_ID = "SELECT * FROM ENCHERES WHERE id_utilisateur = :id_utilisateur AND no_article = :no_article AND montant_enchere = :montant_enchere";
@@ -21,10 +23,10 @@ public class EnchereDAOImpl implements EnchereDAO {
 	private static final String SQL_SELECT_HIGHEST_BY_ARTICLE = "SELECT * FROM ENCHERES WHERE no_article = :no_article ORDER BY montant_enchere DESC LIMIT 1";
 
 	private final NamedParameterJdbcTemplate jdbcTemplate;
-	private final UtilisateurDAOImpl utilisateurDAO;
-	private final ArticleAVendreDAOImpl articleDAO;
+	private final UtilisateurDAO utilisateurDAO;
+	private final ArticleAVendreDAO articleDAO;
 
-	public EnchereDAOImpl(NamedParameterJdbcTemplate jdbcTemplate, UtilisateurDAOImpl utilisateurDAO, ArticleAVendreDAOImpl articleDAO) {
+	public EnchereDAOImpl(NamedParameterJdbcTemplate jdbcTemplate, UtilisateurDAO utilisateurDAO, ArticleAVendreDAO articleDAO) {
 		this.jdbcTemplate = jdbcTemplate;
 		this.utilisateurDAO = utilisateurDAO;
 		this.articleDAO = articleDAO;

@@ -4,11 +4,13 @@ import fr.eni.site.bo.Adresse;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+@Repository
 public class AdresseDAOImpl implements AdresseDAO {
 	private static final String SQL_INSERT = "INSERT INTO ADRESSES (rue, code_postal, ville, adresse_eni) VALUES (:rue, :code_postal, :ville, :adresse_eni)";
 	private static final String SQL_SELECT_BY_ID = "SELECT * FROM ADRESSES WHERE no_adresse = :id";
