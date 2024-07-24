@@ -5,5 +5,11 @@ import fr.eni.site.bo.ArticleAVendre;
 import java.util.List;
 
 public interface ArticleAVendreDAO {
-    List<ArticleAVendre> findByUtilisateur(String pseudo);
+	void create(ArticleAVendre article);
+
+	ArticleAVendre read(long id);
+
+	List<ArticleAVendre> findAll();
+
+	List<ArticleAVendre> findByUtilisateur(String pseudo);
 }

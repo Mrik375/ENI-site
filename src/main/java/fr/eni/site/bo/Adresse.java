@@ -11,7 +11,7 @@ public class Adresse {
     public Adresse() {
     }
 
-    public Adresse(long id, int noAdresse, String rue, String codePostal, String ville) {
+    public Adresse(long id, String rue, String codePostal, String ville) {
         this.id = id;
         this.rue = rue;
         this.codePostal = codePostal;
@@ -62,5 +62,10 @@ public class Adresse {
     @Override
     public int hashCode() {
         return Objects.hash(getId(), getRue(), getCodePostal(), getVille());
+    }
+
+    // la table a un champ adresse_eni qui est un booléen, mais je ne connais pas son utilité
+    public Object isAdresseEni() {
+        return false;
     }
 }
