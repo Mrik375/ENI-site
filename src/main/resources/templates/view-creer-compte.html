@@ -1,0 +1,54 @@
+<html xmlns:th="http://www.thymeleaf.org" data-th-replace="~{layouts/layout :: layout-projet( titrePage=~{:: title},
+																							  contenuPage=~{:: main},
+																							  ressourcesSupp=~{})}">
+<head>
+    <title>Nouveau Profil</title>
+</head>
+<main>
+    <form action="/creercompte" method="post">
+        <h2>Nouveau Profil</h2>
+        <label for="pseudo">Pseudo (*):</label>
+        <input type="text" id="pseudo" name="pseudo" required><br><br>
+
+        <label for="nom">Nom (*):</label>
+        <input type="text" id="nom" name="nom" required><br><br>
+
+        <label for="prenom">Prénom (*):</label>
+        <input type="text" id="prenom" name="prenom" required><br><br>
+
+        <label for="email">Email (*):</label>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <label for="telephone">Téléphone :</label>
+        <input type="text" id="telephone" name="telephone"><br><br>
+
+        <fieldset>
+            <legend>Adresse (*) :</legend>
+            <label for="rue">Rue :</label>
+            <input type="text" id="rue" name="rue" required><br><br>
+
+            <label for="codePostal">Code Postal :</label>
+            <input type="text" id="codePostal" name="codePostal" required><br><br>
+
+            <label for="ville">Ville :</label>
+            <input type="text" id="ville" name="ville" required><br><br>
+        </fieldset>
+
+		<label for="motDePasse">Mot de passe (*):</label>
+		<input type="password" id="password" name="motDePasse" required><br><br>
+
+		<label for="confirmMDP">Confirmation (*):</label>
+		<input type="password" id="confirmMDP" name="confirmMDP" required><br><br>
+
+		
+        <button type="submit">Créer</button>
+        <button type="button" onclick="window.location.href='/accueil';">Annuler</button>
+
+        
+
+
+        
+    </form>
+</main>
+</html>
+
