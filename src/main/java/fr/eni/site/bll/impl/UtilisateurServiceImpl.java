@@ -15,27 +15,19 @@ import java.util.Optional;
 @Service
 public class UtilisateurServiceImpl implements UtilisateurService {
 	private final UtilisateurDAO utilisateurDAO;
-	private final AdresseService adresseService;
 	private final PasswordEncoder passwordEncoder;
 
-	public UtilisateurServiceImpl(UtilisateurDAO utilisateurDAO, AdresseService adresseService, PasswordEncoder passwordEncoder) {
+	public UtilisateurServiceImpl(UtilisateurDAO utilisateurDAO, PasswordEncoder passwordEncoder) {
 		this.utilisateurDAO = utilisateurDAO;
-		this.adresseService = adresseService;
 		this.passwordEncoder = passwordEncoder;
 	}
 
 	@Override
-	public void registerUtilisateur(Utilisateur utilisateur, Adresse adresse) throws Exception {
-		System.out.println("INSIDE registerUtilisateur()");
+	public void registerUtilisateur(Utilisateur utilisateur) throws Exception {
 		if (getUtilisateurByPseudo(utilisateur.getPseudo()).isPresent()) {
 			throw new Exception("Utilisateur avec ce pseudo existe déjà.");
 		}
-		System.out.println("INSIDE registerUtilisateur() AFTER getUtilisateurByPseudo()");
-		long adresseId = adresseService.createAdresse(adresse);
-
-		utilisateur.setAdresse(adresseId);
 		utilisateur.setMotDePasse(passwordEncoder.encode(utilisateur.getMotDePasse()));
-
 		try {
 			utilisateurDAO.create(utilisateur);
 		} catch (DuplicateKeyException e) {

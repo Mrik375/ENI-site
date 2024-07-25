@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UtilisateurService {
-	void registerUtilisateur(Utilisateur utilisateur, Adresse adresse) throws Exception;
+	void registerUtilisateur(Utilisateur utilisateur) throws Exception;
 
 	Optional<String> getUtilisateurByPseudo(String pseudo);
 
