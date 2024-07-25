@@ -3,7 +3,6 @@ package fr.eni.site.bll;
 import fr.eni.site.bo.Adresse;
 import fr.eni.site.bo.Utilisateur;
 import fr.eni.site.dal.UtilisateurDAO;
-import fr.eni.site.util.SecurityUtils;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -24,16 +23,15 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 	}
 
 	@Override
-	public void registerUtilisateur(Utilisateur utilisateur) throws Exception {
+	public void registerUtilisateur(Utilisateur utilisateur, Adresse adresse) throws Exception {
+		System.out.println("INSIDE registerUtilisateur()");
 		if (getUtilisateurByPseudo(utilisateur.getPseudo()).isPresent()) {
 			throw new Exception("Utilisateur avec ce pseudo existe déjà.");
 		}
+		System.out.println("INSIDE registerUtilisateur() AFTER getUtilisateurByPseudo()");
+		long adresseId = adresseService.createAdresse(adresse);
 
-		Adresse adresse = utilisateur.getAdresse();
-		if (adresse != null && adresse.getId() == 0) {
-			adresseService.createAdresse(adresse);
-		}
-
+		utilisateur.setAdresse(adresseId);
 		utilisateur.setMotDePasse(passwordEncoder.encode(utilisateur.getMotDePasse()));
 
 		try {
@@ -44,8 +42,15 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 	}
 
 	@Override
-	public Optional<Utilisateur> getUtilisateurByPseudo(String pseudo) {
+	public Optional<String> getUtilisateurByPseudo(String pseudo) {
+		System.out.println("INSIDE getUtilisateurByPseudo()");
 		return Optional.ofNullable(utilisateurDAO.readByPseudo(pseudo));
+	}
+
+	@Override
+	public Optional<Utilisateur> getUtilisateur(String pseudo) {
+		System.out.println("INSIDE getUtilisateurByPseudo()");
+		return Optional.ofNullable(utilisateurDAO.read(pseudo));
 	}
 
 	@Override
@@ -55,7 +60,12 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 
 	@Override
 	public Optional<Utilisateur> getCurrentUtilisateur() {
-		return SecurityUtils.getCurrentUserLogin()
-				.flatMap(this::getUtilisateurByPseudo);
+		return Optional.empty();
 	}
+
+//	@Override
+//	public Optional<Utilisateur> getCurrentUtilisateur() {
+//		return SecurityUtils.getCurrentUserLogin()
+//				.flatMap(this::getUtilisateurByPseudo);
+//	}
 }

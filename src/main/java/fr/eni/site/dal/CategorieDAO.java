@@ -5,7 +5,7 @@ import fr.eni.site.bo.Categorie;
 import java.util.List;
 
 public interface CategorieDAO {
-	void create(Categorie categorie);
+	long create(Categorie categorie);
 
 	Categorie read(long noCategorie);
 

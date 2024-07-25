@@ -1,12 +1,11 @@
 package fr.eni.site.dal;
 
-import fr.eni.site.bo.Adresse;
 import fr.eni.site.bo.ArticleAVendre;
-import fr.eni.site.bo.Categorie;
-import fr.eni.site.bo.Utilisateur;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
@@ -34,7 +33,7 @@ public class ArticleAVendreDAOImpl implements ArticleAVendreDAO {
 	}
 
 	@Override
-	public void create(ArticleAVendre article) {
+	public long create(ArticleAVendre article) {
 		MapSqlParameterSource params = new MapSqlParameterSource();
 		params.addValue("nom_article", article.getNom());
 		params.addValue("description", article.getDescription());
@@ -44,10 +43,12 @@ public class ArticleAVendreDAOImpl implements ArticleAVendreDAO {
 		params.addValue("statut_enchere", article.getStatutEnchere());
 		params.addValue("prix_initial", article.getPrixInitial());
 		params.addValue("prix_vente", article.getPrixVente());
-		params.addValue("id_utilisateur", article.getVendeur().getPseudo());
-		params.addValue("no_categorie", article.getCategorie().getId());
-		params.addValue("no_adresse_retrait", article.getRetrait().getId());
-		jdbcTemplate.update(SQL_INSERT, params);
+		params.addValue("id_utilisateur", article.getVendeurId());
+		params.addValue("no_categorie", article.getCategorieId());
+		params.addValue("no_adresse_retrait", article.getAdresseRetraitId());
+		KeyHolder keyHolder = new GeneratedKeyHolder();
+		jdbcTemplate.update(SQL_INSERT, params, keyHolder, new String[] {"no_article"});
+		return keyHolder.getKey().longValue();
 	}
 
 	@Override
@@ -72,10 +73,6 @@ public class ArticleAVendreDAOImpl implements ArticleAVendreDAO {
 	private class ArticleAVendreRowMapper implements RowMapper<ArticleAVendre> {
 		@Override
 		public ArticleAVendre mapRow(ResultSet rs, int rowNum) throws SQLException {
-			Utilisateur vendeur = utilisateurDAO.readByPseudo(rs.getString("id_utilisateur"));
-			Adresse retrait = adresseDAO.read(rs.getLong("no_adresse_retrait"));
-			Categorie categorie = categorieDAO.read(rs.getLong("no_categorie"));
-
 			return new ArticleAVendre(
 					rs.getLong("no_article"),
 					rs.getString("nom_article"),
@@ -86,9 +83,9 @@ public class ArticleAVendreDAOImpl implements ArticleAVendreDAO {
 					rs.getInt("statut_enchere"),
 					rs.getInt("prix_initial"),
 					rs.getInt("prix_vente"),
-					vendeur,
-					retrait,
-					categorie
+					rs.getString("id_utilisateur"),
+					rs.getLong("no_adresse_retrait"),
+					rs.getLong("no_categorie")
 			);
 		}
 	}

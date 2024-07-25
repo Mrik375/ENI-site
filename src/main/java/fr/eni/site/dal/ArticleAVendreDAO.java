@@ -5,7 +5,7 @@ import fr.eni.site.bo.ArticleAVendre;
 import java.util.List;
 
 public interface ArticleAVendreDAO {
-	void create(ArticleAVendre article);
+	long create(ArticleAVendre article);
 
 	ArticleAVendre read(long id);
 

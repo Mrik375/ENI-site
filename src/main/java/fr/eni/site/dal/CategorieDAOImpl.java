@@ -4,6 +4,8 @@ import fr.eni.site.bo.Categorie;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
@@ -23,10 +25,12 @@ public class CategorieDAOImpl implements CategorieDAO {
 	}
 
 	@Override
-	public void create(Categorie categorie) {
+	public long create(Categorie categorie) {
 		MapSqlParameterSource params = new MapSqlParameterSource();
 		params.addValue("libelle", categorie.getLibelle());
-		jdbcTemplate.update(SQL_INSERT, params);
+		KeyHolder keyHolder = new GeneratedKeyHolder();
+		jdbcTemplate.update(SQL_INSERT, params, keyHolder, new String[]{"no_categorie"});
+		return keyHolder.getKey().longValue();
 	}
 
 	@Override

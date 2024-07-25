@@ -9,7 +9,7 @@ public interface UtilisateurDAO {
 
 	Utilisateur read(String pseudo);
 
-	Utilisateur readByPseudo(String pseudo);
+	String readByPseudo(String pseudo);
 
 	List<Utilisateur> findAll();
 }

@@ -5,7 +5,7 @@ import fr.eni.site.bo.Adresse;
 import java.util.List;
 
 public interface AdresseDAO {
-	void create(Adresse adresse);
+	long create(Adresse adresse);
 
 	Adresse read(long adresseId);
 

@@ -4,124 +4,151 @@ import java.util.List;
 import java.util.Objects;
 
 public class Utilisateur {
-    private String pseudo;
-    private String nom;
-    private String prenom;
-    private String email;
-    private String telephone;
-    private String motDePasse;
-    private int credit;
-    private boolean administrateur;
-    private Adresse adresse;
-    private List<ArticleAVendre> articles;
+	private String pseudo;
+	private String nom;
+	private String prenom;
+	private String email;
+	private String telephone;
+	private String motDePasse;
+	private int credit;
+	private boolean administrateur;
+	private long adresse;
+	private List<ArticleAVendre> articles;
 
-    public Utilisateur() {
-    }
+	public Utilisateur() {
+	}
 
-    public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String motDePasse, int credit, boolean administrateur, Adresse adresse, List<ArticleAVendre> articles) {
-        this.pseudo = pseudo;
-        this.nom = nom;
-        this.prenom = prenom;
-        this.email = email;
-        this.telephone = telephone;
-        this.motDePasse = motDePasse;
-        this.credit = credit;
-        this.administrateur = administrateur;
-        this.adresse = adresse;
-        this.articles = articles;
-    }
+	public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String motDePasse, int credit, boolean administrateur, long adresse, List<ArticleAVendre> articles) {
+		this.pseudo = pseudo;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.email = email;
+		this.telephone = telephone;
+		this.motDePasse = motDePasse;
+		this.credit = credit;
+		this.administrateur = administrateur;
+		this.adresse = adresse;
+		this.articles = articles;
+	}
 
-    public String getPseudo() {
-        return pseudo;
-    }
+	public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String motDePasse, int credit, boolean administrateur, List<ArticleAVendre> articles) {
+		this.pseudo = pseudo;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.email = email;
+		this.telephone = telephone;
+		this.motDePasse = motDePasse;
+		this.credit = credit;
+		this.administrateur = administrateur;
+		this.articles = articles;
+	}
 
-    public void setPseudo(String pseudo) {
-        this.pseudo = pseudo;
-    }
+	public String getPseudo() {
+		return pseudo;
+	}
 
-    public String getNom() {
-        return nom;
-    }
+	public void setPseudo(String pseudo) {
+		this.pseudo = pseudo;
+	}
 
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
+	public String getNom() {
+		return nom;
+	}
 
-    public String getPrenom() {
-        return prenom;
-    }
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
 
-    public void setPrenom(String prenom) {
-        this.prenom = prenom;
-    }
+	public String getPrenom() {
+		return prenom;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public void setPrenom(String prenom) {
+		this.prenom = prenom;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public String getTelephone() {
-        return telephone;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public void setTelephone(String telephone) {
-        this.telephone = telephone;
-    }
+	public String getTelephone() {
+		return telephone;
+	}
 
-    public String getMotDePasse() {
-        return motDePasse;
-    }
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
+	}
 
-    public void setMotDePasse(String motDePasse) {
-        this.motDePasse = motDePasse;
-    }
+	public String getMotDePasse() {
+		return motDePasse;
+	}
 
-    public int getCredit() {
-        return credit;
-    }
+	public void setMotDePasse(String motDePasse) {
+		this.motDePasse = motDePasse;
+	}
 
-    public void setCredit(int credit) {
-        this.credit = credit;
-    }
+	public int getCredit() {
+		return credit;
+	}
 
-    public boolean isAdministrateur() {
-        return administrateur;
-    }
+	public void setCredit(int credit) {
+		this.credit = credit;
+	}
 
-    public void setAdministrateur(boolean administrateur) {
-        this.administrateur = administrateur;
-    }
+	public boolean isAdministrateur() {
+		return administrateur;
+	}
 
-    public Adresse getAdresse() {
-        return adresse;
-    }
+	public void setAdministrateur(boolean administrateur) {
+		this.administrateur = administrateur;
+	}
 
-    public void setAdresse(Adresse adresse) {
-        this.adresse = adresse;
-    }
+	public long getAdresse() {
+		return adresse;
+	}
 
-    public List<ArticleAVendre> getArticles() {
-        return articles;
-    }
+	public void setAdresse(long adresse) {
+		this.adresse = adresse;
+	}
 
-    public void setArticles(List<ArticleAVendre> articles) {
-        this.articles = articles;
-    }
+	public List<ArticleAVendre> getArticles() {
+		return articles;
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Utilisateur that = (Utilisateur) o;
-        return getCredit() == that.getCredit() && isAdministrateur() == that.isAdministrateur() && Objects.equals(getPseudo(), that.getPseudo()) && Objects.equals(getNom(), that.getNom()) && Objects.equals(getPrenom(), that.getPrenom()) && Objects.equals(getEmail(), that.getEmail()) && Objects.equals(getTelephone(), that.getTelephone()) && Objects.equals(getMotDePasse(), that.getMotDePasse()) && Objects.equals(getAdresse(), that.getAdresse()) && Objects.equals(getArticles(), that.getArticles());
-    }
+	public void setArticles(List<ArticleAVendre> articles) {
+		this.articles = articles;
+	}
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(getPseudo(), getNom(), getPrenom(), getEmail(), getTelephone(), getMotDePasse(), getCredit(), isAdministrateur(), getAdresse(), getArticles());
-    }
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Utilisateur that = (Utilisateur) o;
+		return getCredit() == that.getCredit() && isAdministrateur() == that.isAdministrateur() && Objects.equals(getPseudo(), that.getPseudo()) && Objects.equals(getNom(), that.getNom()) && Objects.equals(getPrenom(), that.getPrenom()) && Objects.equals(getEmail(), that.getEmail()) && Objects.equals(getTelephone(), that.getTelephone()) && Objects.equals(getMotDePasse(), that.getMotDePasse()) && Objects.equals(getAdresse(), that.getAdresse()) && Objects.equals(getArticles(), that.getArticles());
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(getPseudo(), getNom(), getPrenom(), getEmail(), getTelephone(), getMotDePasse(), getCredit(), isAdministrateur(), getAdresse(), getArticles());
+	}
+
+	@Override
+	public String toString() {
+		return "Utilisateur{" +
+				"adresse=" + adresse +
+				", administrateur=" + administrateur +
+				", credit=" + credit +
+				", motDePasse='" + motDePasse + '\'' +
+				", telephone='" + telephone + '\'' +
+				", email='" + email + '\'' +
+				", prenom='" + prenom + '\'' +
+				", nom='" + nom + '\'' +
+				", pseudo='" + pseudo + '\'' +
+				'}';
+	}
 }
 

@@ -1,9 +1,9 @@
 package fr.eni.site.dal;
 
-import fr.eni.site.bo.Adresse;
 import fr.eni.site.bo.ArticleAVendre;
 import fr.eni.site.bo.Utilisateur;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -15,10 +15,10 @@ import java.util.List;
 
 @Repository
 public class UtilisateurDAOImpl implements UtilisateurDAO {
-	public static final String SQL_SELECT = "SELECT * FROM UTILISATEURS WHERE pseudo = :pseudo";
+	public static final String SQL_SELECT = "SELECT pseudo, nom, prenom, email, telephone, mot_de_passe, credit, administrateur, no_adresse FROM UTILISATEURS WHERE pseudo = :pseudo";
 	private static final String SQL_INSERT = "INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, mot_de_passe, credit, administrateur, no_adresse) VALUES (:pseudo, :nom, :prenom, :email, :telephone, :mot_de_passe, :credit, :administrateur, :no_adresse)";
-	private static final String SQL_SELECT_BY_PSEUDO = "SELECT * FROM UTILISATEURS WHERE pseudo = :pseudo";
-	private static final String SQL_SELECT_ALL = "SELECT * FROM UTILISATEURS";
+	private static final String SQL_SELECT_BY_PSEUDO = "SELECT pseudo FROM UTILISATEURS WHERE pseudo = :pseudo";
+	private static final String SQL_SELECT_ALL = "SELECT pseudo, nom, prenom, email, telephone, mot_de_passe, credit, administrateur, no_adresse FROM UTILISATEURS";
 
 	private final NamedParameterJdbcTemplate jdbcTemplate;
 	private final AdresseDAO adresseDAO;
@@ -41,7 +41,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 		params.addValue("mot_de_passe", utilisateur.getMotDePasse());
 		params.addValue("credit", utilisateur.getCredit());
 		params.addValue("administrateur", utilisateur.isAdministrateur());
-		params.addValue("no_adresse", utilisateur.getAdresse().getId());
+		params.addValue("no_adresse", utilisateur.getAdresse());
 		jdbcTemplate.update(SQL_INSERT, params);
 	}
 
@@ -53,10 +53,14 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	}
 
 	@Override
-	public Utilisateur readByPseudo(String pseudo) {
+	public String readByPseudo(String pseudo) {
 		MapSqlParameterSource params = new MapSqlParameterSource();
 		params.addValue("pseudo", pseudo);
-		return jdbcTemplate.queryForObject(SQL_SELECT_BY_PSEUDO, params, new UtilisateurRowMapper());
+		try {
+			return jdbcTemplate.queryForObject(SQL_SELECT_BY_PSEUDO, params, String.class);
+		} catch (EmptyResultDataAccessException e) {
+			return null;
+		}
 	}
 
 	@Override
@@ -67,7 +71,6 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	private class UtilisateurRowMapper implements RowMapper<Utilisateur> {
 		@Override
 		public Utilisateur mapRow(ResultSet rs, int rowNum) throws SQLException {
-			Adresse adresse = adresseDAO.read(rs.getLong("no_adresse"));
 			List<ArticleAVendre> articles = articleDAO.findByUtilisateur(rs.getString("pseudo"));
 
 			return new Utilisateur(
@@ -79,7 +82,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 					rs.getString("mot_de_passe"),
 					rs.getInt("credit"),
 					rs.getBoolean("administrateur"),
-					adresse,
+					rs.getLong("no_adresse"),
 					articles
 			);
 		}

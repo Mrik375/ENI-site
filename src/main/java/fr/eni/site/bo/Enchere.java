@@ -4,63 +4,63 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class Enchere {
-    private LocalDate date;
-    private int montant;
-    private ArticleAVendre articleAVendre;
-    private Utilisateur acquereur;
+	private String acquereurId;
+	private long articleAVendreId;
+	private int montant;
+	private LocalDate date;
 
-    public Enchere() {
-    }
+	public Enchere() {
+	}
 
-    public Enchere(LocalDate date, int montant, ArticleAVendre articleAVendre, Utilisateur acquereur) {
-        this.date = date;
-        this.montant = montant;
-        this.articleAVendre = articleAVendre;
-        this.acquereur = acquereur;
-    }
+	public Enchere(String acquereurId, long articleAVendreId, int montant, LocalDate date) {
+		this.acquereurId = acquereurId;
+		this.articleAVendreId = articleAVendreId;
+		this.montant = montant;
+		this.date = date;
+	}
 
-    public LocalDate getDate() {
-        return date;
-    }
+	public String getAcquereurId() {
+		return acquereurId;
+	}
 
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
+	public void setAcquereurId(String acquereurId) {
+		this.acquereurId = acquereurId;
+	}
 
-    public int getMontant() {
-        return montant;
-    }
+	public long getArticleAVendreId() {
+		return articleAVendreId;
+	}
 
-    public void setMontant(int montant) {
-        this.montant = montant;
-    }
+	public void setArticleAVendreId(long articleAVendreId) {
+		this.articleAVendreId = articleAVendreId;
+	}
 
-    public ArticleAVendre getArticleAVendre() {
-        return articleAVendre;
-    }
+	public int getMontant() {
+		return montant;
+	}
 
-    public void setArticleAVendre(ArticleAVendre articleAVendre) {
-        this.articleAVendre = articleAVendre;
-    }
+	public void setMontant(int montant) {
+		this.montant = montant;
+	}
 
-    public Utilisateur getAcquereur() {
-        return acquereur;
-    }
+	public LocalDate getDate() {
+		return date;
+	}
 
-    public void setAcquereur(Utilisateur acquereur) {
-        this.acquereur = acquereur;
-    }
+	public void setDate(LocalDate date) {
+		this.date = date;
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Enchere enchere = (Enchere) o;
-        return getMontant() == enchere.getMontant() && Objects.equals(getDate(), enchere.getDate()) && Objects.equals(getArticleAVendre(), enchere.getArticleAVendre()) && Objects.equals(getAcquereur(), enchere.getAcquereur());
-    }
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Enchere enchere = (Enchere) o;
+		return getArticleAVendreId() == enchere.getArticleAVendreId() && getMontant() == enchere.getMontant() && Objects.equals(getAcquereurId(), enchere.getAcquereurId()) && Objects.equals(getDate(), enchere.getDate());
+	}
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(getDate(), getMontant(), getArticleAVendre(), getAcquereur());
-    }
+	@Override
+	public int hashCode() {
+		return Objects.hash(getAcquereurId(), getArticleAVendreId(), getMontant(), getDate());
+	}
 }

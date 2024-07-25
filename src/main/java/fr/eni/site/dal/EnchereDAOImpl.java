@@ -1,8 +1,6 @@
 package fr.eni.site.dal;
 
-import fr.eni.site.bo.ArticleAVendre;
 import fr.eni.site.bo.Enchere;
-import fr.eni.site.bo.Utilisateur;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -16,11 +14,11 @@ import java.util.List;
 @Repository
 public class EnchereDAOImpl implements EnchereDAO {
 	private static final String SQL_INSERT = "INSERT INTO ENCHERES (id_utilisateur, no_article, montant_enchere, date_enchere) VALUES (:id_utilisateur, :no_article, :montant_enchere, :date_enchere)";
-	private static final String SQL_SELECT_BY_ID = "SELECT * FROM ENCHERES WHERE id_utilisateur = :id_utilisateur AND no_article = :no_article AND montant_enchere = :montant_enchere";
-	private static final String SQL_SELECT_ALL = "SELECT * FROM ENCHERES";
-	private static final String SQL_SELECT_BY_UTILISATEUR = "SELECT * FROM ENCHERES WHERE id_utilisateur = :id_utilisateur";
-	private static final String SQL_SELECT_BY_ARTICLE = "SELECT * FROM ENCHERES WHERE no_article = :no_article";
-	private static final String SQL_SELECT_HIGHEST_BY_ARTICLE = "SELECT * FROM ENCHERES WHERE no_article = :no_article ORDER BY montant_enchere DESC LIMIT 1";
+	private static final String SQL_SELECT_BY_ID = "SELECT id_utilisateur, no_article, montant_enchere, date_enchere FROM ENCHERES WHERE id_utilisateur = :id_utilisateur AND no_article = :no_article AND montant_enchere = :montant_enchere";
+	private static final String SQL_SELECT_ALL = "SELECT id_utilisateur, no_article, montant_enchere, date_enchere FROM ENCHERES";
+	private static final String SQL_SELECT_BY_UTILISATEUR = "SELECT id_utilisateur, no_article, montant_enchere, date_enchere FROM ENCHERES WHERE id_utilisateur = :id_utilisateur";
+	private static final String SQL_SELECT_BY_ARTICLE = "SELECT id_utilisateur, no_article, montant_enchere, date_enchere FROM ENCHERES WHERE no_article = :no_article";
+	private static final String SQL_SELECT_HIGHEST_BY_ARTICLE = "SELECT TOP 1 id_utilisateur, no_article, montant_enchere, date_enchere FROM ENCHERES WHERE no_article = :no_article ORDER BY montant_enchere DESC";
 
 	private final NamedParameterJdbcTemplate jdbcTemplate;
 	private final UtilisateurDAO utilisateurDAO;
@@ -35,8 +33,8 @@ public class EnchereDAOImpl implements EnchereDAO {
 	@Override
 	public void create(Enchere enchere) {
 		MapSqlParameterSource params = new MapSqlParameterSource();
-		params.addValue("id_utilisateur", enchere.getAcquereur().getPseudo());
-		params.addValue("no_article", enchere.getArticleAVendre().getId());
+		params.addValue("id_utilisateur", enchere.getAcquereurId());
+		params.addValue("no_article", enchere.getArticleAVendreId());
 		params.addValue("montant_enchere", enchere.getMontant());
 		params.addValue("date_enchere", enchere.getDate());
 		jdbcTemplate.update(SQL_INSERT, params);
@@ -80,14 +78,12 @@ public class EnchereDAOImpl implements EnchereDAO {
 	private class EnchereRowMapper implements RowMapper<Enchere> {
 		@Override
 		public Enchere mapRow(ResultSet rs, int rowNum) throws SQLException {
-			Utilisateur acquereur = utilisateurDAO.readByPseudo(rs.getString("id_utilisateur"));
-			ArticleAVendre article = articleDAO.read(rs.getLong("no_article"));
 
 			return new Enchere(
-					rs.getObject("date_enchere", LocalDate.class),
+					rs.getString("id_utilisateur"),
+					rs.getLong("no_article"),
 					rs.getInt("montant_enchere"),
-					article,
-					acquereur
+					rs.getObject("date_enchere", LocalDate.class)
 			);
 		}
 	}
