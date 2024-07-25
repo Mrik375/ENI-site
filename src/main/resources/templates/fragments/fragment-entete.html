@@ -8,11 +8,11 @@
 			<!-- Tjrs affiché -->
 			<li><a data-th-href="@{/accueil}">Accueil</a></li>
 			<!-- SI PAS connecté  &&  SI PAS sur page de connexion -->
-			<th:block>
+			<th:block data-sec-authorize="!isAuthenticated()">
 				<li><a data-th-href="@{/connexion}">S'inscrire/Se connecter</a></li>
 			</th:block>
 			<!-- SI connecté -->
-			<th:block >
+			<th:block data-sec-authorize="isAuthenticated()">
 				<li><a data-th-href="@{/vendre}">Vendre un article</a></li>
 				<li><a data-th-href="@{/profil}">Mon profil</a></li>
 				<li><a data-th-href="@{/}">Se déconnecter</a></li>
