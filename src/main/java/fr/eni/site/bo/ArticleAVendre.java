@@ -143,4 +143,22 @@ public class ArticleAVendre {
 	public int hashCode() {
 		return Objects.hash(getId(), getNom(), getDescription(), getPhoto(), getDateDebutEncheres(), getDateFinEncheres(), getStatutEnchere(), getPrixInitial(), getPrixVente(), getVendeurId(), getAdresseRetraitId(), getCategorieId());
 	}
+
+	@Override
+	public String toString() {
+		return "ArticleAVendre{" +
+				"id=" + id +
+				", nom='" + nom + '\'' +
+				", description='" + description + '\'' +
+				", photo=" + photo +
+				", dateDebutEncheres=" + dateDebutEncheres +
+				", dateFinEncheres=" + dateFinEncheres +
+				", statutEnchere=" + statutEnchere +
+				", prixInitial=" + prixInitial +
+				", prixVente=" + prixVente +
+				", vendeurId='" + vendeurId + '\'' +
+				", adresseRetraitId=" + adresseRetraitId +
+				", categorieId=" + categorieId +
+				'}';
+	}
 }

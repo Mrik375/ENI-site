@@ -1,6 +1,7 @@
 package fr.eni.site.dal;
 
 import fr.eni.site.bo.ArticleAVendre;
+import fr.eni.site.bo.ArticleStatus;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -19,6 +20,8 @@ public class ArticleAVendreDAOImpl implements ArticleAVendreDAO {
 	private static final String SQL_SELECT_BY_ID = "SELECT * FROM ARTICLES_A_VENDRE WHERE no_article = :id";
 	private static final String SQL_SELECT_ALL = "SELECT * FROM ARTICLES_A_VENDRE";
 	private static final String SQL_SELECT_BY_UTILISATEUR = "SELECT * FROM ARTICLES_A_VENDRE WHERE id_utilisateur = :id_utilisateur";
+	private static final String SQL_SELECT_ALL_ACTIVE = "SELECT * FROM ARTICLES_A_VENDRE WHERE statut_enchere = 2";
+	private static final String SQL_UPDATE_STATUS = "UPDATE ARTICLES_A_VENDRE SET statut_enchere = :statut_enchere WHERE no_article = :id";
 
 	private final NamedParameterJdbcTemplate jdbcTemplate;
 	private final UtilisateurDAO utilisateurDAO;
@@ -69,6 +72,20 @@ public class ArticleAVendreDAOImpl implements ArticleAVendreDAO {
 		params.addValue("id_utilisateur", pseudo);
 		return jdbcTemplate.query(SQL_SELECT_BY_UTILISATEUR, params, new ArticleAVendreRowMapper());
 	}
+
+	@Override
+	public List<ArticleAVendre> findAllActive() {
+		return jdbcTemplate.query(SQL_SELECT_ALL_ACTIVE, new ArticleAVendreRowMapper());
+	}
+
+	@Override
+	public void setStatus(long id, ArticleStatus statutEnchere) {
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("id", id);
+		params.addValue("statut_enchere", statutEnchere.getCode());
+		jdbcTemplate.update(SQL_UPDATE_STATUS, params);
+	}
+
 
 	private class ArticleAVendreRowMapper implements RowMapper<ArticleAVendre> {
 		@Override

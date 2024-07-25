@@ -1,6 +1,7 @@
 package fr.eni.site.dal;
 
 import fr.eni.site.bo.ArticleAVendre;
+import fr.eni.site.bo.ArticleStatus;
 
 import java.util.List;
 
@@ -12,4 +13,10 @@ public interface ArticleAVendreDAO {
 	List<ArticleAVendre> findAll();
 
 	List<ArticleAVendre> findByUtilisateur(String pseudo);
+
+	List<ArticleAVendre> findAllActive();
+
+	void setStatus(long id, ArticleStatus statutEnchere);
+
+
 }
