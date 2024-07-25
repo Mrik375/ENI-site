@@ -42,4 +42,12 @@ public class Categorie {
     public int hashCode() {
         return Objects.hash(getId(), getLibelle());
     }
+
+    @Override
+    public String toString() {
+        return "Categorie{" +
+                "id=" + id +
+                ", libelle='" + libelle + '\'' +
+                '}';
+    }
 }
