@@ -1,6 +1,7 @@
-package fr.eni.site.dal;
+package fr.eni.site.dal.impl;
 
 import fr.eni.site.bo.Adresse;
+import fr.eni.site.dal.AdresseDAO;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;

@@ -1,5 +1,7 @@
-package fr.eni.site.bll;
+package fr.eni.site.bll.impl;
 
+import fr.eni.site.bll.AdresseService;
+import fr.eni.site.bll.UtilisateurService;
 import fr.eni.site.bo.Adresse;
 import fr.eni.site.bo.Utilisateur;
 import fr.eni.site.dal.UtilisateurDAO;

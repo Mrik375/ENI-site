@@ -1,5 +1,6 @@
-package fr.eni.site.bll;
+package fr.eni.site.bll.impl;
 
+import fr.eni.site.bll.AdresseService;
 import fr.eni.site.bo.Adresse;
 import fr.eni.site.dal.AdresseDAO;
 import org.springframework.stereotype.Service;

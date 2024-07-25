@@ -1,7 +1,10 @@
-package fr.eni.site.dal;
+package fr.eni.site.dal.impl;
 
 import fr.eni.site.bo.ArticleAVendre;
 import fr.eni.site.bo.Utilisateur;
+import fr.eni.site.dal.AdresseDAO;
+import fr.eni.site.dal.ArticleAVendreDAO;
+import fr.eni.site.dal.UtilisateurDAO;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;

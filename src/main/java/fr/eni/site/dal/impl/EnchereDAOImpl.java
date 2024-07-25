@@ -1,6 +1,9 @@
-package fr.eni.site.dal;
+package fr.eni.site.dal.impl;
 
 import fr.eni.site.bo.Enchere;
+import fr.eni.site.dal.ArticleAVendreDAO;
+import fr.eni.site.dal.EnchereDAO;
+import fr.eni.site.dal.UtilisateurDAO;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
