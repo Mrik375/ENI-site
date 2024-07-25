@@ -27,6 +27,8 @@ header h1 {
 
 header h1 img {
 	margin-right: 20px;
+	border-radius: 10px;
+	box-shadow: 0px 0px 10px 1px white;
 }
 
 header li {
@@ -41,10 +43,11 @@ header a {
 	text-decoration: none;
 	color: white;
 	transition: all 0.3s ease 0s;
+	text-shadow: 0px 0px 20px black;
 }
 
 header a:hover {
-	color: rgb(0, 128, 192);
+	color: rgb(8, 166, 245);
 }
 
 main {
@@ -55,8 +58,8 @@ main {
 main h1 {
 	margin: 10px;
 }
-
-.center-section {
-	margin: auto;
+main h2 {
 	text-align: center;
+	margin-top: 5vh;
+	font-size: 2rem;
 }

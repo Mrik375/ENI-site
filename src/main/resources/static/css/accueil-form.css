@@ -1,0 +1,94 @@
+form {
+	display: flex;
+	flex-direction: column;
+	background-color: rgba(0, 47, 255, 0.13);
+	border-radius: 10px;
+	margin: 2%;
+	margin-left: 5%;
+	width: auto;
+	max-width: fit-content;
+}
+select {
+	width: 15vw;
+	height: 5vh;
+	border-radius: 10px;
+	border: none;
+	cursor: pointer;
+	margin-top: 1vh;
+	font-size: 1rem;
+	padding-left: 1rem;
+}
+.accueil-form {
+	display: flex;
+	margin: 2vh;
+	border: none;
+	margin-top: 2vh;
+}
+.btn {
+	display: flex;
+	flex-direction: column;
+	margin-left: 40px;
+	position: relative;
+}
+.accueil-form legend {
+	font-weight: bold;
+    font-size: 1.5rem;
+}
+#nom-article {
+	margin-top: 2vh;
+	width: 25vw;
+	height: 5vh;
+	border-radius: 10px;
+	border: none;
+	padding-left: 1rem;
+}
+#categorie {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 2vh;
+}
+#categorie label {
+	display: flex;
+	align-items: center;
+	font-size: 1.2rem;
+}
+#categorie select {
+	border-radius: 10px;
+	border: none;
+	width: 17vw;
+}
+.accueil-form button {	
+	width: 10vw;
+	height: 5vh;
+	color: white;
+	border-radius: 10px;
+	border: none;
+	margin-top: 2vh;
+	cursor: pointer;
+	font-size: 1.1rem;
+}
+.accueil-form button[type="submit"] {
+	background-color: rgb(90, 119, 247);
+}
+.accueil-form button[type="submit"]:hover {
+	background-color: rgb(51, 84, 228);
+	transition: 0.3s ease 0s;
+}
+.accueil-form button[type="reset"] {
+	background-color: #f5665a;
+	margin-top: 3vh;
+}
+.accueil-form button[type="reset"]:hover {
+	background-color: #f11f0e;
+	transition: 0.3s ease 0s;
+}
+.radiobtn {
+	display: flex;
+	justify-content: space-around;
+	margin-top: 5vh;
+	margin-bottom: 3vh;
+	font-size: 1rem;
+}
+.radiobtn label {
+	font-size: 1.1rem;
+}
