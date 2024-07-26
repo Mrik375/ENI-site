@@ -12,13 +12,14 @@ public class Utilisateur {
 	private String motDePasse;
 	private int credit;
 	private boolean administrateur;
-	private long adresse;
+	private Adresse adresse;
 	private List<ArticleAVendre> articles;
 
 	public Utilisateur() {
+		this.adresse = new Adresse();
 	}
 
-	public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String motDePasse, int credit, boolean administrateur, long adresse, List<ArticleAVendre> articles) {
+	public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String motDePasse, int credit, boolean administrateur, Adresse adresse, List<ArticleAVendre> articles) {
 		this.pseudo = pseudo;
 		this.nom = nom;
 		this.prenom = prenom;
@@ -28,18 +29,6 @@ public class Utilisateur {
 		this.credit = credit;
 		this.administrateur = administrateur;
 		this.adresse = adresse;
-		this.articles = articles;
-	}
-
-	public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String motDePasse, int credit, boolean administrateur, List<ArticleAVendre> articles) {
-		this.pseudo = pseudo;
-		this.nom = nom;
-		this.prenom = prenom;
-		this.email = email;
-		this.telephone = telephone;
-		this.motDePasse = motDePasse;
-		this.credit = credit;
-		this.administrateur = administrateur;
 		this.articles = articles;
 	}
 
@@ -107,11 +96,11 @@ public class Utilisateur {
 		this.administrateur = administrateur;
 	}
 
-	public long getAdresse() {
+	public Adresse getAdresse() {
 		return adresse;
 	}
 
-	public void setAdresse(long adresse) {
+	public void setAdresse(Adresse adresse) {
 		this.adresse = adresse;
 	}
 

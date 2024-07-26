@@ -21,8 +21,8 @@ public class UtilisateursServiceImpl implements UtilisateursService {
 
 	@Transactional(rollbackFor = Exception.class)
 	@Override
-	public void registerUtilisateur(Utilisateur utilisateur, Adresse adresse) throws Exception {
-		utilisateur.setAdresse(adresseService.createAdresse(adresse));
+	public void registerUtilisateur(Utilisateur utilisateur) throws Exception {
+		utilisateur.getAdresse().setId(adresseService.createAdresse(utilisateur.getAdresse()));
 		utilisateurService.registerUtilisateur(utilisateur);
 	}
 }

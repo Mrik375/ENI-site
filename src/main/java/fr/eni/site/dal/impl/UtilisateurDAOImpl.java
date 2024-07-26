@@ -1,5 +1,6 @@
 package fr.eni.site.dal.impl;
 
+import fr.eni.site.bo.Adresse;
 import fr.eni.site.bo.ArticleAVendre;
 import fr.eni.site.bo.Utilisateur;
 import fr.eni.site.dal.AdresseDAO;
@@ -44,7 +45,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 		params.addValue("mot_de_passe", utilisateur.getMotDePasse());
 		params.addValue("credit", utilisateur.getCredit());
 		params.addValue("administrateur", utilisateur.isAdministrateur());
-		params.addValue("no_adresse", utilisateur.getAdresse());
+		params.addValue("no_adresse", utilisateur.getAdresse().getId());
 		jdbcTemplate.update(SQL_INSERT, params);
 	}
 
@@ -75,7 +76,8 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 		@Override
 		public Utilisateur mapRow(ResultSet rs, int rowNum) throws SQLException {
 			List<ArticleAVendre> articles = articleDAO.findByUtilisateur(rs.getString("pseudo"));
-
+			Adresse adresse = new Adresse();
+			adresse.setId(rs.getLong("no_adresse"));
 			return new Utilisateur(
 					rs.getString("pseudo"),
 					rs.getString("nom"),
@@ -85,7 +87,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 					rs.getString("mot_de_passe"),
 					rs.getInt("credit"),
 					rs.getBoolean("administrateur"),
-					rs.getLong("no_adresse"),
+					adresse,
 					articles
 			);
 		}

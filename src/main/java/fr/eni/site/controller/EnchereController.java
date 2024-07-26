@@ -5,16 +5,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import fr.eni.site.bll.RegistrationService;
+import fr.eni.site.bll.UtilisateursService;
 import fr.eni.site.bo.Utilisateur;
 import fr.eni.site.bo.Adresse;
 @Controller
 
 public class EnchereController {
-	private final RegistrationService registrationService;
+	private final UtilisateursService utilisateursService;
 	
-	public EnchereController(RegistrationService registrationService) {
-		this.registrationService = registrationService;
+	public EnchereController(UtilisateursService utilisateursService) {
+		this.utilisateursService = utilisateursService;
 	}
 	
 	@GetMapping("/accueil")
@@ -58,9 +58,10 @@ public class EnchereController {
 		adresse.setRue(rue);
 		adresse.setCodePostal(codePostal);
 		adresse.setVille(ville);
-		
+
+		utilisateur.setAdresse(adresse);
 		try {
-			registrationService.registerUtilisateur(utilisateur, adresse);
+			utilisateursService.registerUtilisateur(utilisateur);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
