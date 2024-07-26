@@ -6,4 +6,5 @@ public interface UtilisateursService {
 
 	void registerUtilisateur(Utilisateur utilisateur) throws Exception;
 
+	Utilisateur chargeUtilisateur(String pseudo);
 }
