@@ -1,6 +1,7 @@
 package fr.eni.site.bll.impl;
 
 import fr.eni.site.bll.ArticlesService;
+import fr.eni.site.bll.UtilisateursService;
 import fr.eni.site.bll.services.AdresseService;
 import fr.eni.site.bll.services.ArticleAVendreService;
 import fr.eni.site.bll.services.CategorieService;
@@ -15,14 +16,12 @@ public class ArticlesServiceImpl implements ArticlesService {
 
 	private final ArticleAVendreService articleAVendreService;
 	private final CategorieService categorieService;
-	private final UtilisateurService utilisateurService;
-	private final AdresseService adresseService;
+	private final UtilisateursService utilisateursService;
 
-	public ArticlesServiceImpl(ArticleAVendreService articleAVendreService, CategorieService categorieService, UtilisateurService utilisateurService, AdresseService adresseService) {
+	public ArticlesServiceImpl(ArticleAVendreService articleAVendreService, CategorieService categorieService, UtilisateursService utilisateursService) {
 		this.articleAVendreService = articleAVendreService;
 		this.categorieService = categorieService;
-		this.utilisateurService = utilisateurService;
-		this.adresseService = adresseService;
+		this.utilisateursService = utilisateursService;
 	}
 
 	@Override
@@ -45,18 +44,14 @@ public class ArticlesServiceImpl implements ArticlesService {
 	}
 
 	public void chargeAdresseDansArticle(ArticleAVendre article) {
-		article.setAdresseRetrait(adresseService.getAdresseById(article.getAdresseRetrait().getId()));
+		article.setAdresseRetrait(utilisateursService.getAdresse(article.getAdresseRetrait().getId()));
 	}
 
 	public void chargeUtilisateurDansArticle(ArticleAVendre article) {
-		Utilisateur vendeur = utilisateurService.getUtilisateur(article.getVendeur().getPseudo());
-		chargeAdresseDansUtilisateur(vendeur);
-		article.setVendeur(vendeur);
+		article.setVendeur(utilisateursService.getUtilisateur(article.getVendeur().getPseudo()));
 	}
 
-	public void chargeAdresseDansUtilisateur(Utilisateur utilisateur) {
-		utilisateur.setAdresse(adresseService.getAdresseById(utilisateur.getAdresse().getId()));
-	}
+
 
 
 }

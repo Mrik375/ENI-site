@@ -29,9 +29,18 @@ public class UtilisateursServiceImpl implements UtilisateursService {
 	}
 
 	@Override
-	public Utilisateur chargeUtilisateur(String pseudo) {
+	public Utilisateur getUtilisateur(String pseudo) {
 		Utilisateur utilisateur = utilisateurService.getUtilisateur(pseudo);
-		utilisateur.setAdresse(adresseService.getAdresseById(utilisateur.getAdresse().getId()));
+		chargeAdresseDansUtilisateur(utilisateur);
 		return utilisateur;
+	}
+
+	@Override
+	public Adresse getAdresse(long id) {
+		return adresseService.getAdresseById(id);
+	}
+
+	public void chargeAdresseDansUtilisateur(Utilisateur utilisateur) {
+		utilisateur.setAdresse(adresseService.getAdresseById(utilisateur.getAdresse().getId()));
 	}
 }
