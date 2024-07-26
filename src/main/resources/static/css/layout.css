@@ -3,19 +3,18 @@ body {
 	flex-direction: column;
 	justify-content: space-between;
 	height: 100vh;
-	font-family: Arial, Helvetica, sans-serif;
 	margin: 0;
 }
 header {
 	padding: 5px;
-	background-image: url('/images/pastille.png');
+	background-image: url('/images/banniere.png');
 }
 h1 {
 	font-size: 2.5em;
 	margin: 0;
 }
 footer {
-	background-image: url('/images/pastille.png');
+	background-image: url('/images/banniere.png');
 	padding: 10px;
 	text-align: center;
 	color: white;
