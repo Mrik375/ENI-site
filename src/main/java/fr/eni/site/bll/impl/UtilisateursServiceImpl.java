@@ -2,6 +2,7 @@ package fr.eni.site.bll.impl;
 
 import fr.eni.site.bll.services.AdresseService;
 import fr.eni.site.bll.UtilisateursService;
+import fr.eni.site.bll.services.ArticleAVendreService;
 import fr.eni.site.bll.services.UtilisateurService;
 import fr.eni.site.bo.Adresse;
 import fr.eni.site.bo.Utilisateur;
@@ -15,10 +16,12 @@ public class UtilisateursServiceImpl implements UtilisateursService {
 
 	private final UtilisateurService utilisateurService;
 	private final AdresseService adresseService;
+	private final ArticleAVendreService articleAVendreService;
 
-	public UtilisateursServiceImpl(UtilisateurService utilisateurService, AdresseService adresseService) {
+	public UtilisateursServiceImpl(UtilisateurService utilisateurService, AdresseService adresseService, ArticleAVendreService articleAVendreService) {
 		this.utilisateurService = utilisateurService;
 		this.adresseService = adresseService;
+		this.articleAVendreService = articleAVendreService;
 	}
 
 	@Transactional(rollbackFor = Exception.class)
@@ -31,7 +34,7 @@ public class UtilisateursServiceImpl implements UtilisateursService {
 	@Override
 	public Utilisateur getUtilisateur(String pseudo) {
 		Utilisateur utilisateur = utilisateurService.getUtilisateur(pseudo);
-		chargeAdresseDansUtilisateur(utilisateur);
+		chargerDependancesUtilisateur(utilisateur);
 		return utilisateur;
 	}
 
@@ -40,7 +43,16 @@ public class UtilisateursServiceImpl implements UtilisateursService {
 		return adresseService.getAdresseById(id);
 	}
 
+	public void chargerDependancesUtilisateur(Utilisateur utilisateur) {
+		chargeAdresseDansUtilisateur(utilisateur);
+		chargeArticlesVendusDansUtilisateur(utilisateur);
+	}
+
 	public void chargeAdresseDansUtilisateur(Utilisateur utilisateur) {
 		utilisateur.setAdresse(adresseService.getAdresseById(utilisateur.getAdresse().getId()));
+	}
+
+	public void chargeArticlesVendusDansUtilisateur(Utilisateur utilisateur) {
+		utilisateur.setArticles(articleAVendreService.getArticlesByUtilisateur(utilisateur.getPseudo()));
 	}
 }

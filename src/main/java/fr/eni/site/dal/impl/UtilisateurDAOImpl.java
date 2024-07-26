@@ -15,23 +15,20 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
 public class UtilisateurDAOImpl implements UtilisateurDAO {
-	public static final String SQL_SELECT = "SELECT pseudo, nom, prenom, email, telephone, mot_de_passe, credit, administrateur, no_adresse FROM UTILISATEURS WHERE pseudo = :pseudo";
 	private static final String SQL_INSERT = "INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, mot_de_passe, credit, administrateur, no_adresse) VALUES (:pseudo, :nom, :prenom, :email, :telephone, :mot_de_passe, :credit, :administrateur, :no_adresse)";
 	private static final String SQL_SELECT_BY_PSEUDO = "SELECT pseudo FROM UTILISATEURS WHERE pseudo = :pseudo";
 	private static final String SQL_SELECT_ALL = "SELECT pseudo, nom, prenom, email, telephone, mot_de_passe, credit, administrateur, no_adresse FROM UTILISATEURS";
+	private static final String SQL_EXISTS_BY_PSEUDO = "SELECT CASE WHEN EXISTS (SELECT 1 FROM UTILISATEURS WHERE pseudo = :pseudo) THEN 1 ELSE 0 END AS RowExists";
 
 	private final NamedParameterJdbcTemplate jdbcTemplate;
-	private final AdresseDAO adresseDAO;
-	private final ArticleAVendreDAO articleDAO;
 
-	public UtilisateurDAOImpl(NamedParameterJdbcTemplate jdbcTemplate, AdresseDAO adresseDAO, @Lazy ArticleAVendreDAO articleDAO) {
+	public UtilisateurDAOImpl(NamedParameterJdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
-		this.adresseDAO = adresseDAO;
-		this.articleDAO = articleDAO;
 	}
 
 	@Override
@@ -61,13 +58,14 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	}
 
 	@Override
-	public String readByPseudo(String pseudo) {
+	public boolean existsByPseudo(String pseudo) {
 		MapSqlParameterSource params = new MapSqlParameterSource();
 		params.addValue("pseudo", pseudo);
 		try {
-			return jdbcTemplate.queryForObject(SQL_SELECT_BY_PSEUDO, params, String.class);
+			Integer rowExists = jdbcTemplate.queryForObject(SQL_EXISTS_BY_PSEUDO, params, Integer.class);
+			return rowExists != null && rowExists == 1;
 		} catch (EmptyResultDataAccessException e) {
-			return null;
+			return false;
 		}
 	}
 
@@ -79,7 +77,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	private class UtilisateurRowMapper implements RowMapper<Utilisateur> {
 		@Override
 		public Utilisateur mapRow(ResultSet rs, int rowNum) throws SQLException {
-			List<ArticleAVendre> articles = articleDAO.findByUtilisateur(rs.getString("pseudo"));
+			List<ArticleAVendre> articles = new ArrayList<>();
 			Adresse adresse = new Adresse();
 			adresse.setId(rs.getLong("no_adresse"));
 			return new Utilisateur(

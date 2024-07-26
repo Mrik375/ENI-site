@@ -37,7 +37,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 
 	@Override
 	public boolean utilisateurExists(String pseudo) {
-		return Optional.ofNullable(utilisateurDAO.read(pseudo)).isPresent();
+		return utilisateurDAO.existsByPseudo(pseudo);
 	}
 
 	@Override
