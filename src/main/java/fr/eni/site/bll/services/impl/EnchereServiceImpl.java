@@ -1,6 +1,6 @@
-package fr.eni.site.bll.impl;
+package fr.eni.site.bll.services.impl;
 
-import fr.eni.site.bll.EnchereService;
+import fr.eni.site.bll.services.EnchereService;
 import fr.eni.site.bo.Enchere;
 import fr.eni.site.dal.EnchereDAO;
 import org.springframework.stereotype.Service;

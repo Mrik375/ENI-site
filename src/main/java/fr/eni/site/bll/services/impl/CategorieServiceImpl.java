@@ -1,6 +1,6 @@
-package fr.eni.site.bll.impl;
+package fr.eni.site.bll.services.impl;
 
-import fr.eni.site.bll.CategorieService;
+import fr.eni.site.bll.services.CategorieService;
 import fr.eni.site.bo.Categorie;
 import fr.eni.site.dal.CategorieDAO;
 import org.springframework.stereotype.Service;

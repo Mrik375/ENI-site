@@ -1,6 +1,5 @@
-package fr.eni.site.bll;
+package fr.eni.site.bll.services;
 
-import fr.eni.site.bo.Adresse;
 import fr.eni.site.bo.Utilisateur;
 
 import java.util.List;

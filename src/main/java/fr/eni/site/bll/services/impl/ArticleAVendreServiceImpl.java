@@ -1,6 +1,6 @@
-package fr.eni.site.bll.impl;
+package fr.eni.site.bll.services.impl;
 
-import fr.eni.site.bll.ArticleAVendreService;
+import fr.eni.site.bll.services.ArticleAVendreService;
 import fr.eni.site.bo.ArticleAVendre;
 import fr.eni.site.bo.ArticleStatus;
 import fr.eni.site.dal.ArticleAVendreDAO;

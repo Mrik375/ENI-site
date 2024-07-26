@@ -1,8 +1,6 @@
-package fr.eni.site.bll.impl;
+package fr.eni.site.bll.services.impl;
 
-import fr.eni.site.bll.AdresseService;
-import fr.eni.site.bll.UtilisateurService;
-import fr.eni.site.bo.Adresse;
+import fr.eni.site.bll.services.UtilisateurService;
 import fr.eni.site.bo.Utilisateur;
 import fr.eni.site.dal.UtilisateurDAO;
 import org.springframework.dao.DuplicateKeyException;

@@ -1,4 +1,4 @@
-package fr.eni.site.bll;
+package fr.eni.site.bll.services;
 
 import fr.eni.site.bo.ArticleAVendre;
 import fr.eni.site.bo.ArticleStatus;
