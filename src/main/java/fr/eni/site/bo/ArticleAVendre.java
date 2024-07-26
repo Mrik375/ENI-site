@@ -13,14 +13,16 @@ public class ArticleAVendre {
 	private int statutEnchere;
 	private int prixInitial;
 	private int prixVente;
-	private String vendeurId;
+	private Utilisateur vendeur;
 	private long adresseRetraitId;
-	private long categorieId;
+	private Categorie categorie;
 
 	public ArticleAVendre() {
+		this.categorie = new Categorie();
+		this.vendeur = new Utilisateur();
 	}
 
-	public ArticleAVendre(long id, String nom, String description, Integer photo, LocalDate dateDebutEncheres, LocalDate dateFinEncheres, int statutEnchere, int prixInitial, int prixVente, String vendeurId, long adresseRetraitId, long categorieId) {
+	public ArticleAVendre(long id, String nom, String description, Integer photo, LocalDate dateDebutEncheres, LocalDate dateFinEncheres, int statutEnchere, int prixInitial, int prixVente, Utilisateur vendeur, long adresseRetraitId, Categorie categorie) {
 		this.id = id;
 		this.nom = nom;
 		this.description = description;
@@ -30,9 +32,9 @@ public class ArticleAVendre {
 		this.statutEnchere = statutEnchere;
 		this.prixInitial = prixInitial;
 		this.prixVente = prixVente;
-		this.vendeurId = vendeurId;
+		this.vendeur = vendeur;
 		this.adresseRetraitId = adresseRetraitId;
-		this.categorieId = categorieId;
+		this.categorie = categorie;
 	}
 
 	public long getId() {
@@ -107,12 +109,12 @@ public class ArticleAVendre {
 		this.prixVente = prixVente;
 	}
 
-	public String getVendeurId() {
-		return vendeurId;
+	public Utilisateur getVendeur() {
+		return vendeur;
 	}
 
-	public void setVendeurId(String vendeur) {
-		this.vendeurId = vendeur;
+	public void setVendeur(Utilisateur vendeur) {
+		this.vendeur = vendeur;
 	}
 
 	public long getAdresseRetraitId() {
@@ -123,12 +125,12 @@ public class ArticleAVendre {
 		this.adresseRetraitId = retrait;
 	}
 
-	public long getCategorieId() {
-		return categorieId;
+	public Categorie getCategorie() {
+		return categorie;
 	}
 
-	public void setCategorieId(long categorie) {
-		this.categorieId = categorie;
+	public void setCategorie(Categorie categorie) {
+		this.categorie = categorie;
 	}
 
 	@Override
@@ -136,12 +138,12 @@ public class ArticleAVendre {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 		ArticleAVendre that = (ArticleAVendre) o;
-		return getId() == that.getId() && getStatutEnchere() == that.getStatutEnchere() && getPrixInitial() == that.getPrixInitial() && getPrixVente() == that.getPrixVente() && Objects.equals(getNom(), that.getNom()) && Objects.equals(getDescription(), that.getDescription()) && Objects.equals(getPhoto(), that.getPhoto()) && Objects.equals(getDateDebutEncheres(), that.getDateDebutEncheres()) && Objects.equals(getDateFinEncheres(), that.getDateFinEncheres()) && Objects.equals(getVendeurId(), that.getVendeurId()) && Objects.equals(getAdresseRetraitId(), that.getAdresseRetraitId()) && Objects.equals(getCategorieId(), that.getCategorieId());
+		return getId() == that.getId() && getStatutEnchere() == that.getStatutEnchere() && getPrixInitial() == that.getPrixInitial() && getPrixVente() == that.getPrixVente() && Objects.equals(getNom(), that.getNom()) && Objects.equals(getDescription(), that.getDescription()) && Objects.equals(getPhoto(), that.getPhoto()) && Objects.equals(getDateDebutEncheres(), that.getDateDebutEncheres()) && Objects.equals(getDateFinEncheres(), that.getDateFinEncheres()) && Objects.equals(getVendeur(), that.getVendeur()) && Objects.equals(getAdresseRetraitId(), that.getAdresseRetraitId()) && Objects.equals(getCategorie(), that.getCategorie());
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(getId(), getNom(), getDescription(), getPhoto(), getDateDebutEncheres(), getDateFinEncheres(), getStatutEnchere(), getPrixInitial(), getPrixVente(), getVendeurId(), getAdresseRetraitId(), getCategorieId());
+		return Objects.hash(getId(), getNom(), getDescription(), getPhoto(), getDateDebutEncheres(), getDateFinEncheres(), getStatutEnchere(), getPrixInitial(), getPrixVente(), getVendeur(), getAdresseRetraitId(), getCategorie());
 	}
 
 	@Override
@@ -156,9 +158,9 @@ public class ArticleAVendre {
 				", statutEnchere=" + statutEnchere +
 				", prixInitial=" + prixInitial +
 				", prixVente=" + prixVente +
-				", vendeurId='" + vendeurId + '\'' +
+				", vendeurId='" + vendeur + '\'' +
 				", adresseRetraitId=" + adresseRetraitId +
-				", categorieId=" + categorieId +
+				", categorieId=" + categorie +
 				'}';
 	}
 }

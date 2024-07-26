@@ -2,6 +2,8 @@ package fr.eni.site.dal.impl;
 
 import fr.eni.site.bo.ArticleAVendre;
 import fr.eni.site.bo.ArticleStatus;
+import fr.eni.site.bo.Categorie;
+import fr.eni.site.bo.Utilisateur;
 import fr.eni.site.dal.AdresseDAO;
 import fr.eni.site.dal.ArticleAVendreDAO;
 import fr.eni.site.dal.CategorieDAO;
@@ -50,8 +52,8 @@ public class ArticleAVendreDAOImpl implements ArticleAVendreDAO {
 		params.addValue("statut_enchere", article.getStatutEnchere());
 		params.addValue("prix_initial", article.getPrixInitial());
 		params.addValue("prix_vente", article.getPrixVente());
-		params.addValue("id_utilisateur", article.getVendeurId());
-		params.addValue("no_categorie", article.getCategorieId());
+		params.addValue("id_utilisateur", article.getVendeur().getPseudo());
+		params.addValue("no_categorie", article.getCategorie().getId());
 		params.addValue("no_adresse_retrait", article.getAdresseRetraitId());
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		jdbcTemplate.update(SQL_INSERT, params, keyHolder, new String[] {"no_article"});
@@ -94,6 +96,10 @@ public class ArticleAVendreDAOImpl implements ArticleAVendreDAO {
 	private class ArticleAVendreRowMapper implements RowMapper<ArticleAVendre> {
 		@Override
 		public ArticleAVendre mapRow(ResultSet rs, int rowNum) throws SQLException {
+			Categorie categorie = new Categorie();
+			categorie.setId(rs.getLong("no_categorie"));
+			Utilisateur vendeur = new Utilisateur();
+			vendeur.setPseudo(rs.getString("id_utilisateur"));
 			return new ArticleAVendre(
 					rs.getLong("no_article"),
 					rs.getString("nom_article"),
@@ -104,9 +110,9 @@ public class ArticleAVendreDAOImpl implements ArticleAVendreDAO {
 					rs.getInt("statut_enchere"),
 					rs.getInt("prix_initial"),
 					rs.getInt("prix_vente"),
-					rs.getString("id_utilisateur"),
+					vendeur,
 					rs.getLong("no_adresse_retrait"),
-					rs.getLong("no_categorie")
+					categorie
 			);
 		}
 	}
