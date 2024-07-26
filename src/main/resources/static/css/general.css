@@ -65,3 +65,25 @@ main h2 {
 	margin-top: 5vh;
 	font-size: 2rem;
 }
+
+form {
+	margin: 0;
+}
+
+.button-as-link {
+	background: none;
+	border: none;
+	text-decoration: none;
+	cursor: pointer;
+	font-size: inherit;
+	font-weight: inherit;
+	letter-spacing: inherit;
+	color: white;
+	transition: all 0.3s ease 0s;
+	text-shadow: 0px 0px 20px black;
+	white-space: nowrap;
+}
+
+.button-as-link:hover {
+	color: rgb(8, 166, 245);
+}

@@ -53,7 +53,11 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	public Utilisateur read(String pseudo) {
 		MapSqlParameterSource params = new MapSqlParameterSource();
 		params.addValue("pseudo", pseudo);
-		return jdbcTemplate.queryForObject(SQL_SELECT, params, new UtilisateurRowMapper());
+		try {
+			return jdbcTemplate.queryForObject(SQL_SELECT_BY_PSEUDO, params, new UtilisateurRowMapper());
+		} catch (EmptyResultDataAccessException e) {
+			return null;
+		}
 	}
 
 	@Override

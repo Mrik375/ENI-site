@@ -5,7 +5,7 @@
     <title>Nouveau Profil</title>
 </head>
 <main>
-    <form action="/creercompte" method="post">
+    <form data-th-action="@{/creercompte}" method="POST">
         <h2>Nouveau Profil</h2>
         <label for="pseudo">Pseudo (*):</label>
         <input type="text" id="pseudo" name="pseudo" required><br><br>

@@ -2,6 +2,6 @@
 <span data-th-text=" 'LO/CAL/DATE' "></span>
 <!--A FAIRE : SI Connecté  -->
 <th:block>
-	<span data-th-text=" 'Participant: ' "></span>
+	<span data-sec-authorize="isAuthenticated()" data-th-text="'Participant : ' +${#authentication.getPrincipal().username}"></span>
 </th:block>
 </div>
