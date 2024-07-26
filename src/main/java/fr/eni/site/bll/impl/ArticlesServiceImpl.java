@@ -29,14 +29,23 @@ public class ArticlesServiceImpl implements ArticlesService {
 	public List<ArticleAVendre> findAll() {
 		List<ArticleAVendre> articles = articleAVendreService.getAllArticles();
 
-		articles.forEach(this::chargeCategorieDansArticle);
-		articles.forEach(this::chargeUtilisateurDansArticle);
+		articles.forEach(this::chargerDependencesDansArticle);
 
 		return articles;
 	}
 
+	public void chargerDependencesDansArticle(ArticleAVendre article) {
+		chargeCategorieDansArticle(article);
+		chargeAdresseDansArticle(article);
+		chargeUtilisateurDansArticle(article);
+	}
+
 	public void chargeCategorieDansArticle(ArticleAVendre article) {
 		article.setCategorie(categorieService.getCategorieById(article.getCategorie().getId()));
+	}
+
+	public void chargeAdresseDansArticle(ArticleAVendre article) {
+		article.setAdresseRetrait(adresseService.getAdresseById(article.getAdresseRetrait().getId()));
 	}
 
 	public void chargeUtilisateurDansArticle(ArticleAVendre article) {

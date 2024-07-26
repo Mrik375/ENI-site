@@ -14,15 +14,16 @@ public class ArticleAVendre {
 	private int prixInitial;
 	private int prixVente;
 	private Utilisateur vendeur;
-	private long adresseRetraitId;
+	private Adresse adresseRetrait;
 	private Categorie categorie;
 
 	public ArticleAVendre() {
 		this.categorie = new Categorie();
 		this.vendeur = new Utilisateur();
+		this.adresseRetrait = new Adresse();
 	}
 
-	public ArticleAVendre(long id, String nom, String description, Integer photo, LocalDate dateDebutEncheres, LocalDate dateFinEncheres, int statutEnchere, int prixInitial, int prixVente, Utilisateur vendeur, long adresseRetraitId, Categorie categorie) {
+	public ArticleAVendre(long id, String nom, String description, Integer photo, LocalDate dateDebutEncheres, LocalDate dateFinEncheres, int statutEnchere, int prixInitial, int prixVente, Utilisateur vendeur, Adresse adresseRetrait, Categorie categorie) {
 		this.id = id;
 		this.nom = nom;
 		this.description = description;
@@ -33,7 +34,7 @@ public class ArticleAVendre {
 		this.prixInitial = prixInitial;
 		this.prixVente = prixVente;
 		this.vendeur = vendeur;
-		this.adresseRetraitId = adresseRetraitId;
+		this.adresseRetrait = adresseRetrait;
 		this.categorie = categorie;
 	}
 
@@ -117,12 +118,12 @@ public class ArticleAVendre {
 		this.vendeur = vendeur;
 	}
 
-	public long getAdresseRetraitId() {
-		return adresseRetraitId;
+	public Adresse getAdresseRetrait() {
+		return adresseRetrait;
 	}
 
-	public void setAdresseRetraitId(long retrait) {
-		this.adresseRetraitId = retrait;
+	public void setAdresseRetrait(Adresse retrait) {
+		this.adresseRetrait = retrait;
 	}
 
 	public Categorie getCategorie() {
@@ -138,12 +139,12 @@ public class ArticleAVendre {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 		ArticleAVendre that = (ArticleAVendre) o;
-		return getId() == that.getId() && getStatutEnchere() == that.getStatutEnchere() && getPrixInitial() == that.getPrixInitial() && getPrixVente() == that.getPrixVente() && Objects.equals(getNom(), that.getNom()) && Objects.equals(getDescription(), that.getDescription()) && Objects.equals(getPhoto(), that.getPhoto()) && Objects.equals(getDateDebutEncheres(), that.getDateDebutEncheres()) && Objects.equals(getDateFinEncheres(), that.getDateFinEncheres()) && Objects.equals(getVendeur(), that.getVendeur()) && Objects.equals(getAdresseRetraitId(), that.getAdresseRetraitId()) && Objects.equals(getCategorie(), that.getCategorie());
+		return getId() == that.getId() && getStatutEnchere() == that.getStatutEnchere() && getPrixInitial() == that.getPrixInitial() && getPrixVente() == that.getPrixVente() && Objects.equals(getNom(), that.getNom()) && Objects.equals(getDescription(), that.getDescription()) && Objects.equals(getPhoto(), that.getPhoto()) && Objects.equals(getDateDebutEncheres(), that.getDateDebutEncheres()) && Objects.equals(getDateFinEncheres(), that.getDateFinEncheres()) && Objects.equals(getVendeur(), that.getVendeur()) && Objects.equals(getAdresseRetrait(), that.getAdresseRetrait()) && Objects.equals(getCategorie(), that.getCategorie());
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(getId(), getNom(), getDescription(), getPhoto(), getDateDebutEncheres(), getDateFinEncheres(), getStatutEnchere(), getPrixInitial(), getPrixVente(), getVendeur(), getAdresseRetraitId(), getCategorie());
+		return Objects.hash(getId(), getNom(), getDescription(), getPhoto(), getDateDebutEncheres(), getDateFinEncheres(), getStatutEnchere(), getPrixInitial(), getPrixVente(), getVendeur(), getAdresseRetrait(), getCategorie());
 	}
 
 	@Override
@@ -159,7 +160,7 @@ public class ArticleAVendre {
 				", prixInitial=" + prixInitial +
 				", prixVente=" + prixVente +
 				", vendeurId='" + vendeur + '\'' +
-				", adresseRetraitId=" + adresseRetraitId +
+				", adresseRetraitId=" + adresseRetrait +
 				", categorieId=" + categorie +
 				'}';
 	}
