@@ -8,6 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -21,28 +22,29 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 	}
 
 	@Override
-	public void registerUtilisateur(Utilisateur utilisateur) throws Exception {
-		if (getUtilisateurByPseudo(utilisateur.getPseudo()).isPresent()) {
-			throw new Exception("Utilisateur avec ce pseudo existe déjà.");
+	public void registerUtilisateur(Utilisateur utilisateur){
+		if (utilisateurExists(utilisateur.getPseudo())) {
+			throw new IllegalArgumentException("Utilisateur avec ce pseudo existe déjà.");
 		}
+
 		utilisateur.setMotDePasse(passwordEncoder.encode(utilisateur.getMotDePasse()));
 		try {
 			utilisateurDAO.create(utilisateur);
 		} catch (DuplicateKeyException e) {
-			throw new Exception("Utilisateur avec ce pseudo existe déjà.", e);
+			throw new RuntimeException("Utilisateur avec ce pseudo existe déjà.", e);
 		}
 	}
 
 	@Override
-	public Optional<String> getUtilisateurByPseudo(String pseudo) {
-		System.out.println("INSIDE getUtilisateurByPseudo()");
-		return Optional.ofNullable(utilisateurDAO.readByPseudo(pseudo));
+	public boolean utilisateurExists(String pseudo) {
+		return Optional.ofNullable(utilisateurDAO.read(pseudo)).isPresent();
 	}
 
 	@Override
-	public Optional<Utilisateur> getUtilisateur(String pseudo) {
+	public Utilisateur getUtilisateur(String pseudo) {
 		System.out.println("INSIDE getUtilisateurByPseudo()");
-		return Optional.ofNullable(utilisateurDAO.read(pseudo));
+		return Optional.ofNullable(utilisateurDAO.read(pseudo))
+				.orElseThrow(() -> new NoSuchElementException("Utilisateur  " + pseudo + " non trouvé."));
 	}
 
 	@Override

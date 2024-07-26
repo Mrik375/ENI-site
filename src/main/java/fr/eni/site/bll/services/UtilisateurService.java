@@ -8,9 +8,9 @@ import java.util.Optional;
 public interface UtilisateurService {
 	void registerUtilisateur(Utilisateur utilisateur) throws Exception;
 
-	Optional<String> getUtilisateurByPseudo(String pseudo);
+	boolean utilisateurExists(String pseudo);
 
-	Optional<Utilisateur> getUtilisateur(String pseudo);
+	Utilisateur getUtilisateur(String pseudo);
 
 	List<Utilisateur> getAllUtilisateurs();
 
