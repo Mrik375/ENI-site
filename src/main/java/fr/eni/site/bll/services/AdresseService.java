@@ -7,7 +7,7 @@ import java.util.List;
 public interface AdresseService {
 	long createAdresse(Adresse adresse);
 
-	Adresse getAdresseById(long id);
+	Adresse getById(long id);
 
-	List<Adresse> getAllAdresses();
+	List<Adresse> getAll();
 }

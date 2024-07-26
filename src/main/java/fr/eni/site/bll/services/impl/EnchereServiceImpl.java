@@ -26,22 +26,22 @@ public class EnchereServiceImpl implements EnchereService {
 	}
 
 	@Override
-	public List<Enchere> getAllEncheres() {
+	public List<Enchere> getAll() {
 		return enchereDAO.findAll();
 	}
 
 	@Override
-	public List<Enchere> getEncheresByUtilisateur(String pseudo) {
+	public List<Enchere> getByUtilisateur(String pseudo) {
 		return enchereDAO.findByUtilisateur(pseudo);
 	}
 
 	@Override
-	public List<Enchere> getEncheresByArticle(long noArticle) {
+	public List<Enchere> getByArticle(long noArticle) {
 		return enchereDAO.findByArticle(noArticle);
 	}
 
 	@Override
-	public Enchere getHighestEnchereForArticle(long noArticle) {
-		return enchereDAO.findHighestEnchereForArticle(noArticle);
+	public Enchere getHighestMontantByArticle(long noArticle) {
+		return enchereDAO.findHighestMontantByArticle(noArticle);
 	}
 }

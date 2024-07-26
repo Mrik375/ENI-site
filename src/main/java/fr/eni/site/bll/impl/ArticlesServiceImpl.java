@@ -2,13 +2,9 @@ package fr.eni.site.bll.impl;
 
 import fr.eni.site.bll.ArticlesService;
 import fr.eni.site.bll.UtilisateursService;
-import fr.eni.site.bll.services.AdresseService;
 import fr.eni.site.bll.services.ArticleAVendreService;
 import fr.eni.site.bll.services.CategorieService;
-import fr.eni.site.bll.services.UtilisateurService;
 import fr.eni.site.bo.ArticleAVendre;
-import fr.eni.site.bo.Categorie;
-import fr.eni.site.bo.Utilisateur;
 
 import java.util.List;
 
@@ -25,11 +21,16 @@ public class ArticlesServiceImpl implements ArticlesService {
 	}
 
 	@Override
-	public List<ArticleAVendre> findAll() {
-		List<ArticleAVendre> articles = articleAVendreService.getAllArticles();
-
+	public List<ArticleAVendre> getAllArticles() {
+		List<ArticleAVendre> articles = articleAVendreService.getAll();
 		articles.forEach(this::chargerDependencesDansArticle);
+		return articles;
+	}
 
+	@Override
+	public List<ArticleAVendre> getAllActiveArticles() {
+		List<ArticleAVendre> articles = articleAVendreService.getAllActive();
+		articles.forEach(this::chargerDependencesDansArticle);
 		return articles;
 	}
 
@@ -40,7 +41,7 @@ public class ArticlesServiceImpl implements ArticlesService {
 	}
 
 	public void chargeCategorieDansArticle(ArticleAVendre article) {
-		article.setCategorie(categorieService.getCategorieById(article.getCategorie().getId()));
+		article.setCategorie(categorieService.getById(article.getCategorie().getId()));
 	}
 
 	public void chargeAdresseDansArticle(ArticleAVendre article) {
@@ -50,8 +51,6 @@ public class ArticlesServiceImpl implements ArticlesService {
 	public void chargeUtilisateurDansArticle(ArticleAVendre article) {
 		article.setVendeur(utilisateursService.getUtilisateur(article.getVendeur().getPseudo()));
 	}
-
-
 
 
 }

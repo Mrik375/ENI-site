@@ -15,5 +15,5 @@ public interface EnchereDAO {
 
 	List<Enchere> findByArticle(long noArticle);
 
-	Enchere findHighestEnchereForArticle(long noArticle);
+	Enchere findHighestMontantByArticle(long noArticle);
 }

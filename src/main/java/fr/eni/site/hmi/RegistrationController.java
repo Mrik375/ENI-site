@@ -31,8 +31,8 @@ public class RegistrationController {
 
 	@RequestMapping("/register")
 	public String showRegistrationPage() {
-		articleAVendreService.getAllActiveArticles().forEach(System.out::println);
-		categorieService.getAllCategories().forEach(System.out::println);
+		articleAVendreService.getAllActive().forEach(System.out::println);
+		categorieService.getAll().forEach(System.out::println);
 
 
 //		utilisateurService.getAllUtilisateurs().forEach(System.out::println);

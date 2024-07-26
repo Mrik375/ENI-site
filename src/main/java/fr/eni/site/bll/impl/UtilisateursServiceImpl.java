@@ -9,8 +9,6 @@ import fr.eni.site.bo.Utilisateur;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
-
 @Service
 public class UtilisateursServiceImpl implements UtilisateursService {
 
@@ -28,19 +26,19 @@ public class UtilisateursServiceImpl implements UtilisateursService {
 	@Override
 	public void registerUtilisateur(Utilisateur utilisateur) throws Exception {
 		utilisateur.getAdresse().setId(adresseService.createAdresse(utilisateur.getAdresse()));
-		utilisateurService.registerUtilisateur(utilisateur);
+		utilisateurService.create(utilisateur);
 	}
 
 	@Override
 	public Utilisateur getUtilisateur(String pseudo) {
-		Utilisateur utilisateur = utilisateurService.getUtilisateur(pseudo);
+		Utilisateur utilisateur = utilisateurService.getByPseudo(pseudo);
 		chargerDependancesUtilisateur(utilisateur);
 		return utilisateur;
 	}
 
 	@Override
 	public Adresse getAdresse(long id) {
-		return adresseService.getAdresseById(id);
+		return adresseService.getById(id);
 	}
 
 	public void chargerDependancesUtilisateur(Utilisateur utilisateur) {
@@ -49,10 +47,10 @@ public class UtilisateursServiceImpl implements UtilisateursService {
 	}
 
 	public void chargeAdresseDansUtilisateur(Utilisateur utilisateur) {
-		utilisateur.setAdresse(adresseService.getAdresseById(utilisateur.getAdresse().getId()));
+		utilisateur.setAdresse(adresseService.getById(utilisateur.getAdresse().getId()));
 	}
 
 	public void chargeArticlesVendusDansUtilisateur(Utilisateur utilisateur) {
-		utilisateur.setArticles(articleAVendreService.getArticlesByUtilisateur(utilisateur.getPseudo()));
+		utilisateur.setArticles(articleAVendreService.getByUtilisateur(utilisateur.getPseudo()));
 	}
 }

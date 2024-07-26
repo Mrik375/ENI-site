@@ -72,7 +72,7 @@ public class EnchereDAOImpl implements EnchereDAO {
 	}
 
 	@Override
-	public Enchere findHighestEnchereForArticle(long noArticle) {
+	public Enchere findHighestMontantByArticle(long noArticle) {
 		MapSqlParameterSource params = new MapSqlParameterSource();
 		params.addValue("no_article", noArticle);
 		return jdbcTemplate.queryForObject(SQL_SELECT_HIGHEST_BY_ARTICLE, params, new EnchereRowMapper());

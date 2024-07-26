@@ -6,13 +6,13 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UtilisateurService {
-	void registerUtilisateur(Utilisateur utilisateur) throws Exception;
+	void create(Utilisateur utilisateur) throws Exception;
 
-	boolean utilisateurExists(String pseudo);
+	boolean exists(String pseudo);
 
-	Utilisateur getUtilisateur(String pseudo);
+	Utilisateur getByPseudo(String pseudo);
 
-	List<Utilisateur> getAllUtilisateurs();
+	List<Utilisateur> getAll();
 
-	Optional<Utilisateur> getCurrentUtilisateur();
+	Optional<Utilisateur> getLogged();
 }

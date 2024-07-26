@@ -16,17 +16,17 @@ public class CategorieServiceImpl implements CategorieService {
 	}
 
 	@Override
-	public long createCategorie(Categorie categorie) {
+	public long create(Categorie categorie) {
 		return categorieDAO.create(categorie);
 	}
 
 	@Override
-	public Categorie getCategorieById(long id) {
+	public Categorie getById(long id) {
 		return categorieDAO.read(id);
 	}
 
 	@Override
-	public List<Categorie> getAllCategories() {
+	public List<Categorie> getAll() {
 		return categorieDAO.findAll();
 	}
 }

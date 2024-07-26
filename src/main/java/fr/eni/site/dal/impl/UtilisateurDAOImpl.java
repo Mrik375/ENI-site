@@ -58,7 +58,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	}
 
 	@Override
-	public boolean existsByPseudo(String pseudo) {
+	public boolean exists(String pseudo) {
 		MapSqlParameterSource params = new MapSqlParameterSource();
 		params.addValue("pseudo", pseudo);
 		try {

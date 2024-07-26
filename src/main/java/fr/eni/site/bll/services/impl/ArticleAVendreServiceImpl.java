@@ -17,27 +17,27 @@ public class ArticleAVendreServiceImpl implements ArticleAVendreService {
 	}
 
 	@Override
-	public long createArticle(ArticleAVendre article) {
+	public long create(ArticleAVendre article) {
 		return articleAVendreDAO.create(article);
 	}
 
 	@Override
-	public ArticleAVendre getArticleById(long id) {
+	public ArticleAVendre getById(long id) {
 		return articleAVendreDAO.read(id);
 	}
 
 	@Override
-	public List<ArticleAVendre> getAllArticles() {
+	public List<ArticleAVendre> getAll() {
 		return articleAVendreDAO.findAll();
 	}
 
 	@Override
-	public List<ArticleAVendre> getArticlesByUtilisateur(String pseudo) {
+	public List<ArticleAVendre> getByUtilisateur(String pseudo) {
 		return articleAVendreDAO.findByUtilisateur(pseudo);
 	}
 
 	@Override
-	public List<ArticleAVendre> getAllActiveArticles() {
+	public List<ArticleAVendre> getAllActive() {
 		return articleAVendreDAO.findAllActive();
 	}
 

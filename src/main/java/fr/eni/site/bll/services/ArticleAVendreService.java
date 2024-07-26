@@ -6,15 +6,15 @@ import fr.eni.site.bo.ArticleStatus;
 import java.util.List;
 
 public interface ArticleAVendreService {
-	long createArticle(ArticleAVendre article);
+	long create(ArticleAVendre article);
 
-	ArticleAVendre getArticleById(long id);
+	ArticleAVendre getById(long id);
 
-	List<ArticleAVendre> getAllArticles();
+	List<ArticleAVendre> getAll();
 
-	List<ArticleAVendre> getArticlesByUtilisateur(String pseudo);
+	List<ArticleAVendre> getByUtilisateur(String pseudo);
 
-	List<ArticleAVendre> getAllActiveArticles();
+	List<ArticleAVendre> getAllActive();
 
 	void setArticleStatus(long id, ArticleStatus statutEnchere);
 

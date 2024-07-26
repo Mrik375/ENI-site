@@ -5,9 +5,9 @@ import fr.eni.site.bo.Categorie;
 import java.util.List;
 
 public interface CategorieService {
-	long createCategorie(Categorie categorie);
+	long create(Categorie categorie);
 
-	Categorie getCategorieById(long id);
+	Categorie getById(long id);
 
-	List<Categorie> getAllCategories();
+	List<Categorie> getAll();
 }

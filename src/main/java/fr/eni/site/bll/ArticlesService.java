@@ -6,5 +6,7 @@ import java.util.List;
 
 public interface ArticlesService {
 
-	List<ArticleAVendre> findAll();
+	List<ArticleAVendre> getAllArticles();
+
+	List<ArticleAVendre> getAllActiveArticles();
 }

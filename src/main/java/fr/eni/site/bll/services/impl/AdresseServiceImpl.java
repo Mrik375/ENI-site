@@ -22,12 +22,12 @@ public class AdresseServiceImpl implements AdresseService {
 	}
 
 	@Override
-	public Adresse getAdresseById(long id) {
+	public Adresse getById(long id) {
 		return adresseDAO.read(id);
 	}
 
 	@Override
-	public List<Adresse> getAllAdresses() {
+	public List<Adresse> getAll() {
 		return adresseDAO.findAll();
 	}
 }

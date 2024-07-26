@@ -9,7 +9,7 @@ public interface UtilisateurDAO {
 
 	Utilisateur read(String pseudo);
 
-	boolean existsByPseudo(String pseudo);
+	boolean exists(String pseudo);
 
 	List<Utilisateur> findAll();
 }

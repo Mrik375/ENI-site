@@ -9,12 +9,12 @@ public interface EnchereService {
 
 	Enchere getEnchere(String idUtilisateur, long noArticle, int montantEnchere);
 
-	List<Enchere> getAllEncheres();
+	List<Enchere> getAll();
 
-	List<Enchere> getEncheresByUtilisateur(String pseudo);
+	List<Enchere> getByUtilisateur(String pseudo);
 
-	List<Enchere> getEncheresByArticle(long noArticle);
+	List<Enchere> getByArticle(long noArticle);
 
-	Enchere getHighestEnchereForArticle(long noArticle);
+	Enchere getHighestMontantByArticle(long noArticle);
 }
 

@@ -22,8 +22,8 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 	}
 
 	@Override
-	public void registerUtilisateur(Utilisateur utilisateur){
-		if (utilisateurExists(utilisateur.getPseudo())) {
+	public void create(Utilisateur utilisateur){
+		if (exists(utilisateur.getPseudo())) {
 			throw new IllegalArgumentException("Utilisateur avec ce pseudo existe déjà.");
 		}
 
@@ -36,24 +36,24 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 	}
 
 	@Override
-	public boolean utilisateurExists(String pseudo) {
-		return utilisateurDAO.existsByPseudo(pseudo);
+	public boolean exists(String pseudo) {
+		return utilisateurDAO.exists(pseudo);
 	}
 
 	@Override
-	public Utilisateur getUtilisateur(String pseudo) {
+	public Utilisateur getByPseudo(String pseudo) {
 		System.out.println("INSIDE getUtilisateurByPseudo()");
 		return Optional.ofNullable(utilisateurDAO.read(pseudo))
 				.orElseThrow(() -> new NoSuchElementException("Utilisateur  " + pseudo + " non trouvé."));
 	}
 
 	@Override
-	public List<Utilisateur> getAllUtilisateurs() {
+	public List<Utilisateur> getAll() {
 		return utilisateurDAO.findAll();
 	}
 
 	@Override
-	public Optional<Utilisateur> getCurrentUtilisateur() {
+	public Optional<Utilisateur> getLogged() {
 		return Optional.empty();
 	}
 
