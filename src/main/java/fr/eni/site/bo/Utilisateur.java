@@ -1,9 +1,15 @@
 package fr.eni.site.bo;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-public class Utilisateur {
+public class Utilisateur implements UserDetails {
 	private String pseudo;
 	private String nom;
 	private String prenom;
@@ -139,5 +145,25 @@ public class Utilisateur {
 				", pseudo='" + pseudo + '\'' +
 				'}';
 	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		if (administrateur) {
+			return Collections.singletonList(new SimpleGrantedAuthority("ROLE_ADMIN"));
+		} else {
+			return Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER"));
+		}
+	}
+
+	@Override
+	public String getPassword() {
+		return motDePasse;
+	}
+
+	@Override
+	public String getUsername() {
+		return pseudo;
+	}
+
 }
 
