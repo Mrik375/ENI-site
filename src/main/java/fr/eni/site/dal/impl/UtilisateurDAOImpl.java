@@ -3,10 +3,7 @@ package fr.eni.site.dal.impl;
 import fr.eni.site.bo.Adresse;
 import fr.eni.site.bo.ArticleAVendre;
 import fr.eni.site.bo.Utilisateur;
-import fr.eni.site.dal.AdresseDAO;
-import fr.eni.site.dal.ArticleAVendreDAO;
 import fr.eni.site.dal.UtilisateurDAO;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -21,7 +18,7 @@ import java.util.List;
 @Repository
 public class UtilisateurDAOImpl implements UtilisateurDAO {
 	private static final String SQL_INSERT = "INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, mot_de_passe, credit, administrateur, no_adresse) VALUES (:pseudo, :nom, :prenom, :email, :telephone, :mot_de_passe, :credit, :administrateur, :no_adresse)";
-	private static final String SQL_SELECT_BY_PSEUDO = "SELECT pseudo FROM UTILISATEURS WHERE pseudo = :pseudo";
+	private static final String SQL_SELECT_BY_PSEUDO = "SELECT * FROM UTILISATEURS WHERE pseudo = :pseudo";
 	private static final String SQL_SELECT_ALL = "SELECT pseudo, nom, prenom, email, telephone, mot_de_passe, credit, administrateur, no_adresse FROM UTILISATEURS";
 	private static final String SQL_EXISTS_BY_PSEUDO = "SELECT CASE WHEN EXISTS (SELECT 1 FROM UTILISATEURS WHERE pseudo = :pseudo) THEN 1 ELSE 0 END AS RowExists";
 
