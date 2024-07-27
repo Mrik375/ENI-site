@@ -27,15 +27,9 @@ public class ArticleAVendreDAOImpl implements ArticleAVendreDAO {
 	private static final String SQL_UPDATE_STATUS = "UPDATE ARTICLES_A_VENDRE SET statut_enchere = :statut_enchere WHERE no_article = :id";
 
 	private final NamedParameterJdbcTemplate jdbcTemplate;
-	private final UtilisateurDAO utilisateurDAO;
-	private final AdresseDAO adresseDAO;
-	private final CategorieDAO categorieDAO;
 
-	public ArticleAVendreDAOImpl(NamedParameterJdbcTemplate jdbcTemplate, UtilisateurDAO utilisateurDAO, AdresseDAO adresseDAO, CategorieDAO categorieDAO) {
+	public ArticleAVendreDAOImpl(NamedParameterJdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
-		this.utilisateurDAO = utilisateurDAO;
-		this.adresseDAO = adresseDAO;
-		this.categorieDAO = categorieDAO;
 	}
 
 	@Override
@@ -46,7 +40,7 @@ public class ArticleAVendreDAOImpl implements ArticleAVendreDAO {
 		params.addValue("photo", article.getPhoto());
 		params.addValue("date_debut_encheres", article.getDateDebutEncheres());
 		params.addValue("date_fin_encheres", article.getDateFinEncheres());
-		params.addValue("statut_enchere", article.getStatutEnchere());
+		params.addValue("statut_enchere", article.getStatutEnchere().getCode());
 		params.addValue("prix_initial", article.getPrixInitial());
 		params.addValue("prix_vente", article.getPrixVente());
 		params.addValue("id_utilisateur", article.getVendeur().getPseudo());
@@ -99,6 +93,7 @@ public class ArticleAVendreDAOImpl implements ArticleAVendreDAO {
 			vendeur.setPseudo(rs.getString("id_utilisateur"));
 			Adresse adresseRetrait = new Adresse();
 			adresseRetrait.setId(rs.getLong("no_adresse_retrait"));
+			ArticleStatus statutEnchere = ArticleStatus.fromCode(rs.getInt("statut_enchere"));
 			return new ArticleAVendre(
 					rs.getLong("no_article"),
 					rs.getString("nom_article"),
@@ -106,7 +101,7 @@ public class ArticleAVendreDAOImpl implements ArticleAVendreDAO {
 					rs.getInt("photo"),
 					rs.getObject("date_debut_encheres", LocalDate.class),
 					rs.getObject("date_fin_encheres", LocalDate.class),
-					rs.getInt("statut_enchere"),
+					statutEnchere,
 					rs.getInt("prix_initial"),
 					rs.getInt("prix_vente"),
 					vendeur,

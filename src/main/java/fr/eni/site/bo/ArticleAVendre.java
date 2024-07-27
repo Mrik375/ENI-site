@@ -10,7 +10,7 @@ public class ArticleAVendre {
 	private Integer photo;
 	private LocalDate dateDebutEncheres;
 	private LocalDate dateFinEncheres;
-	private int statutEnchere;
+	private ArticleStatus statutEnchere;
 	private int prixInitial;
 	private int prixVente;
 	private Utilisateur vendeur;
@@ -23,7 +23,7 @@ public class ArticleAVendre {
 		this.adresseRetrait = new Adresse();
 	}
 
-	public ArticleAVendre(long id, String nom, String description, Integer photo, LocalDate dateDebutEncheres, LocalDate dateFinEncheres, int statutEnchere, int prixInitial, int prixVente, Utilisateur vendeur, Adresse adresseRetrait, Categorie categorie) {
+	public ArticleAVendre(long id, String nom, String description, Integer photo, LocalDate dateDebutEncheres, LocalDate dateFinEncheres, ArticleStatus statutEnchere, int prixInitial, int prixVente, Utilisateur vendeur, Adresse adresseRetrait, Categorie categorie) {
 		this.id = id;
 		this.nom = nom;
 		this.description = description;
@@ -86,11 +86,11 @@ public class ArticleAVendre {
 		this.dateFinEncheres = dateFinEncheres;
 	}
 
-	public int getStatutEnchere() {
+	public ArticleStatus getStatutEnchere() {
 		return statutEnchere;
 	}
 
-	public void setStatutEnchere(int statutEnchere) {
+	public void setStatutEnchere(ArticleStatus statutEnchere) {
 		this.statutEnchere = statutEnchere;
 	}
 
