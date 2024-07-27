@@ -2,17 +2,17 @@
       method="post">
     <h3>Vos informations :</h3>
 
-    <div data-th-replace=":: inputField('Pseudo :', 'pseudo', ~{})"></div>
-    <div data-th-replace=":: inputField('Nom :', 'nom', ~{})"></div>
-    <div data-th-replace=":: inputField('Prénom :', 'prenom', ~{})"></div>
-    <div data-th-replace=":: inputField('Email :', 'email', 'email')"></div>
-    <div data-th-replace=":: inputField('Téléphone :', 'telephone', ~{})"></div>
+    <div data-th-replace="~{:: inputField('Pseudo :', 'pseudo', ~{})}"></div>
+    <div data-th-replace="~{:: inputField('Nom :', 'nom', ~{})}"></div>
+    <div data-th-replace="~{:: inputField('Prénom :', 'prenom', ~{})}"></div>
+    <div data-th-replace="~{:: inputField('Email :', 'email', 'email')}"></div>
+    <div data-th-replace="~{:: inputField('Téléphone :', 'telephone', ~{})}"></div>
 
     <h3>Adresse :</h3>
 
-    <div data-th-replace=":: inputField('Rue :', 'adresse.rue', ~{})"></div>
-    <div data-th-replace=":: inputField('Code Postal :', 'adresse.codePostal', ~{})"></div>
-    <div data-th-replace=":: inputField('Ville :', 'adresse.ville', ~{})"></div>
+    <div data-th-replace="~{:: inputField('Rue :', 'adresse.rue', ~{})}"></div>
+    <div data-th-replace="~{:: inputField('Code Postal :', 'adresse.codePostal', ~{})}"></div>
+    <div data-th-replace="~{:: inputField('Ville :', 'adresse.ville', ~{})}"></div>
 
     <div>
         <button data-th-if="${editable && editField != null}" type="submit" name="action" value="modifier">Enregistrer</button>
