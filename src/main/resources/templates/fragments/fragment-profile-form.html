@@ -2,28 +2,28 @@
       method="post">
     <h3>Vos informations :</h3>
 
-    <div th:replace=":: inputField('Pseudo :', 'pseudo', ~{})"></div>
-    <div th:replace=":: inputField('Nom :', 'nom', ~{})"></div>
-    <div th:replace=":: inputField('Prénom :', 'prenom', ~{})"></div>
-    <div th:replace=":: inputField('Email :', 'email', 'email')"></div>
-    <div th:replace=":: inputField('Téléphone :', 'telephone', ~{})"></div>
+    <div data-th-replace=":: inputField('Pseudo :', 'pseudo', ~{})"></div>
+    <div data-th-replace=":: inputField('Nom :', 'nom', ~{})"></div>
+    <div data-th-replace=":: inputField('Prénom :', 'prenom', ~{})"></div>
+    <div data-th-replace=":: inputField('Email :', 'email', 'email')"></div>
+    <div data-th-replace=":: inputField('Téléphone :', 'telephone', ~{})"></div>
 
     <h3>Adresse :</h3>
 
-    <div th:replace=":: inputField('Rue :', 'adresse.rue', ~{})"></div>
-    <div th:replace=":: inputField('Code Postal :', 'adresse.codePostal', ~{})"></div>
-    <div th:replace=":: inputField('Ville :', 'adresse.ville', ~{})"></div>
+    <div data-th-replace=":: inputField('Rue :', 'adresse.rue', ~{})"></div>
+    <div data-th-replace=":: inputField('Code Postal :', 'adresse.codePostal', ~{})"></div>
+    <div data-th-replace=":: inputField('Ville :', 'adresse.ville', ~{})"></div>
 
     <div>
-        <button th:if="${editable && editField != null}" type="submit" name="action" value="modifier">Enregistrer</button>
-        <button th:if="${editable && editField != null}" type="submit" name="action" value="annuler">Annuler</button>
+        <button data-th-if="${editable && editField != null}" type="submit" name="action" value="modifier">Enregistrer</button>
+        <button data-th-if="${editable && editField != null}" type="submit" name="action" value="annuler">Annuler</button>
     </div>
 </form>
 
 <div data-th-fragment="inputField(label, field, type='text')">
-    <label data-th-for="${field}"><strong th:text="${label}"></strong></label>
-    <span data-th-unless="${editable}" th:id="${field}" th:text="${utilisateur.__${field}__}"></span>
-    <span data-th-if="${editable && editField != field}" th:id="${field}" th:text="${#authentication.getPrincipal().__${field}__}"></span>
-    <input data-th-if="${editable && editField == field}" th:type="${type}" th:id="${field}" th:name="${field}" th:value="${#authentication.getPrincipal().__${field}__}"/>
-    <button data-th-if="${editable && editField != field && action == '/profil'}" type="submit" th:name="editField" th:value="${field}">Modifier</button>
+    <label data-th-for="${field}"><strong data-th-text="${label}"></strong></label>
+    <span data-th-unless="${editable}" data-th-id="${field}" data-th-text="${utilisateur.__${field}__}"></span>
+    <span data-th-if="${editable && editField != field}" data-th-id="${field}" data-th-text="${#authentication.getPrincipal().__${field}__}"></span>
+    <input data-th-if="${editable && editField == field}" data-th-type="${type}" data-th-id="${field}" data-th-name="${field}" data-th-value="${#authentication.getPrincipal().__${field}__}"/>
+    <button data-th-if="${editable && editField != field && action == '/profil'}" type="submit" data-th-name="editField" data-th-value="${field}">Modifier</button>
 </div>
