@@ -33,7 +33,9 @@ public class EniSecurityConfig {
 		http.authorizeHttpRequests(auth ->
 						auth
 								.requestMatchers(HttpMethod.GET, "/", "/accueil", "/creercompte", "/connexion", "/logout").permitAll()
-								.requestMatchers(HttpMethod.GET, "/profil", "/profil/**").permitAll()
+								.requestMatchers("/profil").authenticated()
+								.requestMatchers(HttpMethod.GET, "/profil/**").permitAll()
+								.requestMatchers(HttpMethod.POST, "/profil/modifier").authenticated()
 								.requestMatchers(HttpMethod.POST, "/creercompte").permitAll()
 								.requestMatchers("/logout").permitAll()
 								.requestMatchers("/resources/**", "/css/**", "/js/**", "/images/**", "/scss/**", "favicon.ico").permitAll()

@@ -1,8 +1,17 @@
-<html xmlns:th="http://www.thymeleaf.org" data-th-replace="~{layouts/layout :: layout-projet( titrePage=~{:: title},
-																							  contenuPage=~{:: main},
-																							  ressourcesSupp=~{})}">
+<html data-th-replace="~{layouts/layout :: layout-projet( titrePage=~{:: title},
+                                                                                contenuPage=~{:: main},
+																				ressourcesSupp=~{})}">
 
 <head>
     <title>Profil</title>
 </head>
+<main>
+    <div data-th-if="${editField == null}">
+        <div data-th-replace="~{fragments/fragment-profile-form :: profile-form(action='/profil')}"></div>
+    </div>
+
+    <div data-th-unless="${editField == null}">
+        <div data-th-replace="~{fragments/fragment-profile-form :: profile-form(action='/profil/modifier')}"></div>
+    </div>
+</main>
 </html>

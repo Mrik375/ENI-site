@@ -1,0 +1,74 @@
+<form data-th-fragment="profile-form(action)" data-th-action="@{${action}}"
+      method="post">
+    <h3>Vos informations :</h3>
+    <div>
+        <label for="pseudo"><strong>Pseudo:</strong></label>
+        <span data-th-unless="${editable}" id="pseudo" data-th-text="${utilisateur.pseudo}"></span>
+        <span data-th-if="${editable && editField != 'pseudo'}" id="pseudo" data-th-text="${#authentication.getPrincipal().pseudo}"></span>
+        <input data-th-if="${editable && editField == 'pseudo'}" type="text" id="pseudo" name="pseudo" data-th-value="${#authentication.getPrincipal().pseudo}"/>
+        <button data-th-if="${editable && editField != 'pseudo' && action == '/profil'}" type="submit" name="editField" value="pseudo">Modifier</button>
+    </div>
+
+    <div>
+        <label for="nom"><strong>Nom:</strong></label>
+        <span data-th-unless="${editable || editField == 'nom'}" id="nom" data-th-text="${utilisateur.nom}"></span>
+        <span data-th-if="${editable && editField != 'nom'}" id="nom" data-th-text="${#authentication.getPrincipal().nom}"></span>
+        <input data-th-if="${editable && editField == 'nom'}" type="text" id="nom" name="nom" data-th-value="${#authentication.getPrincipal().nom}"/>
+        <button data-th-if="${editable && editField != 'nom' && action == '/profil'}" type="submit" name="editField" value="nom">Modifier</button>
+    </div>
+
+    <div>
+        <label for="prenom"><strong>Prénom:</strong></label>
+        <span data-th-unless="${editable || editField == 'prenom'}" id="prenom" data-th-text="${utilisateur.prenom}"></span>
+        <span data-th-if="${editable && editField != 'prenom'}" id="prenom" data-th-text="${#authentication.getPrincipal().prenom}"></span>
+        <input data-th-if="${editable && editField == 'prenom'}" type="text" id="prenom" name="prenom" data-th-value="${#authentication.getPrincipal().prenom}"/>
+        <button data-th-if="${editable && editField != 'prenom' && action == '/profil'}" type="submit" name="editField" value="prenom">Modifier</button>
+    </div>
+
+    <div>
+        <label for="email"><strong>Email:</strong></label>
+        <span data-th-unless="${editable || editField == 'email'}" id="email" data-th-text="${utilisateur.email}"></span>
+        <span data-th-if="${editable && editField != 'email'}" id="email" data-th-text="${#authentication.getPrincipal().email}"></span>
+        <input data-th-if="${editable && editField == 'email'}" type="email" id="email" name="email" data-th-value="${#authentication.getPrincipal().email}"/>
+        <button data-th-if="${editable && editField != 'email' && action == '/profil'}" type="submit" name="editField" value="email">Modifier</button>
+    </div>
+
+    <div>
+        <label for="telephone"><strong>Téléphone:</strong></label>
+        <span data-th-unless="${editable || editField == 'telephone'}" id="telephone" data-th-text="${utilisateur.telephone}"></span>
+        <span data-th-if="${editable && editField != 'telephone'}" id="telephone" data-th-text="${#authentication.getPrincipal().telephone}"></span>
+        <input data-th-if="${editable && editField == 'telephone'}" type="text" id="telephone" name="telephone" data-th-value="${#authentication.getPrincipal().telephone}"/>
+        <button data-th-if="${editable && editField != 'telephone' && action == '/profil'}" type="submit" name="editField" value="telephone">Modifier</button>
+    </div>
+
+    <h3>Adresse :</h3>
+
+    <div>
+        <label for="rue"><strong>Rue:</strong></label>
+        <span data-th-unless="${editable || editField == 'rue'}" id="rue" data-th-text="${utilisateur.adresse.rue}"></span>
+        <span data-th-if="${editable && editField != 'rue'}" id="rue" data-th-text="${#authentication.getPrincipal().adresse.rue}"></span>
+        <input data-th-if="${editable && editField == 'rue'}" type="text" id="rue" name="rue" data-th-value="${#authentication.getPrincipal().adresse.rue}"/>
+        <button data-th-if="${editable && editField != 'rue' && action == '/profil'}" type="submit" name="editField" value="rue">Modifier</button>
+    </div>
+
+    <div>
+        <label for="codePostal"><strong>Code Postal:</strong></label>
+        <span data-th-unless="${editable || editField == 'codePostal'}" id="codePostal" data-th-text="${utilisateur.adresse.codePostal}"></span>
+        <span data-th-if="${editable && editField != 'codePostal'}" id="codePostal" data-th-text="${#authentication.getPrincipal().adresse.codePostal}"></span>
+        <input data-th-if="${editable && editField == 'codePostal'}" type="text" id="codePostal" name="codePostal" data-th-value="${#authentication.getPrincipal().adresse.codePostal}"/>
+        <button data-th-if="${editable && editField != 'codePostal' && action == '/profil'}" type="submit" name="editField" value="codePostal">Modifier</button>
+    </div>
+
+    <div>
+        <label for="ville"><strong>Ville:</strong></label>
+        <span data-th-unless="${editable || editField == 'ville'}" id="ville" data-th-text="${utilisateur.adresse.ville}"></span>
+        <span data-th-if="${editable && editField != 'ville'}" id="ville" data-th-text="${#authentication.getPrincipal().adresse.ville}"></span>
+        <input data-th-if="${editable && editField == 'ville'}" type="text" id="ville" name="ville" data-th-value="${#authentication.getPrincipal().adresse.ville}"/>
+        <button data-th-if="${editable && editField != 'ville' && action == '/profil'}" type="submit" name="editField" value="ville">Modifier</button>
+    </div>
+
+    <div>
+        <button data-th-if="${editable && editField != null}" type="submit" name="action" value="modifier">Enregistrer</button>
+        <button data-th-if="${editable && editField != null}" type="submit" name="action" value="annuler">Annuler</button>
+    </div>
+</form>
