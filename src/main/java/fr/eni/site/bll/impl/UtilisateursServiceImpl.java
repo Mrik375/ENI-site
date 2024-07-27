@@ -1,11 +1,13 @@
 package fr.eni.site.bll.impl;
 
-import fr.eni.site.bll.services.AdresseService;
 import fr.eni.site.bll.UtilisateursService;
+import fr.eni.site.bll.services.AdresseService;
 import fr.eni.site.bll.services.ArticleAVendreService;
 import fr.eni.site.bll.services.UtilisateurService;
 import fr.eni.site.bo.Adresse;
 import fr.eni.site.bo.Utilisateur;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +22,17 @@ public class UtilisateursServiceImpl implements UtilisateursService {
 		this.utilisateurService = utilisateurService;
 		this.adresseService = adresseService;
 		this.articleAVendreService = articleAVendreService;
+	}
+
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		Utilisateur utilisateur = getUtilisateur(username);
+
+		if (utilisateur == null) {
+			throw new UsernameNotFoundException("User not found");
+		}
+
+		return utilisateur;
 	}
 
 	@Transactional(rollbackFor = Exception.class)
@@ -53,4 +66,5 @@ public class UtilisateursServiceImpl implements UtilisateursService {
 	public void chargeArticlesVendusDansUtilisateur(Utilisateur utilisateur) {
 		utilisateur.setArticles(articleAVendreService.getByUtilisateur(utilisateur.getPseudo()));
 	}
+
 }
