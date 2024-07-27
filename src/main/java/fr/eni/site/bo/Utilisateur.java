@@ -78,10 +78,6 @@ public class Utilisateur implements UserDetails {
 		this.telephone = telephone;
 	}
 
-	public String getMotDePasse() {
-		return motDePasse;
-	}
-
 	public void setMotDePasse(String motDePasse) {
 		this.motDePasse = motDePasse;
 	}
@@ -123,12 +119,12 @@ public class Utilisateur implements UserDetails {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 		Utilisateur that = (Utilisateur) o;
-		return getCredit() == that.getCredit() && isAdministrateur() == that.isAdministrateur() && Objects.equals(getPseudo(), that.getPseudo()) && Objects.equals(getNom(), that.getNom()) && Objects.equals(getPrenom(), that.getPrenom()) && Objects.equals(getEmail(), that.getEmail()) && Objects.equals(getTelephone(), that.getTelephone()) && Objects.equals(getMotDePasse(), that.getMotDePasse()) && Objects.equals(getAdresse(), that.getAdresse()) && Objects.equals(getArticles(), that.getArticles());
+		return getCredit() == that.getCredit() && isAdministrateur() == that.isAdministrateur() && Objects.equals(getPseudo(), that.getPseudo()) && Objects.equals(getNom(), that.getNom()) && Objects.equals(getPrenom(), that.getPrenom()) && Objects.equals(getEmail(), that.getEmail()) && Objects.equals(getTelephone(), that.getTelephone()) && Objects.equals(getPassword(), that.getPassword()) && Objects.equals(getAdresse(), that.getAdresse()) && Objects.equals(getArticles(), that.getArticles());
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(getPseudo(), getNom(), getPrenom(), getEmail(), getTelephone(), getMotDePasse(), getCredit(), isAdministrateur(), getAdresse(), getArticles());
+		return Objects.hash(getPseudo(), getNom(), getPrenom(), getEmail(), getTelephone(), getPassword(), getCredit(), isAdministrateur(), getAdresse(), getArticles());
 	}
 
 	@Override
@@ -156,13 +152,13 @@ public class Utilisateur implements UserDetails {
 	}
 
 	@Override
-	public String getPassword() {
-		return motDePasse;
+	public String getUsername() {
+		return pseudo;
 	}
 
 	@Override
-	public String getUsername() {
-		return pseudo;
+	public String getPassword() {
+		return motDePasse;
 	}
 
 }

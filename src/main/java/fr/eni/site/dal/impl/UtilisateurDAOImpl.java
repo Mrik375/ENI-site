@@ -36,7 +36,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 		params.addValue("prenom", utilisateur.getPrenom());
 		params.addValue("email", utilisateur.getEmail());
 		params.addValue("telephone", utilisateur.getTelephone());
-		params.addValue("mot_de_passe", utilisateur.getMotDePasse());
+		params.addValue("mot_de_passe", utilisateur.getPassword());
 		params.addValue("credit", utilisateur.getCredit());
 		params.addValue("administrateur", utilisateur.isAdministrateur());
 		params.addValue("no_adresse", utilisateur.getAdresse().getId());

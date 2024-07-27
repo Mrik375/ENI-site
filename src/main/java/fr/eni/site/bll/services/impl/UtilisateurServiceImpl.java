@@ -27,7 +27,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 			throw new IllegalArgumentException("Utilisateur avec ce pseudo existe déjà.");
 		}
 
-		utilisateur.setMotDePasse(passwordEncoder.encode(utilisateur.getMotDePasse()));
+		utilisateur.setMotDePasse(passwordEncoder.encode(utilisateur.getPassword()));
 		try {
 			utilisateurDAO.create(utilisateur);
 		} catch (DuplicateKeyException e) {
