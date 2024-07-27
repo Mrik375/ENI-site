@@ -14,8 +14,7 @@
 			<!-- SI connecté -->
 			<th:block data-sec-authorize="isAuthenticated()">
 				<li><a data-th-href="@{/vendre}">Vendre un article</a></li>
-				<!-- CHANGER .username par .getPseudo() quand le UserDetailsManager sera implementé -->
-				<li><a data-th-href="@{/profil/{pseudo}(pseudo = ${#authentication.getPrincipal().username})}">Mon profil</a></li>
+				<li><a data-th-href="@{/profil}">Mon profil</a></li>
 <!--				<li><a data-th-href="@{/logout}">Se déconnecter</a></li>-->
 				<li>
 					<form data-th-action="@{/logout}" method="POST">
