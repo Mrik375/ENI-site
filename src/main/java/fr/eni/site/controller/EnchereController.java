@@ -3,10 +3,15 @@ package fr.eni.site.controller;
 import fr.eni.site.bll.UtilisateursService;
 import fr.eni.site.bo.Adresse;
 import fr.eni.site.bo.Utilisateur;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.DataBinder;
+import org.springframework.validation.Validator;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
 import java.util.Map;
@@ -15,9 +20,11 @@ import java.util.Map;
 
 public class EnchereController {
 	private final UtilisateursService utilisateursService;
+	private final Validator validator;
 
-	public EnchereController(UtilisateursService utilisateursService) {
+	public EnchereController(UtilisateursService utilisateursService, Validator validator) {
 		this.utilisateursService = utilisateursService;
+		this.validator = validator;
 	}
 
 	@GetMapping("/accueil")
@@ -81,37 +88,60 @@ public class EnchereController {
 			return "redirect:/profil";
 		}
 		Utilisateur utilisateur = utilisateursService.getUtilisateur(pseudo);
-		model.addAttribute("utilisateur", utilisateur);
-		model.addAttribute("editable", false);
+		profilModel(model, utilisateur, false, null);
 		return "view-profil";
 	}
 
 	@GetMapping("/profil")
 	public String monProfil(Model model) {
-		model.addAttribute("editable", true);
-		model.addAttribute("editField", null);
+		profilModel(model, new Utilisateur(), true, null);
 		return "view-profil";
 	}
 
 	@PostMapping("/profil")
 	public String modifierProfil(Model model, @RequestParam(value = "editField") String editField) {
-		model.addAttribute("editable", true);
-		model.addAttribute("editField", editField);
+		profilModel(model, new Utilisateur(), true, editField);
 		return "view-profil";
 	}
 
 	@PostMapping("/profil/modifier")
-	public String enregistrerProfil(Principal principal,
+	public String enregistrerProfil(Principal principal, Model model,
 									@RequestParam Map<String, String> params) {
 		if (params.get("action").equals("modifier")) {
-			Utilisateur utilisateur = utilisateursService.getUtilisateur(principal.getName());
-			updateField(utilisateur, params);
-			// TODO appel au service de modification du profil
-			return "redirect:/profil";
+			return handleModifierAction(principal, model, params);
 		} else if (params.get("action").equals("annuler")) {
 			return "redirect:/profil";
 		}
 		return "redirect:/profil";
+	}
+
+	private String handleModifierAction(Principal principal, Model model,
+										@RequestParam Map<String, String> params) {
+		Utilisateur utilisateur = utilisateursService.getUtilisateur(principal.getName());
+		updateField(utilisateur, params);
+		BindingResult bindingResult = valider(utilisateur);
+
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("org.springframework.validation.BindingResult.utilisateur", bindingResult);
+			profilModel(model, utilisateur, true, params.get("field"));
+			return "view-profil";
+		}
+		// TODO appel au service de modification du profil
+		return "redirect:/profil";
+	}
+
+	private void profilModel(Model model, Utilisateur utilisateur, boolean editable, String editField) {
+		model.addAttribute("utilisateur", utilisateur);
+		model.addAttribute("editable", editable);
+		model.addAttribute("editField", editField);
+	}
+
+
+	private BindingResult valider(Utilisateur utilisateur) {
+		DataBinder dataBinder = new DataBinder(utilisateur);
+		dataBinder.setValidator(validator);
+		dataBinder.validate();
+		return dataBinder.getBindingResult();
 	}
 
 	private void updateField(Utilisateur utilisateur, Map<String, String> params) {
