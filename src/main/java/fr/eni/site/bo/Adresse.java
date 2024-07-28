@@ -8,6 +8,16 @@ public class Adresse {
     private String codePostal;
     private String ville;
 
+    @Override
+    public String toString() {
+        return "Adresse{" +
+                "id=" + id +
+                ", rue='" + rue + '\'' +
+                ", codePostal='" + codePostal + '\'' +
+                ", ville='" + ville + '\'' +
+                '}';
+    }
+
     public Adresse() {
     }
 

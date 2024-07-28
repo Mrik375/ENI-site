@@ -1,6 +1,7 @@
 <form data-th-fragment="profile-form(action)" data-th-action="@{${action}}"
-      method="post">
-    <h3>Vos informations :</h3>
+      method="post" data-th-object="${utilisateur}">
+    <h2 data-th-if="${action == '/creercompte'}">Nouveau Profil</h2>
+    <h3 data-th-unless="${action == '/creercompte'}">Vos informations :</h3>
 
     <div data-th-replace="~{:: inputField('Pseudo :', 'pseudo', ~{})}"></div>
     <div data-th-replace="~{:: inputField('Nom :', 'nom', ~{})}"></div>
@@ -8,23 +9,49 @@
     <div data-th-replace="~{:: inputField('Email :', 'email', 'email')}"></div>
     <div data-th-replace="~{:: inputField('Téléphone :', 'telephone', ~{})}"></div>
 
-    <h3>Adresse :</h3>
-
-    <div data-th-replace="~{:: inputField('Rue :', 'adresse.rue', ~{})}"></div>
-    <div data-th-replace="~{:: inputField('Code Postal :', 'adresse.codePostal', ~{})}"></div>
-    <div data-th-replace="~{:: inputField('Ville :', 'adresse.ville', ~{})}"></div>
+    <fieldset>
+        <label>Adresse :</label>
+        <div data-th-replace="~{:: inputField('Rue :', 'adresse.rue', ~{})}"></div>
+        <div data-th-replace="~{:: inputField('Code Postal :', 'adresse.codePostal', ~{})}"></div>
+        <div data-th-replace="~{:: inputField('Ville :', 'adresse.ville', ~{})}"></div>
+    </fieldset>
 
     <div data-th-if="${editable && editField != null}">
         <input  type="hidden" name="field" data-th-value="${editField}"/>
         <button type="submit" name="action" value="modifier">Enregistrer</button>
         <button type="submit" name="action" value="annuler">Annuler</button>
     </div>
+
+    <div data-th-if="${action == '/creercompte'}">
+        <label for="motDePasse">Mot de passe (*):</label>
+        <input type="password" id="motDePasse" data-th-field="*{motDePasse}" required><br><br>
+
+        <label for="confirmMDP">Confirmation (*):</label>
+        <input type="password" id="confirmMDP" name="confirmMDP" required><br><br>
+
+        <button type="submit">Créer</button>
+    </div>
+
 </form>
 
 <div data-th-fragment="inputField(label, field, type='text')">
-    <label data-th-for="${field}"><strong data-th-text="${label}"></strong></label>
-    <span data-th-unless="${editable}" data-th-id="${field}" data-th-text="${utilisateur.__${field}__}"></span>
-    <span data-th-if="${editable && editField != field}" data-th-id="${field}" data-th-text="${#authentication.getPrincipal().__${field}__}"></span>
-    <input data-th-if="${editable && editField == field}" data-th-type="${type}" data-th-id="${field}" data-th-name="${field}" data-th-value="${#authentication.getPrincipal().__${field}__}"/>
-    <button data-th-if="${editable && editField != field && action == '/profil'}" type="submit" data-th-name="editField" data-th-value="${field}">Modifier</button>
+    <label data-th-for="${field}" data-th-text="${label}"></label>
+    <div data-th-if="${action == '/creercompte'}">
+        <!--data-th-field="*{__${field}__}" ne fonctionne pas si le fragment a plus de 1 attribut -->
+        <!--<input data-th-type="${type}" data-th-id="${field}" data-th-field="*{__${field}__}" required><br><br>-->
+        <div data-th-replace="~{:: creercompte(${field})}"></div>
+    </div>
+    <div data-th-unless="${action == '/creercompte'}">
+        <span data-th-unless="${editable}" data-th-id="${field}" data-th-text="${utilisateur.__${field}__}"></span>
+        <div data-th-if="${editable}">
+            <span data-th-if="${editField != field}" data-th-id="${field}" data-th-text="${#authentication.getPrincipal().__${field}__}"></span>
+            <input data-th-if="${editField == field}" data-th-type="${type}" data-th-id="${field}" data-th-name="${field}" data-th-value="${#authentication.getPrincipal().__${field}__}"/>
+            <button data-th-if="${editField != field && action == '/profil'}" type="submit" data-th-name="editField" data-th-value="${field}">Modifier</button>
+        </div>
+    </div>
+</div>
+
+<div data-th-fragment="creercompte(field)">
+    <input data-th-unless="${field == 'email'}" data-th-type="text" data-th-id="pseudo" data-th-field="*{__${field}__}" required>
+    <input data-th-if="${field == 'email'}" data-th-type="email" data-th-id="pseudo" data-th-field="*{__${field}__}" required>
 </div>

@@ -8,10 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.DataBinder;
 import org.springframework.validation.Validator;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.Map;
@@ -40,35 +37,14 @@ public class EnchereController {
 
 	//CREER NOUVEAU COMPTE(Page5 PDF - Leo)
 	@GetMapping("/creercompte")
-	public String creerCompte() {
+	public String creerCompte(Model model) {
+		profilModel(model, new Utilisateur(),true, null);
 		return "view-creer-compte";
 	}
 
 	@PostMapping("/creercompte")
-	public String creerCompte(@RequestParam(name = "pseudo") String pseudo,
-							  @RequestParam(name = "prenom") String prenom,
-							  @RequestParam(name = "nom") String nom,
-							  @RequestParam(name = "email") String email,
-							  @RequestParam(name = "telephone") String telephone,
-							  @RequestParam(name = "motDePasse") String motDePasse,
-							  @RequestParam(name = "confirmMDP") String confirmMDP,
-							  @RequestParam(name = "rue") String rue,
-							  @RequestParam(name = "ville") String ville,
-							  @RequestParam(name = "codePostal") String codePostal) {
-		Utilisateur utilisateur = new Utilisateur();
-		utilisateur.setPseudo(pseudo);
-		utilisateur.setPrenom(prenom);
-		utilisateur.setNom(nom);
-		utilisateur.setEmail(email);
-		utilisateur.setTelephone(telephone);
-		utilisateur.setMotDePasse(motDePasse);
-
-		Adresse adresse = new Adresse();
-		adresse.setRue(rue);
-		adresse.setCodePostal(codePostal);
-		adresse.setVille(ville);
-
-		utilisateur.setAdresse(adresse);
+	public String creerCompte(@ModelAttribute("utilisateur") Utilisateur utilisateur,
+							  @RequestParam(name = "confirmMDP") String confirmMDP) {
 		try {
 			utilisateursService.registerUtilisateur(utilisateur);
 		} catch (Exception e) {

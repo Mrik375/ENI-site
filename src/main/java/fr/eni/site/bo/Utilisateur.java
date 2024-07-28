@@ -78,6 +78,10 @@ public class Utilisateur implements UserDetails {
 		this.telephone = telephone;
 	}
 
+	public String getMotDePasse() {
+		return motDePasse;
+	}
+
 	public void setMotDePasse(String motDePasse) {
 		this.motDePasse = motDePasse;
 	}
