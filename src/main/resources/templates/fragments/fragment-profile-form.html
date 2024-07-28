@@ -14,9 +14,10 @@
     <div data-th-replace="~{:: inputField('Code Postal :', 'adresse.codePostal', ~{})}"></div>
     <div data-th-replace="~{:: inputField('Ville :', 'adresse.ville', ~{})}"></div>
 
-    <div>
-        <button data-th-if="${editable && editField != null}" type="submit" name="action" value="modifier">Enregistrer</button>
-        <button data-th-if="${editable && editField != null}" type="submit" name="action" value="annuler">Annuler</button>
+    <div data-th-if="${editable && editField != null}">
+        <input  type="hidden" name="field" data-th-value="${editField}"/>
+        <button type="submit" name="action" value="modifier">Enregistrer</button>
+        <button type="submit" name="action" value="annuler">Annuler</button>
     </div>
 </form>
 

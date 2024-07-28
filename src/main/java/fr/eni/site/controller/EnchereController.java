@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.Map;
 
 @Controller
 
@@ -100,13 +101,51 @@ public class EnchereController {
 	}
 
 	@PostMapping("/profil/modifier")
-	public String enregistrerProfil(Model model, @RequestParam(value = "action") String action) {
-		if (action.equals("modifier")) {
-			// TODO logique de modification du profil
+	public String enregistrerProfil(Principal principal,
+									@RequestParam Map<String, String> params) {
+		if (params.get("action").equals("modifier")) {
+			Utilisateur utilisateur = utilisateursService.getUtilisateur(principal.getName());
+			updateField(utilisateur, params);
+			// TODO appel au service de modification du profil
 			return "redirect:/profil";
-		} else if (action.equals("annuler")) {
+		} else if (params.get("action").equals("annuler")) {
 			return "redirect:/profil";
 		}
 		return "redirect:/profil";
+	}
+
+	private void updateField(Utilisateur utilisateur, Map<String, String> params) {
+		String[] fieldParts = params.get("field").split("\\.");
+		if (fieldParts.length == 1) {
+			switch (params.get("field")) {
+				case "pseudo":
+					utilisateur.setPseudo(params.get("pseudo"));
+					break;
+				case "nom":
+					utilisateur.setNom(params.get("nom"));
+					break;
+				case "prenom":
+					utilisateur.setPrenom(params.get("prenom"));
+					break;
+				case "email":
+					utilisateur.setEmail(params.get("email"));
+					break;
+				case "telephone":
+					utilisateur.setTelephone(params.get("telephone"));
+					break;
+			}
+		} else if (fieldParts.length == 2 && fieldParts[0].equals("adresse")) {
+			switch (fieldParts[1]) {
+				case "rue":
+					utilisateur.getAdresse().setRue(params.get("adresse.rue"));
+					break;
+				case "ville":
+					utilisateur.getAdresse().setVille(params.get("adresse.ville"));
+					break;
+				case "codePostal":
+					utilisateur.getAdresse().setCodePostal(params.get("adresse.codePostal"));
+					break;
+			}
+		}
 	}
 }
