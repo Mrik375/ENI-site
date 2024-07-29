@@ -4,7 +4,7 @@
         <div class="card">
         	<p data-th-text="${article.nom}"></p>
         	<p data-th-text="${article.prixVente}"></p>
-            <p data-th-text="${article.dateFinEncheres}"></p>            
+            <p data-th-text="${#temporals.format(article.dateFinEncheres, #locale)}"></p>
             <p><a data-th-href="@{/profil/__${article.vendeur.pseudo}__}" data-th-text="${article.vendeur.pseudo}"></a></p>
         </div>
     </li>
