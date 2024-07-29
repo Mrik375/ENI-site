@@ -8,6 +8,8 @@ import fr.eni.site.bo.ArticleAVendre;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+@Service
 public class ArticlesServiceImpl implements ArticlesService {
 
 	private final ArticleAVendreService articleAVendreService;

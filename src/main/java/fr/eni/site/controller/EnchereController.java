@@ -1,31 +1,41 @@
 package fr.eni.site.controller;
 
-import fr.eni.site.bll.UtilisateursService;
-import fr.eni.site.bo.Adresse;
-import fr.eni.site.bo.Utilisateur;
+import java.security.Principal;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.DataBinder;
 import org.springframework.validation.Validator;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import java.security.Principal;
-import java.util.Map;
-
-@Controller
-
+import fr.eni.site.bll.ArticlesService;
+import fr.eni.site.bll.UtilisateursService;
+import fr.eni.site.bo.ArticleAVendre;
+import fr.eni.site.bo.Utilisateur;
+        
+@Controller                                                           
 public class EnchereController {
 	private final UtilisateursService utilisateursService;
+	private final ArticlesService articlesService;
 	private final Validator validator;
 
-	public EnchereController(UtilisateursService utilisateursService, Validator validator) {
+	public EnchereController(UtilisateursService utilisateursService, Validator validator, ArticlesService articlesService) {
 		this.utilisateursService = utilisateursService;
+		this.articlesService = articlesService;
 		this.validator = validator;
 	}
 
-	@GetMapping("/accueil")
-	public String accueil() {
+	@GetMapping({"/accueil", "/"})
+	public String accueil(Model model) {
+		List<ArticleAVendre> articles = articlesService.getAllArticles();
+		model.addAttribute("articles", articles);
 		return "index";
 	}
 

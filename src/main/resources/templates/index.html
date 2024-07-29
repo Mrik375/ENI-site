@@ -14,7 +14,18 @@
 		<!-- FORMULAIRE -->
 		<form data-th-replace="~{fragments/fragment-accueil-form :: frag-accueil-form}"action="/rechercher" method="get">		
 		</form>
-	</main>
-	
+		<!-- Implantation des cards - EN COURS -->
+        <div class="cards-container">
+            <!-- Vérifie s'il y a des articles à afficher -->
+            <th:block data-th-unless="${#lists.isEmpty(articles)}">
+                <!-- Inclusion du fragment de cartes avec les articles -->
+                <div data-th-replace="~{fragments/fragment-cards :: frag-cards}"></div>
+            </th:block>
+            <!-- Si rien à afficher -->
+            <th:block data-th-if="${#lists.isEmpty(articles)}">
+                <p>Aucun article en vente pour le moment.</p>
+            </th:block>
+        </div>
+	</main>	
 </body>
 </html>
