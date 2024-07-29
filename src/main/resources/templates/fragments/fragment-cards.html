@@ -1,11 +1,19 @@
-<ul xmlns:th="http://www.thymeleaf.org" data-th-fragment="frag-cards">
+<div xmlns:th="http://www.thymeleaf.org" data-th-fragment="frag-cards" class="cards-container">
     <!-- Itération sur la liste des articles -->
-    <li data-th-each="article : ${articles}">
-        <div class="card">
-        	<p data-th-text="${article.nom}"></p>
-        	<p data-th-text="${article.prixVente}"></p>
-            <p data-th-text="${#temporals.format(article.dateFinEncheres, #locale)}"></p>
-            <p><a data-th-href="@{/profil/__${article.vendeur.pseudo}__}" data-th-text="${article.vendeur.pseudo}"></a></p>
+    <div data-th-each="article : ${articles}" class="card">
+        <!-- Conteneur pour la photo et le contenu -->
+        <div class="card-content">
+            <div class="card-photo">
+                <img data-th-src="${article.photo}" alt="Photo de ${article.nom}">
+            </div>
+            <!-- Contenu de la carte -->
+            <div class="card-details">
+                <p class="card-title" data-th-text="${article.nom}"></p>
+                <p data-th-text="${article.prixVente}"></p>
+                <p data-th-text="${#temporals.format(article.dateFinEncheres, #locale)}"></p>
+                <p><a data-th-href="@{/profil/__${article.vendeur.pseudo}__}" data-th-text="${article.vendeur.pseudo}"></a></p>
+            </div>
         </div>
-    </li>
-</ul>
+    </div>
+</div>
+
