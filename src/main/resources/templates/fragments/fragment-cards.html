@@ -5,7 +5,7 @@
         	<p data-th-text="${article.nom}"></p>
         	<p data-th-text="${article.prixVente}"></p>
             <p data-th-text="${article.dateFinEncheres}"></p>            
-            <p><a data-th-href="@{/profil/${article.vendeur.pseudo}}" data-th-text="${article.vendeur.pseudo}"></a></p>            
+            <p><a data-th-href="@{/profil/__${article.vendeur.pseudo}__}" data-th-text="${article.vendeur.pseudo}"></a></p>
         </div>
     </li>
 </ul>
