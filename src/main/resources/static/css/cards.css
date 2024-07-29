@@ -15,8 +15,13 @@
     background: #f5f5f5;
     border: 1px solid #ddd;
     border-radius: 10px;
-    box-shadow: 8px 8px 10px #939393;
+    box-shadow: 6px 6px 7px #b4b4b4;
     width: 450px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 8px 8px 10px #939393;
 }
 
 .card-content {
@@ -45,6 +50,10 @@
 .card-details p {
     margin: 10px;
     font-style: italic;
+}
+.card-details a {
+	text-decoration: none;
+	color: blue;
 }
 .card-title {
 	font-weight: 800;
