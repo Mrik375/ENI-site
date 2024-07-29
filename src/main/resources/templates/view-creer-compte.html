@@ -1,10 +1,12 @@
 <html xmlns:th="http://www.thymeleaf.org" data-th-replace="~{layouts/layout :: layout-projet( titrePage=~{:: title},
 																							  contenuPage=~{:: main},
-																							  ressourcesSupp=~{})}">
+																							  ressourcesSupp=~{'/resources/static/css/creer-compte-form.css'})}">
 <head>
     <title>Nouveau Profil</title>
-</head>
+    <!--<link rel="stylesheet" data-th-href="@{/css/creer-compte-form.css}">-->
+    </head>
 <main>
+
 
     <div data-th-replace="~{fragments/fragment-profile-form :: profile-form(action='/creercompte')}"></div>
 
