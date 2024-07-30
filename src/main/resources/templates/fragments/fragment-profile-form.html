@@ -1,12 +1,20 @@
 <form data-th-fragment="profile-form(action)" data-th-action="@{${action}}"
       method="post" data-th-object="${utilisateur}">
+      
+    <h1 data-th-if="${#fields.hasErrors('*')}">TEST ERROR</h1>  
+      
     <h2 data-th-if="${action == '/creercompte'}">Nouveau Profil</h2>
+    
     <h3 data-th-unless="${action == '/creercompte'}">Vos informations :</h3>
 
     <div data-th-replace="~{:: inputField('Pseudo :', 'pseudo', ~{})}"></div>
+    
     <div data-th-replace="~{:: inputField('Nom :', 'nom', ~{})}"></div>
+    
     <div data-th-replace="~{:: inputField('Prénom :', 'prenom', ~{})}"></div>
+    
     <div data-th-replace="~{:: inputField('Email :', 'email', 'email')}"></div>
+    
     <div data-th-replace="~{:: inputField('Téléphone :', 'telephone', ~{})}"></div>
 
     <fieldset>
@@ -49,6 +57,7 @@
             <button data-th-if="${editField != field && action == '/profil'}" type="submit" data-th-name="editField" data-th-value="${field}">Modifier</button>
         </div>
     </div>
+    <div data-th-replace="~{fragments/errors/fragment-error :: frag-error(${field})}"></div>
 </div>
 
 <div data-th-fragment="creercompte(field)">

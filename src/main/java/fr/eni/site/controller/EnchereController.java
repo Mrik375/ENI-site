@@ -19,6 +19,7 @@ import fr.eni.site.bll.ArticlesService;
 import fr.eni.site.bll.UtilisateursService;
 import fr.eni.site.bo.ArticleAVendre;
 import fr.eni.site.bo.Utilisateur;
+import jakarta.validation.Valid;
         
 @Controller                                                           
 public class EnchereController {
@@ -53,14 +54,19 @@ public class EnchereController {
 	}
 
 	@PostMapping("/creercompte")
-	public String creerCompte(@ModelAttribute("utilisateur") Utilisateur utilisateur,
+	public String creerCompte(@Valid @ModelAttribute("utilisateur") Utilisateur utilisateur, BindingResult bindingResult, Model model,
 							  @RequestParam(name = "confirmMDP") String confirmMDP) {
-		try {
-			utilisateursService.registerUtilisateur(utilisateur);
-		} catch (Exception e) {
-			e.printStackTrace();
+		if (bindingResult.hasErrors()) {
+			profilModel(model, utilisateur, true, null);
+			return "view-creer-compte";
+		} else {
+			try {
+				utilisateursService.registerUtilisateur(utilisateur);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return "redirect:/connexion";
 		}
-		return "redirect:/connexion";
 	}
 
 	@GetMapping("/vendre")

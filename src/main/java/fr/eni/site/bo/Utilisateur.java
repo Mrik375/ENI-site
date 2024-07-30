@@ -4,17 +4,34 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import jakarta.validation.constraints.*;
+
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
 public class Utilisateur implements UserDetails {
+	
+	@NotBlank
+	@Size(min = 3, max = 50)
+	@Pattern(regexp = "^[\\w_]+$")
 	private String pseudo;
+	
+	@NotBlank
+	@Size(min = 3, max = 50)
 	private String nom;
+	
+	@NotBlank
+	@Size(min = 3, max = 50)
 	private String prenom;
+	
+	@NotBlank
+	@Email
 	private String email;
+	
 	private String telephone;
+	
 	private String motDePasse;
 	private int credit;
 	private boolean administrateur;

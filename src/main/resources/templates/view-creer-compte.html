@@ -1,15 +1,16 @@
 <html xmlns:th="http://www.thymeleaf.org" data-th-replace="~{layouts/layout :: layout-projet( titrePage=~{:: title},
 																							  contenuPage=~{:: main},
-																							  ressourcesSupp=~{'/resources/static/css/creer-compte-form.css'})}">
+																							  ressourcesSupp=~{:: #ressources-css})}">
 <head>
     <title>Nouveau Profil</title>
-    <!--<link rel="stylesheet" data-th-href="@{/css/creer-compte-form.css}">-->
+    <th:block id="ressources-css">
+    	<link rel="stylesheet" data-th-href="@{/css/creer-compte-form.css}">
+    	<link rel="stylesheet" data-th-href="@{/css/site-error.css}">
+    </th:block>
     </head>
+    
 <main>
-
-
     <div data-th-replace="~{fragments/fragment-profile-form :: profile-form(action='/creercompte')}"></div>
-
 </main>
 </html>
 

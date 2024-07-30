@@ -1,0 +1,16 @@
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+form {
+padding: 20px;
+}
+
+fieldset {
+	border-style: none;
+	padding : 20px;
+}
