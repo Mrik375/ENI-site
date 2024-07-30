@@ -30,6 +30,7 @@
     <div data-th-if="${action == '/creercompte'}">
         <label for="motDePasse">Mot de passe (*):</label>
         <input type="password" id="motDePasse" data-th-field="*{motDePasse}" required><br><br>
+<div data-th-replace="~{fragments/errors/fragment-error :: frag-error('motDePasse')}"></div>
 
         <label for="confirmMDP">Confirmation (*):</label>
         <input type="password" id="confirmMDP" name="confirmMDP" required><br><br>

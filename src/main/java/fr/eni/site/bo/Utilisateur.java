@@ -39,9 +39,10 @@ public class Utilisateur implements UserDetails {
 	private String telephone;
 	
 	@NotBlank(groups = Enregistrer.class)
-	@Pattern(regexp = "^[\\w_]+$", groups = Enregistrer.class)
+	@Pattern(regexp = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[@#$%^&+=!.*-])(?=\\S+$).{8,20}$", groups = Enregistrer.class, message = "{motDePasse.pattern.message}")//, message = "Le mot de passe doit faire entre 8 et 20 caractères, contenir au moins une majuscule, un caractère spécial et un chiffre."
 	private String motDePasse;
-	private int credit;
+	
+	private int credit = 10;
 	private boolean administrateur;
 	private Adresse adresse;
 	private List<ArticleAVendre> articles;
