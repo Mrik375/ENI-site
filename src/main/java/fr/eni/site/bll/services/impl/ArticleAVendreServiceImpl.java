@@ -3,6 +3,7 @@ package fr.eni.site.bll.services.impl;
 import fr.eni.site.bll.services.ArticleAVendreService;
 import fr.eni.site.bo.ArticleAVendre;
 import fr.eni.site.bo.ArticleStatus;
+import fr.eni.site.bo.CategorieArticle;
 import fr.eni.site.dal.ArticleAVendreDAO;
 import org.springframework.stereotype.Service;
 
@@ -37,13 +38,13 @@ public class ArticleAVendreServiceImpl implements ArticleAVendreService {
 	}
 
 	@Override
-	public List<ArticleAVendre> getAllActive() {
-		return articleAVendreDAO.findAllActive();
+	public void setArticleStatus(long id, ArticleStatus statutEnchere) {
+		articleAVendreDAO.setStatus(id, statutEnchere);
 	}
 
 	@Override
-	public void setArticleStatus(long id, ArticleStatus statutEnchere) {
-		articleAVendreDAO.setStatus(id, statutEnchere);
+	public List<ArticleAVendre> getStatusByFiltre(ArticleStatus[] articleStatus, String pseudo, String nomArticle, CategorieArticle categorie) {
+		return articleAVendreDAO.findStatusByFiltre(articleStatus, pseudo, nomArticle, categorie);
 	}
 
 }

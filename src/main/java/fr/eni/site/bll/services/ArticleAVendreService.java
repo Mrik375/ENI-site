@@ -2,6 +2,7 @@ package fr.eni.site.bll.services;
 
 import fr.eni.site.bo.ArticleAVendre;
 import fr.eni.site.bo.ArticleStatus;
+import fr.eni.site.bo.CategorieArticle;
 
 import java.util.List;
 
@@ -14,9 +15,8 @@ public interface ArticleAVendreService {
 
 	List<ArticleAVendre> getByUtilisateur(String pseudo);
 
-	List<ArticleAVendre> getAllActive();
-
 	void setArticleStatus(long id, ArticleStatus statutEnchere);
 
+	List<ArticleAVendre> getStatusByFiltre(ArticleStatus[] articleStatus, String pseudo, String nomArticle, CategorieArticle categorie);
 }
 

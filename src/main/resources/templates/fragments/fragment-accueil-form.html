@@ -1,21 +1,20 @@
-<form class="form-place" xmlns:th="http://www.thymeleaf.org" data-th-fragment="frag-accueil-form">		
+<form class="form-place" xmlns:th="http://www.thymeleaf.org" data-th-fragment="frag-accueil-form" data-th-action="@{/filtre}" method="POST">
 	<!-- Fieldset pour grouper les filtres de recherche -->
     <fieldset class="accueil-form">
     	<legend>Filtres :</legend>    			
     		<!-- Champ de texte pour entrer le nom de l'article recherché -->
     		<div>
 		    	<div>
-		       		<input type="text" id="nom-article" name="nom_article" placeholder="Le nom de l'article contient">
+		       		<input type="text" id="nom-article" name="nom_article" placeholder="Le nom de l'article contient" data-th-value="${nomArticle}">
 		    	</div>		    		
 		    	<!-- Menu déroulant pour sélectionner la catégorie de l'article -->
 		    	<div id="categorie">
 		        	<label for="categorie">Catégorie :</label>
 		        	<select name="categorie">
-				    	<option value="toutes">Toutes</option>
-				    	<option value="ameublement">Ameublement</option>
-				    	<option value="informatique">Informatique</option>
-				    	<option value="sport_loisirs">Sport et Loisirs</option>
-				    	<option value="vetements">Vêtements</option>
+						<option value="">Toutes</option>
+						<option data-th-each="categorie : ${T(fr.eni.site.bo.CategorieArticle).values()}"
+								data-th-value="${categorie}" data-th-text="${categorie}"
+								data-th-selected="${categorie == selectedCategory}"></option>
 					</select>
 				</div>			
     		</div>
@@ -23,39 +22,39 @@
     		<div class="btn">
 				<button type="submit">Rechercher</button>
 				<button type="reset">Annuler</button>
-    		</div>		
-	</fieldset>	
+    		</div>
+	</fieldset>
     <!-- Section SI utilisateur connecté -->
-    <section class="radiobtn" data-sec-authorize="isAuthenticated()">    		
+    <section class="radiobtn" data-sec-authorize="isAuthenticated()">
     	<!-- Bouton radio pour sélectionner la section "Achats", sélectionné par défaut-->
     	<div class="radioAchat">
         	<div>
-	        	<input type="radio" id="achats" name="section" value="achats" checked>
+	        	<input type="radio" id="achats" name="section" value="achats" data-th-checked="${section == null || section == 'achats'}">
             	<label for="achats">Achats</label>
 			</div>
-			<!-- Menu déroulant conditionnel SI "Achats" -->	
+			<!-- Menu déroulant conditionnel SI "Achats" -->
 			<div class="radioAchat">
 		    	<select id="achats-dropdown" name="achats_dropdown">
-		        	<option value="encheres_ouvertes">Enchères ouvertes</option>
-		        	<option value="mes_encheres_en_cours">Mes enchères en cours</option>
-		        	<option value="mes_encheres_remportees">Mes enchères remportées</option>
+		        	<option value="encheres_ouvertes" data-th-selected="${select =='encheres_ouvertes'}">Enchères ouvertes</option>
+		        	<option value="mes_encheres_en_cours" data-th-selected="${select =='mes_encheres_en_cours'}">Mes enchères en cours</option>
+		        	<option value="mes_encheres_remportees" data-th-selected="${select =='mes_encheres_remportees'}">Mes enchères remportées</option>
 		    	</select>
 			</div>
 		</div>
-		<div class="radioVente">		        
+		<div class="radioVente">
 			<!-- Bouton radio pour sélectionner la section "Mes ventes" -->
 			<div>
-			    <input type="radio" id="ventes" name="section" value="ventes">
+			    <input type="radio" id="ventes" name="section" value="ventes" data-th-checked="${section == 'ventes'}">
 		    	<label for="ventes">Mes ventes</label>
 			</div>
 			<!-- Menu déroulant conditionnel SI "Mes ventes" -->
 			<div>
 		    	<select id="ventes-dropdown" name="ventes_dropdown">
-		        	<option value="mes_ventes_en_cours">Mes ventes en cours</option>
-		        	<option value="mes_ventes_non_debutees">Mes ventes non débutées</option>
-		        	<option value="mes_ventes_terminees">Mes ventes terminées</option>
+		        	<option value="mes_ventes_en_cours" data-th-selected="${select =='mes_ventes_en_cours'}">Mes ventes en cours</option>
+		        	<option value="mes_ventes_non_debutees" data-th-selected="${select =='mes_ventes_non_debutees'}">Mes ventes non débutées</option>
+		        	<option value="mes_ventes_terminees" data-th-selected="${select =='mes_ventes_terminees'}">Mes ventes terminées</option>
 		    	</select>
 			</div>
-		</div>		
+		</div>
     </section>
 </form>

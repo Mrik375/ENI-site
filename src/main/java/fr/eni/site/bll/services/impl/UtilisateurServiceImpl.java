@@ -42,7 +42,6 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 
 	@Override
 	public Utilisateur getByPseudo(String pseudo) {
-		System.out.println("INSIDE getUtilisateurByPseudo()");
 		return Optional.ofNullable(utilisateurDAO.read(pseudo))
 				.orElseThrow(() -> new NoSuchElementException("Utilisateur  " + pseudo + " non trouvé."));
 	}

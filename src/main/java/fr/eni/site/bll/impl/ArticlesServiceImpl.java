@@ -5,10 +5,14 @@ import fr.eni.site.bll.UtilisateursService;
 import fr.eni.site.bll.services.ArticleAVendreService;
 import fr.eni.site.bll.services.CategorieService;
 import fr.eni.site.bo.ArticleAVendre;
+import fr.eni.site.bo.ArticleStatus;
+import fr.eni.site.bo.CategorieArticle;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import org.springframework.stereotype.Service;
+import static fr.eni.site.bo.ArticleStatus.EN_COURS;
+
 @Service
 public class ArticlesServiceImpl implements ArticlesService {
 
@@ -31,7 +35,14 @@ public class ArticlesServiceImpl implements ArticlesService {
 
 	@Override
 	public List<ArticleAVendre> getAllActiveArticles() {
-		List<ArticleAVendre> articles = articleAVendreService.getAllActive();
+		List<ArticleAVendre> articles = getArticlesFiltre(new ArticleStatus[]{EN_COURS}, null, null, null);
+		articles.forEach(this::chargerDependencesDansArticle);
+		return articles;
+	}
+
+	@Override
+	public List<ArticleAVendre> getArticlesFiltre(ArticleStatus[] status, String pseudo, String nomArticle, CategorieArticle categorie) {
+		List<ArticleAVendre> articles = articleAVendreService.getStatusByFiltre(status, pseudo, nomArticle, categorie);
 		articles.forEach(this::chargerDependencesDansArticle);
 		return articles;
 	}
