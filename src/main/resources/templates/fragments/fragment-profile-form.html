@@ -1,7 +1,5 @@
 <form data-th-fragment="profile-form(action)" data-th-action="@{${action}}"
-      method="post" data-th-object="${utilisateur}">
-      
-    <h1 data-th-if="${#fields.hasErrors('*')}">TEST ERROR</h1>  
+      method="post" data-th-object="${utilisateur}">  
       
     <h2 data-th-if="${action == '/creercompte'}">Nouveau Profil</h2>
     

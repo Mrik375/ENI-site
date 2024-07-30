@@ -1,9 +1,12 @@
 <html data-th-replace="~{layouts/layout :: layout-projet( titrePage=~{:: title},
                                                                                 contenuPage=~{:: main},
-																				ressourcesSupp=~{})}">
+																				ressourcesSupp=~{:: #ressources-css})}">
 
 <head>
     <title>Profil</title>
+    <th:block id="ressources-css">
+    	<link rel="stylesheet" data-th-href="@{/css/site-error.css}">
+    </th:block>
 </head>
 <main>
     <div data-th-if="${editField == null}">

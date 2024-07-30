@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.DataBinder;
 import org.springframework.validation.Validator;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +20,8 @@ import fr.eni.site.bll.ArticlesService;
 import fr.eni.site.bll.UtilisateursService;
 import fr.eni.site.bo.ArticleAVendre;
 import fr.eni.site.bo.Utilisateur;
+import fr.eni.site.bo.groupes.Enregistrer;
+import fr.eni.site.bo.groupes.Modifier;
 import jakarta.validation.Valid;
         
 @Controller                                                           
@@ -54,7 +57,7 @@ public class EnchereController {
 	}
 
 	@PostMapping("/creercompte")
-	public String creerCompte(@Valid @ModelAttribute("utilisateur") Utilisateur utilisateur, BindingResult bindingResult, Model model,
+	public String creerCompte(@Validated(Enregistrer.class) @ModelAttribute("utilisateur") Utilisateur utilisateur, BindingResult bindingResult, Model model,
 							  @RequestParam(name = "confirmMDP") String confirmMDP) {
 		if (bindingResult.hasErrors()) {
 			profilModel(model, utilisateur, true, null);
@@ -111,7 +114,7 @@ public class EnchereController {
 										@RequestParam Map<String, String> params) {
 		Utilisateur utilisateur = utilisateursService.getUtilisateur(principal.getName());
 		updateField(utilisateur, params);
-		BindingResult bindingResult = valider(utilisateur);
+		BindingResult bindingResult = valider(utilisateur, Modifier.class);
 
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("org.springframework.validation.BindingResult.utilisateur", bindingResult);
@@ -129,10 +132,10 @@ public class EnchereController {
 	}
 
 
-	private BindingResult valider(Utilisateur utilisateur) {
+	private BindingResult valider(Utilisateur utilisateur, Class<?> validationGroup) {
 		DataBinder dataBinder = new DataBinder(utilisateur);
 		dataBinder.setValidator(validator);
-		dataBinder.validate();
+		dataBinder.validate(validationGroup);
 		return dataBinder.getBindingResult();
 	}
 

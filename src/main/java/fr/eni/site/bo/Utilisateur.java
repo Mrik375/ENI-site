@@ -4,6 +4,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import fr.eni.site.bo.groupes.Enregistrer;
+import fr.eni.site.bo.groupes.Modifier;
 import jakarta.validation.constraints.*;
 
 import java.util.Collection;
@@ -13,25 +15,27 @@ import java.util.Objects;
 
 public class Utilisateur implements UserDetails {
 	
-	@NotBlank
+	@NotBlank(groups = {Enregistrer.class, Modifier.class})
 	@Size(min = 3, max = 50)
-	@Pattern(regexp = "^[\\w_]+$")
+	@Pattern(regexp = "^[\\w_]+$", groups = {Enregistrer.class, Modifier.class})
 	private String pseudo;
 	
-	@NotBlank
-	@Size(min = 3, max = 50)
+	@NotBlank(groups = {Enregistrer.class, Modifier.class})
+	@Size(min = 3, max = 50, groups = {Enregistrer.class, Modifier.class})
 	private String nom;
 	
-	@NotBlank
-	@Size(min = 3, max = 50)
+	@NotBlank(groups = {Enregistrer.class, Modifier.class})
+	@Size(min = 3, max = 50, groups = {Enregistrer.class, Modifier.class})
 	private String prenom;
 	
-	@NotBlank
-	@Email
+	@NotBlank(groups = {Enregistrer.class, Modifier.class})
+	@Email(groups = {Enregistrer.class, Modifier.class})
 	private String email;
 	
 	private String telephone;
 	
+	@NotBlank(groups = Enregistrer.class)
+	@Pattern(regexp = "^[\\w_]+$", groups = Enregistrer.class)
 	private String motDePasse;
 	private int credit;
 	private boolean administrateur;
