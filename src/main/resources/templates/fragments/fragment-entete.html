@@ -1,28 +1,30 @@
 <header xmlns:th="http://www.thymeleaf.org" data-th-fragment="frag-entete">
-	<h1 id="nav-title">
+	<section>
+	<h1 id="nav-title"></h1>
 		<a data-th-href="@{/accueil}"><img data-th-src="@{/images/logoENI.png}">Eni-Enchères</a>
-	</h1>
-
+		    <a href="/?language=fr"><img alt="Français" src="/images/French.webp"></a>
+		    
+		    <a href="/?language=en"><img alt="English" src="/images/English.webp"></a>
+		</section>
 	<nav>
 		<ul>
 			<!-- Tjrs affiché -->
-			<li><a data-th-href="@{/accueil}">Accueil</a></li>
+			<li><a data-th-href="@{/accueil}" data-th-text="#{frag-entete.a.accueil}"></a></li>
 			<!-- SI PAS connecté  &&  SI PAS sur page de connexion -->
 			<th:block data-sec-authorize="!isAuthenticated()">
-				<li><a data-th-href="@{/connexion}">S'inscrire/Se connecter</a></li>
+				<li><a data-th-href="@{/connexion}" data-th-text="#{frag-entete.a.connexion}"></a></li>
 			</th:block>
 			<!-- SI connecté -->
 			<th:block data-sec-authorize="isAuthenticated()">
-				<li><a data-th-href="@{/vendre}">Vendre un article</a></li>
-				<li><a data-th-href="@{/profil}">Mon profil</a></li>
+				<li><a data-th-href="@{/vendre}" data-th-text="#{frag-entete.a.vendre}">Vendre un article</a></li>
+				<li><a data-th-href="@{/profil}" data-th-text="#{frag-entete.a.profil}">Mon profil</a></li>
 <!--				<li><a data-th-href="@{/logout}">Se déconnecter</a></li>-->
 				<li>
 					<form data-th-action="@{/logout}" method="POST">
-						<button type="submit" class="button-as-link">Se déconnecter</button>
+						<button type="submit" class="button-as-link" data-th-text="#{frag-entete.a.deconnexion}">Se déconnecter</button>
 					</form>
 				</li>
 			</th:block>
 		</ul>
 	</nav>
-	
 </header>

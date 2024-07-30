@@ -48,3 +48,5 @@ img {
 	align-items: center;
 	border-radius: 10px;
 }
+
+#nav-title a>img {width: 25px;}
