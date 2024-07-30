@@ -82,3 +82,21 @@ main h2 {
 .button-as-link:hover {
 	color: rgb(8, 166, 245);
 }
+#nav-title {
+	display: flex;
+}
+.internationalisation {
+	display: flex; 
+	flex-direction: column;
+	justify-content: space-around;
+	margin-right: 20px;
+	
+}
+.internationalisation img {
+	width: 40px;
+	height: 25px;
+	box-shadow: 0px 0px 1px 1px black;
+}
+.internationalisation img:hover {
+	transform: scale(1.05);
+}

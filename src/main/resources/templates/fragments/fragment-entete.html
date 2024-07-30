@@ -1,11 +1,13 @@
 <header xmlns:th="http://www.thymeleaf.org" data-th-fragment="frag-entete">
-	<section>
-	<h1 id="nav-title"></h1>
-		<a data-th-href="@{/accueil}"><img data-th-src="@{/images/logoENI.png}">Eni-Enchères</a>
-		    <a href="/?language=fr"><img alt="Français" src="/images/French.webp"></a>
-		    
+	<section id="nav-title">
+		<div class="internationalisation">
+		    <a href="/?language=fr"><img alt="Français" src="/images/French.webp"></a>		    
 		    <a href="/?language=en"><img alt="English" src="/images/English.webp"></a>
-		</section>
+		</div>
+		<h1>
+			<a data-th-href="@{/accueil}"><img data-th-src="@{/images/logoENI.png}">Eni-Enchères</a>
+		</h1>		
+	</section>
 	<nav>
 		<ul>
 			<!-- Tjrs affiché -->
