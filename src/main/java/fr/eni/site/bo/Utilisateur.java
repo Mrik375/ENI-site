@@ -19,27 +19,30 @@ import jakarta.validation.constraints.Size;
 
 public class Utilisateur implements UserDetails {
 	
-	@NotBlank(groups = {Enregistrer.class, Modifier.class})
-	@Size(min = 3, max = 50)
-	@Pattern(regexp = "^[\\w_]+$", groups = {Enregistrer.class, Modifier.class})
+	
+	@NotBlank(message = "{validation.utilisateur.pseudo.blank}", groups = {Enregistrer.class, Modifier.class})
+	@Size(min = 3, max = 20, message = "{validation.utilisateur.pseudo.length}",  groups = {Enregistrer.class, Modifier.class})
+	@Pattern(regexp="^\\w+$", message = "{validation.utilisateur.pseudo.pattern}", groups = {Enregistrer.class, Modifier.class})
 	private String pseudo;
 	
-	@NotBlank(groups = {Enregistrer.class, Modifier.class})
-	@Size(min = 3, max = 50, groups = {Enregistrer.class, Modifier.class})
+	@NotBlank(message = "{validation.utilisateur.nom.blank}", groups = {Enregistrer.class, Modifier.class})
+	@Size(message = "{validation.utilisateur.nom.length}", min = 3, max = 20, groups = {Enregistrer.class, Modifier.class})
 	private String nom;
 	
-	@NotBlank(groups = {Enregistrer.class, Modifier.class})
-	@Size(min = 3, max = 50, groups = {Enregistrer.class, Modifier.class})
+	@NotBlank(message = "{validation.utilisateur.prenom.blank}", groups = {Enregistrer.class, Modifier.class})
+	@Size(message = "{validation.utilisateur.prenom.length}", min = 3, max = 20, groups = {Enregistrer.class, Modifier.class})
 	private String prenom;
 	
-	@NotBlank(groups = {Enregistrer.class, Modifier.class})
-	@Email(groups = {Enregistrer.class, Modifier.class})
+	@NotBlank(message = "{validation.utilisateur.email.blank}", groups = {Enregistrer.class, Modifier.class})
+	@Email(message = "{validation.utilisateur.email.valid}", groups = {Enregistrer.class, Modifier.class})
 	private String email;
 	
+	
+	@Pattern(message = "{validation.utilisateur.telephone.pattern}", regexp = "^\\d{10}$")
 	private String telephone;
 	
-	@NotBlank(groups = Enregistrer.class)
-	@Pattern(regexp = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[@#$%^&+=!.*-])(?=\\S+$).{8,20}$", groups = Enregistrer.class, message = "{motDePasse.pattern.message}")//, message = "Le mot de passe doit faire entre 8 et 20 caractères, contenir au moins une majuscule, un caractère spécial et un chiffre."
+	@NotBlank(message = "{validation.utilisateur.motDePasse.blank}", groups = Enregistrer.class)
+	@Pattern(message = "{validation.utilisateur.motDePasse.pattern}", regexp = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[@#$%^&+=!.*-])(?=\\S+$).{8,20}$", groups = Enregistrer.class)//, message = "Le mot de passe doit faire entre 8 et 20 caractères, contenir au moins une majuscule, un caractère spécial et un chiffre."
 	private String motDePasse;
 	
 	private int credit = 10;

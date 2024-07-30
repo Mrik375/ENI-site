@@ -4,8 +4,14 @@ import java.util.Objects;
 
 public class Adresse {
     private long id;
+    
+    
     private String rue;
+    
+    
     private String codePostal;
+    
+    
     private String ville;
 
     @Override
