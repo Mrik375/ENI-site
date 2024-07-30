@@ -112,6 +112,7 @@ public class EnchereController {
 
 	private String handleModifierAction(Principal principal, Model model,
 										@RequestParam Map<String, String> params) {
+		try {
 		Utilisateur utilisateur = utilisateursService.getUtilisateur(principal.getName());
 		updateField(utilisateur, params);
 		BindingResult bindingResult = valider(utilisateur, Modifier.class);
@@ -121,8 +122,14 @@ public class EnchereController {
 			profilModel(model, utilisateur, true, params.get("field"));
 			return "view-profil";
 		}
-		// TODO appel au service de modification du profil
-		return "redirect:/profil";
+		// Enregistrer les modifications en base de données        
+			utilisateursService.updateUtilisateur(utilisateur);
+			return "redirect:/profil";
+		} catch (Exception e) {
+	        e.printStackTrace();
+	        model.addAttribute("error", "Une erreur s'est produite lors de la mise à jour du profil. Veuillez réessayer.");
+	        return "view-profil";
+	    }
 	}
 
 	private void profilModel(Model model, Utilisateur utilisateur, boolean editable, String editField) {

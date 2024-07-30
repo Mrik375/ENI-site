@@ -65,11 +65,6 @@ main h2 {
 	margin-top: 5vh;
 	font-size: 2rem;
 }
-
-form {
-	margin: 0;
-}
-
 .button-as-link {
 	background: none;
 	border: none;

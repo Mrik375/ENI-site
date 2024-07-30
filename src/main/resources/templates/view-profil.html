@@ -8,7 +8,8 @@
     	<link rel="stylesheet" data-th-href="@{/css/site-error.css}">
     </th:block>
 </head>
-<main>
+<main class="form-container">
+<h2>Profil</h2>
     <div data-th-if="${editField == null}">
         <div data-th-replace="~{fragments/fragment-profile-form :: profile-form(action='/profil')}"></div>
     </div>

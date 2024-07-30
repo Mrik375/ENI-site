@@ -1,6 +1,6 @@
-<form data-th-fragment="profile-form(action)" data-th-action="@{${action}}"
-      method="post" data-th-object="${utilisateur}">  
-      
+<form class="form-place" data-th-fragment="profile-form(action)" data-th-action="@{${action}}"
+      method="post" data-th-object="${utilisateur}">
+
     <h2 data-th-if="${action == '/creercompte'}">Nouveau Profil</h2>
     
     <h3 data-th-unless="${action == '/creercompte'}">Vos informations :</h3>
@@ -37,7 +37,6 @@
 
         <button type="submit">Créer</button>
     </div>
-
 </form>
 
 <div data-th-fragment="inputField(label, field, type='text')">

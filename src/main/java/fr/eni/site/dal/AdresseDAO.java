@@ -10,4 +10,6 @@ public interface AdresseDAO {
 	Adresse read(long adresseId);
 
 	List<Adresse> findAll();
+	
+	void update(Adresse adresse);
 }

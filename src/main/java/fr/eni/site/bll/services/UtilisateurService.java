@@ -15,4 +15,6 @@ public interface UtilisateurService {
 	List<Utilisateur> getAll();
 
 	Optional<Utilisateur> getLogged();
+	
+	void update(Utilisateur utilisateur);
 }

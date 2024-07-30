@@ -67,4 +67,9 @@ public class UtilisateursServiceImpl implements UtilisateursService {
 		utilisateur.setArticles(articleAVendreService.getByUtilisateur(utilisateur.getPseudo()));
 	}
 
+	@Override
+	public void updateUtilisateur(Utilisateur utilisateur) {
+		utilisateurService.update(utilisateur);
+		
+	}
 }

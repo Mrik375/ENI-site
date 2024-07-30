@@ -4,7 +4,7 @@
   align-items: center;
   justify-content: center;
 }
-form {
+.form-place {
 	display: flex;
 	flex-direction: column;
 	background-color: rgba(0, 47, 255, 0.13);

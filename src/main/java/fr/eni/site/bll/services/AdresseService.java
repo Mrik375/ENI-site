@@ -10,4 +10,6 @@ public interface AdresseService {
 	Adresse getById(long id);
 
 	List<Adresse> getAll();
+	
+	void update(Adresse adresse);
 }

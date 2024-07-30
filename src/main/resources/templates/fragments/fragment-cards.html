@@ -4,7 +4,7 @@
         <!-- Conteneur pour la photo et le contenu -->
         <div class="card-content">
             <div class="card-photo">
-                <img data-th-src="${article.photo}" alt="Photo de ${article.nom}">
+                <img data-th-src="${article.photo}" data-th-alt="'Photo de '+${article.nom}">
             </div>
             <!-- Contenu de la carte -->
             <div class="card-details">

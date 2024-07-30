@@ -11,4 +11,6 @@ public interface UtilisateursService extends UserDetailsService {
 	Utilisateur getUtilisateur(String pseudo);
 
 	Adresse getAdresse(long id);
+	
+	void updateUtilisateur(Utilisateur utilisateur) throws Exception;
 }

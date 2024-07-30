@@ -57,9 +57,15 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 		return Optional.empty();
 	}
 
+	@Override
+	public void update(Utilisateur utilisateur) {
+		utilisateurDAO.update(utilisateur);
+	}
+
 //	@Override
 //	public Optional<Utilisateur> getCurrentUtilisateur() {
 //		return SecurityUtils.getCurrentUserLogin()
 //				.flatMap(this::getUtilisateurByPseudo);
 //	}
+	
 }

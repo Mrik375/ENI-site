@@ -30,4 +30,9 @@ public class AdresseServiceImpl implements AdresseService {
 	public List<Adresse> getAll() {
 		return adresseDAO.findAll();
 	}
+
+	@Override
+	public void update(Adresse adresse) {
+		adresseDAO.update(adresse);		
+	}
 }

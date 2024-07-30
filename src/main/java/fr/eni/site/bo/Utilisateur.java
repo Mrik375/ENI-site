@@ -1,17 +1,21 @@
 package fr.eni.site.bo;
 
+
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import fr.eni.site.bo.groupes.Enregistrer;
 import fr.eni.site.bo.groupes.Modifier;
-import jakarta.validation.constraints.*;
-
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 public class Utilisateur implements UserDetails {
 	
@@ -185,6 +189,4 @@ public class Utilisateur implements UserDetails {
 	public String getPassword() {
 		return motDePasse;
 	}
-
 }
-
