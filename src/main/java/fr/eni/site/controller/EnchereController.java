@@ -227,8 +227,7 @@ public class EnchereController {
 	}
 
 	private void updateField(Utilisateur utilisateur, Map<String, String> params) {
-		String[] fieldParts = params.get("field").split("\\.");
-		if (fieldParts.length == 1) {
+		if (!params.get("field").equals("adresse")) {
 			switch (params.get("field")) {
 				case "pseudo":
 					utilisateur.setPseudo(params.get("pseudo"));
@@ -246,18 +245,10 @@ public class EnchereController {
 					utilisateur.setTelephone(params.get("telephone"));
 					break;
 			}
-		} else if (fieldParts.length == 2 && fieldParts[0].equals("adresse")) {
-			switch (fieldParts[1]) {
-				case "rue":
-					utilisateur.getAdresse().setRue(params.get("adresse.rue"));
-					break;
-				case "ville":
-					utilisateur.getAdresse().setVille(params.get("adresse.ville"));
-					break;
-				case "codePostal":
-					utilisateur.getAdresse().setCodePostal(params.get("adresse.codePostal"));
-					break;
-			}
+		} else if (params.get("field").equals("adresse")) {
+			utilisateur.getAdresse().setRue(params.get("adresse.rue"));
+			utilisateur.getAdresse().setVille(params.get("adresse.ville"));
+			utilisateur.getAdresse().setCodePostal(params.get("adresse.codePostal"));
 		}
 	}
 }
