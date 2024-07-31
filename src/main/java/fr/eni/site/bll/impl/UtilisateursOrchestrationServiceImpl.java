@@ -22,12 +22,10 @@ public class UtilisateursOrchestrationServiceImpl implements UtilisateursOrchest
 
 	private final UtilisateurService utilisateurService;
 	private final AdresseService adresseService;
-	private final ArticleAVendreService articleAVendreService;
 
-	public UtilisateursOrchestrationServiceImpl(UtilisateurService utilisateurService, AdresseService adresseService, ArticleAVendreService articleAVendreService) {
+	public UtilisateursOrchestrationServiceImpl(UtilisateurService utilisateurService, AdresseService adresseService) {
 		this.utilisateurService = utilisateurService;
 		this.adresseService = adresseService;
-		this.articleAVendreService = articleAVendreService;
 	}
 
 	@Override
@@ -62,7 +60,7 @@ public class UtilisateursOrchestrationServiceImpl implements UtilisateursOrchest
 
 	public void chargerDependancesUtilisateur(Utilisateur utilisateur) {
 		chargeAdresseDansUtilisateur(utilisateur);
-		chargeArticlesVendusDansUtilisateur(utilisateur);
+		//chargeArticlesVendusDansUtilisateur(utilisateur);
 	}
 
 	public void chargeAdresseDansUtilisateur(Utilisateur utilisateur) {
@@ -70,7 +68,7 @@ public class UtilisateursOrchestrationServiceImpl implements UtilisateursOrchest
 	}
 
 	public void chargeArticlesVendusDansUtilisateur(Utilisateur utilisateur) {
-		utilisateur.setArticles(articleAVendreService.getByUtilisateur(utilisateur.getPseudo()));
+		//utilisateur.setArticles(articleAVendreService.getByUtilisateur(utilisateur.getPseudo()));
 	}
 
 	@Override
