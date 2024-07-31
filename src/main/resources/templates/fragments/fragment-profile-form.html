@@ -2,17 +2,17 @@
       method="post" data-th-object="${utilisateur}">
 
     <h2 data-th-if="${action == '/creercompte'}">Nouveau Profil</h2>
-    
+
     <h3 data-th-unless="${action == '/creercompte'}">Vos informations :</h3>
 
     <div data-th-replace="~{:: inputField('Pseudo :', 'pseudo', ~{})}"></div>
-    
+
     <div data-th-replace="~{:: inputField('Nom :', 'nom', ~{})}"></div>
-    
+
     <div data-th-replace="~{:: inputField('Prénom :', 'prenom', ~{})}"></div>
-    
+
     <div data-th-replace="~{:: inputField('Email :', 'email', 'email')}"></div>
-    
+
     <div data-th-replace="~{:: inputField('Téléphone :', 'telephone', ~{})}"></div>
 
     <fieldset>
@@ -40,20 +40,30 @@
 </form>
 
 <div data-th-fragment="inputField(label, field, type='text')">
+    <!-- Label toujours présent-->
     <label data-th-for="${field}" data-th-text="${label}"></label>
+
+    <!--    Section création de compte-->
     <div data-th-if="${action == '/creercompte'}">
         <!--data-th-field="*{__${field}__}" ne fonctionne pas si le fragment a plus de 1 attribut -->
         <!--<input data-th-type="${type}" data-th-id="${field}" data-th-field="*{__${field}__}" required><br><br>-->
         <div data-th-replace="~{:: creercompte(${field})}"></div>
     </div>
+
+    <!--    Profil-->
     <div data-th-unless="${action == '/creercompte'}">
+        <!--Profil non editable -->
         <span data-th-unless="${editable}" data-th-id="${field}" data-th-text="${utilisateur.__${field}__}"></span>
+
+        <!--Profil editable -->
         <div data-th-if="${editable}">
             <span data-th-if="${editField != field}" data-th-id="${field}" data-th-text="${#authentication.getPrincipal().__${field}__}"></span>
             <input data-th-if="${editField == field}" data-th-type="${type}" data-th-id="${field}" data-th-name="${field}" data-th-value="${#authentication.getPrincipal().__${field}__}"/>
             <button data-th-if="${editField != field && action == '/profil'}" type="submit" data-th-name="editField" data-th-value="${field}">Modifier</button>
         </div>
     </div>
+
+    <!-- Erreurs -->
     <div data-th-replace="~{fragments/errors/fragment-error :: frag-error(${field})}"></div>
 </div>
 
