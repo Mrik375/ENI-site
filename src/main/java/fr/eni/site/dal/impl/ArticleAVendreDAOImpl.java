@@ -29,6 +29,8 @@ public class ArticleAVendreDAOImpl implements ArticleAVendreDAO {
 	private static final String SQL_ID_UTILISATEUR = "id_utilisateur = :id_utilisateur";
 	private static final String SQL_NOM_ARTICLE = "nom_article LIKE :nom_article";
 	private static final String SQL_NO_CATEGORIE = "no_categorie = :no_categorie";
+	private static final String SQL_NO_ARTICLE = "no_article = :id_article";
+
 
 	private final NamedParameterJdbcTemplate jdbcTemplate;
 
@@ -83,40 +85,72 @@ public class ArticleAVendreDAOImpl implements ArticleAVendreDAO {
 	}
 
 	@Override
-	public List<ArticleAVendre> findStatusByFiltre(ArticleStatus[] articleStatuses, String pseudo, String nomArticle, CategorieArticle categorie) {
+	public List<ArticleAVendre> findByFiltre(ArticleStatus[] articleStatuses, String pseudo, String nomArticle, CategorieArticle categorie, long[] idArticles) {
 		StringBuilder sql = new StringBuilder(SQL_SELECT_ALL).append(SQL_WHERE);
 
 		MapSqlParameterSource params = new MapSqlParameterSource();
 
+		boolean firstRequest = true;
+
 		if (articleStatuses != null && articleStatuses.length > 0) {
 			sql.append("(");
 			for (int i = 0; i < articleStatuses.length; i++) {
-				sql.append(SQL_STATUT_ENCHERE).append(i);
-				params.addValue("statut_enchere" + i, articleStatuses[i].getCode());
-				if (i < articleStatuses.length - 1) {
+				if (i > 0) {
 					sql.append(SQL_OR);
 				}
+				sql.append(SQL_STATUT_ENCHERE).append(i);
+				params.addValue("statut_enchere" + i, articleStatuses[i].getCode());
+			}
+			sql.append(")");
+			firstRequest = false;
+		}
+
+		if (pseudo != null && !pseudo.isEmpty()) {
+			if (!firstRequest) {
+				sql.append(SQL_AND);
+			}
+			sql.append(SQL_ID_UTILISATEUR);
+			params.addValue("id_utilisateur", pseudo);
+			firstRequest = false;
+		}
+
+		if (nomArticle != null && !nomArticle.isEmpty()) {
+			if (!firstRequest) {
+				sql.append(SQL_AND);
+			}
+			sql.append(SQL_NOM_ARTICLE);
+			params.addValue("nom_article", "%" + nomArticle + "%");
+			firstRequest = false;
+		}
+
+		if (categorie != null) {
+			if (!firstRequest) {
+				sql.append(SQL_AND);
+			}
+			sql.append(SQL_NO_CATEGORIE);
+			params.addValue("no_categorie", categorie.getCode());
+			firstRequest = false;
+		}
+
+		if (idArticles != null && idArticles.length > 0) {
+			if (!firstRequest) {
+				sql.append(SQL_AND);
+			}
+			sql.append("(");
+			for (int i = 0; i < idArticles.length; i++) {
+				if (i > 0) {
+					sql.append(SQL_OR);
+				}
+				sql.append(SQL_NO_ARTICLE).append(i);
+				params.addValue("id_article" + i, idArticles[i]);
 			}
 			sql.append(")");
 		}
 
-		if (pseudo != null && !pseudo.isEmpty()) {
-			sql.append(SQL_AND).append(SQL_ID_UTILISATEUR);
-			params.addValue("id_utilisateur", pseudo);
-		}
-
-		if (nomArticle != null && !nomArticle.isEmpty()) {
-			sql.append(SQL_AND).append(SQL_NOM_ARTICLE);
-			params.addValue("nom_article", "%" + nomArticle + "%");
-		}
-
-		if (categorie != null) {
-			sql.append(SQL_AND).append(SQL_NO_CATEGORIE);
-			params.addValue("no_categorie", categorie.getCode());
-		}
-
 		return jdbcTemplate.query(sql.toString(), params, new ArticleAVendreRowMapper());
 	}
+
+
 
 
 	private class ArticleAVendreRowMapper implements RowMapper<ArticleAVendre> {

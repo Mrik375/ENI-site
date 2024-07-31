@@ -74,7 +74,7 @@ public class EnchereController {
 	}
 
 	private List<ArticleAVendre> filtre(String nomArticle, CategorieArticle categorie) {
-		return articlesService.getArticlesFiltre(new ArticleStatus[]{EN_COURS}, null, nomArticle, categorie);
+		return articlesService.getArticlesFiltre(new ArticleStatus[]{EN_COURS}, null, nomArticle, categorie, null);
 	}
 
 	public List<ArticleAVendre> filtreAchats(Model model,
@@ -85,16 +85,16 @@ public class EnchereController {
 	) {
 		switch (select) {
 			case "encheres_ouvertes":
-				articles = articlesService.getArticlesFiltre(new ArticleStatus[]{EN_COURS}, null, nomArticle, categorie);
+				articles = articlesService.getArticlesFiltre(new ArticleStatus[]{EN_COURS}, null, nomArticle, categorie, null);
 				break;
 			case "mes_encheres_en_cours":
-				//articles = encheresService.getMesEncheresEnCours(pseudo, nomArticle, categorie);
+				articles = articlesService.getMesEncheresEnCours(pseudo, nomArticle, categorie);
 				break;
 			case "mes_encheres_remportees":
-				//articles = encheresService.getMesEncheresRemportees(pseudo, nomArticle, categorie);
+				//articles = articlesService.getMesEncheresRemportees(pseudo, nomArticle, categorie);
 				break;
 			default:
-				articles = articlesService.getArticlesFiltre(new ArticleStatus[]{EN_COURS}, null, nomArticle, categorie);
+				articles = articlesService.getArticlesFiltre(new ArticleStatus[]{EN_COURS}, null, nomArticle, categorie, null);
 		}
 		model.addAttribute("select", select);
 		return articles;
@@ -108,16 +108,16 @@ public class EnchereController {
 	) {
 		switch (select) {
 			case "mes_ventes_en_cours":
-				articles = articlesService.getArticlesFiltre(new ArticleStatus[]{EN_COURS}, pseudo, nomArticle, categorie);
+				articles = articlesService.getArticlesFiltre(new ArticleStatus[]{EN_COURS}, pseudo, nomArticle, categorie, null);
 				break;
 			case "mes_ventes_non_debutees":
-				articles = articlesService.getArticlesFiltre(new ArticleStatus[]{PAS_COMMENCEE}, pseudo, nomArticle, categorie);
+				articles = articlesService.getArticlesFiltre(new ArticleStatus[]{PAS_COMMENCEE}, pseudo, nomArticle, categorie, null);
 				break;
 			case "mes_ventes_terminees":
-				articles = articlesService.getArticlesFiltre(new ArticleStatus[]{CLOTUREE, LIVREE}, pseudo, nomArticle, categorie);
+				articles = articlesService.getArticlesFiltre(new ArticleStatus[]{CLOTUREE, LIVREE}, pseudo, nomArticle, categorie, null);
 				break;
 			default:
-				articles = articlesService.getArticlesFiltre(new ArticleStatus[]{EN_COURS}, pseudo, nomArticle, categorie);
+				articles = articlesService.getArticlesFiltre(new ArticleStatus[]{EN_COURS}, pseudo, nomArticle, categorie, null);
 		}
 		model.addAttribute("select", select);
 		return articles;

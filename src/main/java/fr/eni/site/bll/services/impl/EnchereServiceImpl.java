@@ -44,4 +44,9 @@ public class EnchereServiceImpl implements EnchereService {
 	public Enchere getHighestMontantByArticle(long noArticle) {
 		return enchereDAO.findHighestMontantByArticle(noArticle);
 	}
+
+	@Override
+	public List<Enchere> getEncheresByPseudo(String pseudo) {
+		return enchereDAO.findByUtilisateur(pseudo);
+	}
 }

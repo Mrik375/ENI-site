@@ -12,5 +12,7 @@ public interface ArticlesService {
 
 	List<ArticleAVendre> getAllActiveArticles();
 
-	List<ArticleAVendre> getArticlesFiltre(ArticleStatus[] status, String pseudo, String filtre, CategorieArticle categorie);
+	List<ArticleAVendre> getArticlesFiltre(ArticleStatus[] status, String pseudo, String filtre, CategorieArticle categorie, long[] idArticle);
+
+	List<ArticleAVendre> getMesEncheresEnCours(String pseudo, String nomArticle, CategorieArticle categorie);
 }

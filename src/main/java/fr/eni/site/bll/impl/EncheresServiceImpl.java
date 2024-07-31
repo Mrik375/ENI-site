@@ -21,4 +21,5 @@ public class EncheresServiceImpl implements EncheresService {
 		this.utilisateursService = utilisateursService;
 		this.articlesService = articlesService;
 	}
+
 }
