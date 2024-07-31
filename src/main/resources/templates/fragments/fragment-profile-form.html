@@ -1,31 +1,32 @@
 <form id="form-creer" class="form-place" data-th-fragment="profile-form(action)" data-th-action="@{${action}}"
       method="post" data-th-object="${utilisateur}">
 
-    <h3 data-th-unless="${action == '/creercompte'}">Vos informations :</h3>
+    <h3 data-th-unless="${action == '/creercompte'}" data-th-text="#{frag-profile.h3}"></h3>
 
-    <div data-th-replace="~{:: inputField('Pseudo :', 'pseudo', ~{}, false)}"></div>
+    <div data-th-replace="~{:: inputField('__#{frag-profile-form.div.pseudo}__', 'pseudo', ~{}, false)}"></div>
 
-    <div data-th-replace="~{:: inputField('Nom :', 'nom', ~{}, false)}"></div>
+    <div data-th-replace="~{:: inputField('Nom :', 'nom', ~{}, false)}" data-th-text="#{frag-profile-form.div.nom}"></div>
 
-    <div data-th-replace="~{:: inputField('Prénom :', 'prenom', ~{}, false)}"></div>
+    <div data-th-replace="~{:: inputField('Prénom :', 'prenom', ~{}, false)}" data-th-text="#{frag-profile-form.div.prenom}"></div>
 
-    <div data-th-replace="~{:: inputField('Email :', 'email', 'email', false)}"></div>
+    <div data-th-replace="~{:: inputField('Email :', 'email', 'email', false)}" data-th-text="#{frag-profile-form.div.mail}"></div>
 
-    <div data-th-replace="~{:: inputField('Téléphone :', 'telephone', ~{}, false)}"></div>
+    <div data-th-replace="~{:: inputField('Téléphone :', 'telephone', ~{}, false)}" data-th-text="#{frag-profile-form.div.tel}"></div>
 
     <fieldset>
-        <label>Adresse :</label>
-        <div data-th-replace="~{:: inputField('Rue :', 'adresse.rue', ~{}, true)}"></div>
-        <div data-th-replace="~{:: inputField('Code Postal :', 'adresse.codePostal', ~{}, true)}"></div>
-        <div data-th-replace="~{:: inputField('Ville :', 'adresse.ville', ~{}, true)}"></div>
+        <label data-th-text="#{frag-profile.label}"></label>
+        <div data-th-replace="~{:: inputField('Rue :', 'adresse.rue', ~{}, true)}" data-th-text="#{frag-profile-form.div.rue}"></div>
+        <div data-th-replace="~{:: inputField('Code Postal :', 'adresse.codePostal', ~{}, true)}" data-th-text="#{frag-profile-form.div.code}"></div>
+        <div data-th-replace="~{:: inputField('Ville :', 'adresse.ville', ~{}, true)}" data-th-text="#{frag-profile-form.div.}"></div>
         <div data-th-replace="~{:: inputField('', 'adresse', ~{}, true)}"></div>
     </fieldset>
 
     <div data-th-if="${editable && editField != null}">
         <input  type="hidden" name="field" data-th-value="${editField}"/>
-        <button type="submit" name="action" value="modifier">Enregistrer</button>
-        <button type="submit" name="action" value="annuler">Annuler</button>
+        <button type="submit" name="action" value="modifier" data-th-text="#{frag-profile.button.en}"></button>
+        <button type="submit" name="action" value="annuler" data-th-text="#{frag-profile.button.an}"></button>
     </div>
+
 
     <div id="div-mdp" data-th-if="${action == '/creercompte'}">
         <label for="motDePasse">Mot de passe (*):</label>
@@ -36,7 +37,16 @@
         <input type="password" id="confirmMDP" name="confirmMDP" required><br>
         <p id="p-erreur"></p><br>
 
-        <button type="submit">Créer</button>
+    <div id="div-mdp" data-th-if="${action == '/creercompte'}">
+        <label for="motDePasse" data-th-text="#{frag-profile.label.mdp}"></label>
+        <input type="password" id="motDePasse" data-th-field="*{motDePasse}" required><br><br>
+<div data-th-replace="~{fragments/errors/fragment-error :: frag-error('motDePasse')}"></div>
+
+        <label for="confirmMDP" data-th-text="#{frag-profile.label.conf}"></label>
+        <input type="password" id="confirmMDP" name="confirmMDP" required><br><br>
+		<p id="p-erreur"></p><br>
+
+        <button type="submit" data-th-text="#{frag-profile.button}"></button>
     </div>
 </form>
 

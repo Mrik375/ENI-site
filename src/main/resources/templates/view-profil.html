@@ -9,7 +9,7 @@
     </th:block>
 </head>
 <main class="form-container">
-<h2>Profil</h2>
+<h2 data-th-text="#{view-profil.h2}"></h2>
     <div data-th-if="${editField == null}">
         <div data-th-replace="~{fragments/fragment-profile-form :: profile-form(action='/profil')}"></div>
     </div>

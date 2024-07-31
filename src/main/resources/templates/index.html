@@ -3,13 +3,14 @@
 																							  contenuPage=~{:: main},
 																							  ressourcesSupp=~{})}">
 <head>
-	<title>Enchères ENI</title>	
+	<title data-th-text="#{index.title}"></title>	
 </head>
 
 <body>
 	<!-- conteneur pour centrer formulaire -->
 	<main class="form-container">
-		<h2>Liste des enchères</h2>
+		<!-- Liste des enchères -->
+		<h2 data-th-text="#{index.h2}"></h2>
 		
 		<!-- FORMULAIRE -->
 		<form data-th-replace="~{fragments/fragment-accueil-form :: frag-accueil-form}"action="/rechercher" method="get">		
@@ -23,7 +24,8 @@
             </th:block>
             <!-- Si rien à afficher -->
             <th:block data-th-if="${#lists.isEmpty(articles)}">
-                <p>Aucun article en vente pour le moment.</p>
+            	<!-- Aucun article en vente pour le moment. -->
+                <p data-th-text="#{index.p}"></p>
             </th:block>
         </div>
 	</main>	

@@ -5,25 +5,31 @@
 		    <a href="/?language=en"><img alt="English" src="/images/English.webp"></a>
 		</div>
 		<h1>
-			<a data-th-href="@{/accueil}"><img data-th-src="@{/images/logoENI.png}">Eni-Enchères</a>
+			<!-- Eni-Enchères -->		
+			<a data-th-href="@{/accueil}"><img data-th-src="@{/images/logoENI.png}" data-th-text="#{frag-entete.a.eni}"></a>
 		</h1>		
 	</section>
 	<nav>
 		<ul>
 			<!-- Tjrs affiché -->
+			<!-- Accueil -->
 			<li><a data-th-href="@{/accueil}" data-th-text="#{frag-entete.a.accueil}"></a></li>
 			<!-- SI PAS connecté  &&  SI PAS sur page de connexion -->
 			<th:block data-sec-authorize="!isAuthenticated()">
+			<!-- Connexion -->
 				<li><a data-th-href="@{/connexion}" data-th-text="#{frag-entete.a.connexion}"></a></li>
 			</th:block>
 			<!-- SI connecté -->
 			<th:block data-sec-authorize="isAuthenticated()">
-				<li><a data-th-href="@{/vendre}" data-th-text="#{frag-entete.a.vendre}">Vendre un article</a></li>
-				<li><a data-th-href="@{/profil}" data-th-text="#{frag-entete.a.profil}">Mon profil</a></li>
+				<!-- Vendre un article -->
+				<li><a data-th-href="@{/vendre}" data-th-text="#{frag-entete.a.vendre}"></a></li>
+				<!-- Mon profil -->
+				<li><a data-th-href="@{/profil}" data-th-text="#{frag-entete.a.profil}"></a></li>
 <!--				<li><a data-th-href="@{/logout}">Se déconnecter</a></li>-->
 				<li>
 					<form data-th-action="@{/logout}" method="POST">
-						<button type="submit" class="button-as-link" data-th-text="#{frag-entete.a.deconnexion}">Se déconnecter</button>
+					<!-- Se deconnecter -->
+						<button type="submit" class="button-as-link" data-th-text="#{frag-entete.button.deconnexion}"></button>
 					</form>
 				</li>
 			</th:block>

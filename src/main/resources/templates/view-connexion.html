@@ -8,21 +8,21 @@
 <main>
     <form data-th-action="@{/connexion}" method="POST">
         <div>
-            <label for="identifiant">Identifiant :</label>
+            <label for="identifiant" data-th-text="#{view-connexion.label.identifiant}">Identifiant :</label>
             <input type="text" id="identifiant" name="username" required>
         </div>
         <div>
-            <label for="motDePasse">Mot de passe :</label>
+            <label for="motDePasse" data-th-text="#{view-connexion.label}"></label>
             <input type="password" id="motDePasse" name="password" required>
         </div>
         <div>
-            <button type="submit">Connexion</button>
+            <button type="submit" data-th-text="#{view-connexion.button}"></button>
         </div>
         <div>
-            <a href="/forgot-password">Mot de passe oublié</a>
+            <a href="/forgot-password" data-th-text="#{view-connexion.a}"></a>
         </div>
         <div>
-            <button type="button" onclick="window.location.href='/creercompte';">Créer un compte</button>
+            <button type="button" onclick="window.location.href='/creercompte';" data-th-text="#{view-connexion.button.new}"></button>
         </div>
     </form>
 </main>
