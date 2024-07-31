@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import fr.eni.site.bo.groupes.Enregistrer;
 import fr.eni.site.bo.groupes.Modifier;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -63,6 +64,7 @@ public class Utilisateur implements UserDetails {
 	
 	private int credit = 10;
 	private boolean administrateur;
+	@Valid
 	private Adresse adresse;
 	private List<ArticleAVendre> articles;
 
