@@ -2,16 +2,27 @@ package fr.eni.site.bo;
 
 import java.util.Objects;
 
+import fr.eni.site.bo.groupes.Enregistrer;
+import fr.eni.site.bo.groupes.Modifier;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+
 public class Adresse {
     private long id;
     
-    
+    @NotBlank(message = "{validation.adresse.rue.blank}",
+			groups = {Enregistrer.class, Modifier.class})
     private String rue;
     
-    
+    @NotBlank(message = "{validation.adresse.codePostal.blank}",
+			groups = {Enregistrer.class, Modifier.class})  
+    @Pattern(regexp="^\\d{2}[ ]?\\d{3}$",
+	message = "{validation.adresse.codePostal.pattern}",
+	groups = {Enregistrer.class, Modifier.class})
     private String codePostal;
     
-    
+    @NotBlank(message = "{validation.adresse.ville.blank}",
+			groups = {Enregistrer.class, Modifier.class})
     private String ville;
 
     @Override
