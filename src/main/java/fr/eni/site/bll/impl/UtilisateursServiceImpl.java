@@ -76,8 +76,8 @@ public class UtilisateursServiceImpl implements UtilisateursService {
 	@Override
 	public void updateUtilisateur(Utilisateur utilisateur) {
 		utilisateurService.update(utilisateur);
-		updatePrincipal(utilisateur);
-		
+		adresseService.update(utilisateur.getAdresse());
+		updatePrincipal(utilisateur);		
 	}
 
 	public void updatePrincipal(Utilisateur utilisateur) {
