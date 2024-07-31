@@ -1,4 +1,4 @@
-<form class="form-place" data-th-fragment="profile-form(action)" data-th-action="@{${action}}"
+<form id="form-creer" class="form-place" data-th-fragment="profile-form(action)" data-th-action="@{${action}}"
       method="post" data-th-object="${utilisateur}">
 
     <h3 data-th-unless="${action == '/creercompte'}">Vos informations :</h3>
@@ -27,13 +27,14 @@
         <button type="submit" name="action" value="annuler">Annuler</button>
     </div>
 
-    <div data-th-if="${action == '/creercompte'}">
+    <div id="div-mdp" data-th-if="${action == '/creercompte'}">
         <label for="motDePasse">Mot de passe (*):</label>
         <input type="password" id="motDePasse" data-th-field="*{motDePasse}" required><br><br>
 <div data-th-replace="~{fragments/errors/fragment-error :: frag-error('motDePasse')}"></div>
 
         <label for="confirmMDP">Confirmation (*):</label>
-        <input type="password" id="confirmMDP" name="confirmMDP" required><br><br>
+        <input type="password" id="confirmMDP" name="confirmMDP" required><br>
+        <p id="p-erreur"></p><br>
 
         <button type="submit">Créer</button>
     </div>
