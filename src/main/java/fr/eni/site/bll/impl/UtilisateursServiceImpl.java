@@ -6,10 +6,16 @@ import fr.eni.site.bll.services.ArticleAVendreService;
 import fr.eni.site.bll.services.UtilisateurService;
 import fr.eni.site.bo.Adresse;
 import fr.eni.site.bo.Utilisateur;
+import fr.eni.site.util.SecurityUtils;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Service
 public class UtilisateursServiceImpl implements UtilisateursService {
@@ -70,6 +76,23 @@ public class UtilisateursServiceImpl implements UtilisateursService {
 	@Override
 	public void updateUtilisateur(Utilisateur utilisateur) {
 		utilisateurService.update(utilisateur);
+		updatePrincipal(utilisateur);
 		
+	}
+
+	public void updatePrincipal(Utilisateur utilisateur) {
+		Optional<String> currentUserLogin = SecurityUtils.getCurrentUserLogin();
+
+		if (currentUserLogin.isPresent() && currentUserLogin.get().equals(utilisateur.getPseudo())) {
+			UserDetails updatedUserDetails = loadUserByUsername(utilisateur.getPseudo());
+
+			Authentication newAuth = new UsernamePasswordAuthenticationToken(
+					updatedUserDetails,
+					null,
+					updatedUserDetails.getAuthorities()
+			);
+
+			SecurityContextHolder.getContext().setAuthentication(newAuth);
+		}
 	}
 }
