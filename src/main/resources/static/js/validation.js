@@ -1,9 +1,9 @@
 document.addEventListener("DOMContentLoaded", function() {
-    var formulaire = document.getElementById("form-creer"); // Remplacez par l'ID de votre formulaire
+    var formulaire = document.getElementById("form-creer"); // formulaire
     formulaire.addEventListener("submit", function(e) {
-        var motDePasse = document.getElementById("motDePasse").value; // Remplacez par l'ID de votre champ de mot de passe
-        var confirmation = document.getElementById("confirmMDP").value; // Remplacez par l'ID de votre champ de confirmation
-        var messageErreur = document.getElementById("p-erreur"); // L'ID de votre paragraphe pour le message d'erreur
+        var motDePasse = document.getElementById("motDePasse").value; // champ de mot de passe
+        var confirmation = document.getElementById("confirmMDP").value; // champ de confirmation
+        var messageErreur = document.getElementById("p-erreur"); //paragraphe pour le message d'erreur
 
 		console.log("mot de passe : " + motDePasse + " confirmation : " + confirmation);
 
