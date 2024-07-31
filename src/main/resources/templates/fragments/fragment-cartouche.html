@@ -1,5 +1,5 @@
 <div id="cartouche" xmlns:th="http://www.thymeleaf.org" data-th-fragment="frag-cartouche">
-<span data-th-text=" 'LO/CAL/DATE' "></span>
+<span data-th-text="${#temporals.format(#temporals.createToday(), #locale)}"></span>
 <!--A FAIRE : SI Connecté  -->
 <th:block data-sec-authorize="isAuthenticated()" >
 	<span data-th-text="'Participant : ' +${#authentication.getPrincipal().pseudo}"></span>
