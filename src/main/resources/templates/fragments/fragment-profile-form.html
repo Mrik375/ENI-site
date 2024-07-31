@@ -52,7 +52,7 @@
     <!--    Profil-->
     <div data-th-unless="${action == '/creercompte'}">
         <!--Profil non editable -->
-        <span data-th-unless="${editable}" data-th-id="${field}" data-th-text="${utilisateur.__${field}__}"></span>
+        <span data-th-if="${!editable && label != ''}" data-th-id="${field}" data-th-text="${utilisateur.__${field}__}"></span>
 
         <!--Profil editable -->
         <div data-th-if="${editable}">
