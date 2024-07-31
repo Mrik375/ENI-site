@@ -45,7 +45,7 @@
     <label data-th-for="${field}" data-th-text="${label}"></label>
 
     <!--    Section création de compte-->
-    <div data-th-if="${action == '/creercompte'}">
+    <div data-th-if="${action == '/creercompte' && label != ''}">
         <!--data-th-field="*{__${field}__}" ne fonctionne pas si le fragment a plus de 1 attribut -->
         <!--<input data-th-type="${type}" data-th-id="${field}" data-th-field="*{__${field}__}" required><br><br>-->
         <div data-th-replace="~{:: creercompte(${field})}"></div>
