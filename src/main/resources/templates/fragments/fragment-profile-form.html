@@ -27,14 +27,16 @@
         <button type="submit" name="action" value="annuler" data-th-text="#{frag-profile.button.an}"></button>
     </div>
 
-    <div id="div-mdp" data-th-if="${action == '/creercompte'}">
+    <div data-th-if="${action == '/creercompte'}">
         <label for="motDePasse" data-th-text="#{frag-profile.label.mdp}"></label>
         <input type="password" id="motDePasse" data-th-field="*{motDePasse}" required><br><br>
 <div data-th-replace="~{fragments/errors/fragment-error :: frag-error('motDePasse')}"></div>
 
         <label for="confirmMDP" data-th-text="#{frag-profile.label.conf}"></label>
         <input type="password" id="confirmMDP" name="confirmMDP" required><br><br>
-		<p id="p-erreur"></p><br>
+        
+        <!-- balise <p> pour afficher le message d'erreur du script JS sur la validation de correspondance de motDePasse et confirmMDP -->
+		<p id="js-erreur"></p><br>
 
         <button type="submit" data-th-text="#{frag-profile.button}"></button>
     </div>

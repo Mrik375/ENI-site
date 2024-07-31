@@ -6,14 +6,15 @@
     <th:block id="ressources-css">
     	<link rel="stylesheet" data-th-href="@{/css/creer-compte-form.css}">
     	<link rel="stylesheet" data-th-href="@{/css/site-error.css}">
+    	<script src="/js/validation.js" th:src="@{/js/validation.js}" defer></script>
     </th:block>
-    <script src="/js/validation.js" th:src="@{/js/validation.js}" defer></script>
+    
     
     </head>
     
 <main>
 
-	<h2 data-th-text="#{view-creer-compte.h2}"></h2>
+	<h2 id="titreH2" data-th-text="#{view-creer-compte.h2}"></h2>
     <div data-th-replace="~{fragments/fragment-profile-form :: profile-form(action='/creercompte')}"></div>
 </main>
 
