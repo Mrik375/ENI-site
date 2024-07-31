@@ -2,25 +2,33 @@ package fr.eni.site.controller;
 
 import fr.eni.site.bll.ArticlesOrchestrationService;
 import fr.eni.site.bll.UtilisateursOrchestrationService;
-import fr.eni.site.bo.ArticleAVendre;
-import fr.eni.site.bo.ArticleStatus;
-import fr.eni.site.bo.CategorieArticle;
-import fr.eni.site.bo.Utilisateur;
-import fr.eni.site.bo.groupes.Enregistrer;
-import fr.eni.site.bo.groupes.Modifier;
+import static fr.eni.site.bo.ArticleStatus.CLOTUREE;
+import static fr.eni.site.bo.ArticleStatus.EN_COURS;
+import static fr.eni.site.bo.ArticleStatus.LIVREE;
+import static fr.eni.site.bo.ArticleStatus.PAS_COMMENCEE;
+
+import java.security.Principal;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.DataBinder;
 import org.springframework.validation.Validator;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import java.security.Principal;
-import java.util.List;
-import java.util.Map;
-
-import static fr.eni.site.bo.ArticleStatus.*;
+import fr.eni.site.bo.ArticleAVendre;
+import fr.eni.site.bo.ArticleStatus;
+import fr.eni.site.bo.CategorieArticle;
+import fr.eni.site.bo.Utilisateur;
+import fr.eni.site.bo.groupes.Enregistrer;
+import fr.eni.site.bo.groupes.Modifier;
 
 @Controller
 public class EnchereController {
@@ -203,7 +211,7 @@ public class EnchereController {
 				return "view-profil";
 			}
 			// Enregistrer les modifications en base de données
-			utilisateursOrchestrationService.updateUtilisateur(utilisateur);
+			utilisateursOrchestrationService.updateUtilisateur(utilisateur, params.get("field"), principal.getName());
 			return "redirect:/profil";
 		} catch (Exception e) {
 			e.printStackTrace();

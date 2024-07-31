@@ -9,8 +9,6 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;
 
 import fr.eni.site.bo.Adresse;
@@ -25,6 +23,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	private static final String SQL_SELECT_ALL = "SELECT pseudo, nom, prenom, email, telephone, mot_de_passe, credit, administrateur, no_adresse FROM UTILISATEURS";
 	private static final String SQL_EXISTS_BY_PSEUDO = "SELECT CASE WHEN EXISTS (SELECT 1 FROM UTILISATEURS WHERE pseudo = :pseudo) THEN 1 ELSE 0 END AS RowExists";
 	private static final String SQL_UPDATE = "UPDATE UTILISATEURS SET nom = :nom, prenom = :prenom, email = :email, telephone = :telephone WHERE pseudo = :pseudo";
+	private static final String SQL_UPDATE_PSEUDO = "UPDATE UTILISATEUR SET pseudo= :pseudo WHERE pseudo = :oldPseudo";
 
 	private final NamedParameterJdbcTemplate jdbcTemplate;
 
@@ -105,9 +104,16 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
         params.addValue("prenom", utilisateur.getPrenom());
         params.addValue("email", utilisateur.getEmail());
         params.addValue("telephone", utilisateur.getTelephone());
-        // 
-        params.addValue("pseudo", utilisateur.getPseudo());
 
         jdbcTemplate.update(SQL_UPDATE, params);
     }
+	
+	public void updatePseudo(String pseudo, String oldPseudo) {
+		
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		
+		params.addValue("pseudo", pseudo);
+		params.addValue("oldPseudo", oldPseudo);
+		jdbcTemplate.update(SQL_UPDATE_PSEUDO, params);
+	}
 }

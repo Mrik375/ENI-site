@@ -1,12 +1,7 @@
 package fr.eni.site.bll.impl;
 
-import fr.eni.site.bll.UtilisateursOrchestrationService;
-import fr.eni.site.bll.services.AdresseService;
-import fr.eni.site.bll.services.ArticleAVendreService;
-import fr.eni.site.bll.services.UtilisateurService;
-import fr.eni.site.bo.Adresse;
-import fr.eni.site.bo.Utilisateur;
-import fr.eni.site.util.SecurityUtils;
+import java.util.Optional;
+
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,7 +10,12 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
+import fr.eni.site.bll.UtilisateursOrchestrationService;
+import fr.eni.site.bll.services.AdresseService;
+import fr.eni.site.bll.services.UtilisateurService;
+import fr.eni.site.bo.Adresse;
+import fr.eni.site.bo.Utilisateur;
+import fr.eni.site.util.SecurityUtils;
 
 @Service
 public class UtilisateursOrchestrationServiceImpl implements UtilisateursOrchestrationService {
@@ -72,10 +72,15 @@ public class UtilisateursOrchestrationServiceImpl implements UtilisateursOrchest
 	}
 
 	@Override
-	public void updateUtilisateur(Utilisateur utilisateur) {
-		utilisateurService.update(utilisateur);
+	public void updateUtilisateur(Utilisateur utilisateur, String field, String oldPseudo) {
+		if(field.equals("pseudo")) {
+		utilisateurService.updatePseudo(utilisateur.getPseudo(), oldPseudo);
+		}else if(field.equals("adresse")) {		
 		adresseService.update(utilisateur.getAdresse());
-		updatePrincipal(utilisateur);		
+		}else {
+		utilisateurService.update(utilisateur);				
+		}
+		updatePrincipal(utilisateur);
 	}
 
 	public void updatePrincipal(Utilisateur utilisateur) {

@@ -11,6 +11,6 @@ public interface UtilisateursOrchestrationService extends UserDetailsService {
 	Utilisateur getUtilisateur(String pseudo);
 
 	Adresse getAdresse(long id);
-	
-	void updateUtilisateur(Utilisateur utilisateur) throws Exception;
+
+	void updateUtilisateur(Utilisateur utilisateur, String field, String oldPseudo);
 }

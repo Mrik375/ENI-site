@@ -61,6 +61,14 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 		utilisateurDAO.update(utilisateur);
 	}
 
+	@Override
+	public void updatePseudo(String pseudo, String oldPseudo) {
+		utilisateurDAO.updatePseudo(pseudo, oldPseudo);
+		
+	}
+	
+
+
 //	@Override
 //	public Optional<Utilisateur> getCurrentUtilisateur() {
 //		return SecurityUtils.getCurrentUserLogin()

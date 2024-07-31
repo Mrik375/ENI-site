@@ -17,4 +17,6 @@ public interface UtilisateurService {
 	Optional<Utilisateur> getLogged();
 	
 	void update(Utilisateur utilisateur);
+
+	void updatePseudo(String pseudo, String oldPseudo);
 }
