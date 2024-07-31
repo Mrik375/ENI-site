@@ -6,7 +6,7 @@ main {
   padding: 20px;
 }
 
-form {
+#form-creer {
 padding: 20px;
 }
 
@@ -14,3 +14,4 @@ fieldset {
 	border-style: none;
 	padding : 20px;
 }
+

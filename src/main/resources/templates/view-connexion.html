@@ -5,23 +5,22 @@
     <title>Connexion</title>
 </head>
 <body>
-<main>
-    <form data-th-action="@{/connexion}" method="POST">
-        <div>
+<main class="form-container">
+	<h2>Connexion</h2>
+    <form class="form-connexion" data-th-action="@{/connexion}" method="POST">
+        <div class="ident-conex">
             <label for="identifiant" data-th-text="#{view-connexion.label.identifiant}">Identifiant :</label>
             <input type="text" id="identifiant" name="username" required>
         </div>
-        <div>
+        <div class="mdp-conex">
             <label for="motDePasse" data-th-text="#{view-connexion.label}"></label>
             <input type="password" id="motDePasse" name="password" required>
         </div>
-        <div>
-            <button type="submit" data-th-text="#{view-connexion.button}"></button>
-        </div>
-        <div>
+        <div class="valid-conex">
+            <button type="submit">Connexion</button>
             <a href="/forgot-password" data-th-text="#{view-connexion.a}"></a>
         </div>
-        <div>
+        <div class="crea-compte">
             <button type="button" onclick="window.location.href='/creercompte';" data-th-text="#{view-connexion.button.new}"></button>
         </div>
     </form>
