@@ -6,7 +6,7 @@ import fr.eni.site.bo.CategorieArticle;
 
 import java.util.List;
 
-public interface ArticlesService {
+public interface ArticlesOrchestrationService {
 
 	List<ArticleAVendre> getAllArticles();
 

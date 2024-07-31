@@ -4,7 +4,7 @@ import fr.eni.site.bo.Adresse;
 import fr.eni.site.bo.Utilisateur;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
-public interface UtilisateursService extends UserDetailsService {
+public interface UtilisateursOrchestrationService extends UserDetailsService {
 
 	void registerUtilisateur(Utilisateur utilisateur) throws Exception;
 

@@ -1,7 +1,7 @@
 package fr.eni.site.controller;
 
-import fr.eni.site.bll.ArticlesService;
-import fr.eni.site.bll.UtilisateursService;
+import fr.eni.site.bll.ArticlesOrchestrationService;
+import fr.eni.site.bll.UtilisateursOrchestrationService;
 import fr.eni.site.bo.ArticleAVendre;
 import fr.eni.site.bo.ArticleStatus;
 import fr.eni.site.bo.CategorieArticle;
@@ -24,21 +24,21 @@ import static fr.eni.site.bo.ArticleStatus.*;
 
 @Controller
 public class EnchereController {
-	private final UtilisateursService utilisateursService;
-	private final ArticlesService articlesService;
+	private final UtilisateursOrchestrationService utilisateursOrchestrationService;
+	private final ArticlesOrchestrationService articlesOrchestrationService;
 	private final Validator validator;
 	private List<ArticleAVendre> articles;
 
-	public EnchereController(UtilisateursService utilisateursService, Validator validator, ArticlesService articlesService) {
-		this.utilisateursService = utilisateursService;
-		this.articlesService = articlesService;
+	public EnchereController(UtilisateursOrchestrationService utilisateursOrchestrationService, Validator validator, ArticlesOrchestrationService articlesOrchestrationService) {
+		this.utilisateursOrchestrationService = utilisateursOrchestrationService;
+		this.articlesOrchestrationService = articlesOrchestrationService;
 		this.validator = validator;
 	}
 
 	@GetMapping({"/accueil", "/"})
 	public String accueil(Model model) {
 		// TODO : remplacer getAllArticles() par getAllActiveArticles()
-		List<ArticleAVendre> articles = articlesService.getAllArticles();
+		List<ArticleAVendre> articles = articlesOrchestrationService.getAllArticles();
 		model.addAttribute("articles", articles);
 		return "index";
 	}
@@ -74,7 +74,7 @@ public class EnchereController {
 	}
 
 	private List<ArticleAVendre> filtre(String nomArticle, CategorieArticle categorie) {
-		return articlesService.getArticlesFiltre(new ArticleStatus[]{EN_COURS}, null, nomArticle, categorie, null);
+		return articlesOrchestrationService.getArticlesFiltre(new ArticleStatus[]{EN_COURS}, null, nomArticle, categorie, null);
 	}
 
 	public List<ArticleAVendre> filtreAchats(Model model,
@@ -85,16 +85,16 @@ public class EnchereController {
 	) {
 		switch (select) {
 			case "encheres_ouvertes":
-				articles = articlesService.getArticlesFiltre(new ArticleStatus[]{EN_COURS}, null, nomArticle, categorie, null);
+				articles = articlesOrchestrationService.getArticlesFiltre(new ArticleStatus[]{EN_COURS}, null, nomArticle, categorie, null);
 				break;
 			case "mes_encheres_en_cours":
-				articles = articlesService.getMesEncheresEnCours(pseudo, nomArticle, categorie);
+				articles = articlesOrchestrationService.getMesEncheresEnCours(pseudo, nomArticle, categorie);
 				break;
 			case "mes_encheres_remportees":
 				//articles = articlesService.getMesEncheresRemportees(pseudo, nomArticle, categorie);
 				break;
 			default:
-				articles = articlesService.getArticlesFiltre(new ArticleStatus[]{EN_COURS}, null, nomArticle, categorie, null);
+				articles = articlesOrchestrationService.getArticlesFiltre(new ArticleStatus[]{EN_COURS}, null, nomArticle, categorie, null);
 		}
 		model.addAttribute("select", select);
 		return articles;
@@ -108,16 +108,16 @@ public class EnchereController {
 	) {
 		switch (select) {
 			case "mes_ventes_en_cours":
-				articles = articlesService.getArticlesFiltre(new ArticleStatus[]{EN_COURS}, pseudo, nomArticle, categorie, null);
+				articles = articlesOrchestrationService.getArticlesFiltre(new ArticleStatus[]{EN_COURS}, pseudo, nomArticle, categorie, null);
 				break;
 			case "mes_ventes_non_debutees":
-				articles = articlesService.getArticlesFiltre(new ArticleStatus[]{PAS_COMMENCEE}, pseudo, nomArticle, categorie, null);
+				articles = articlesOrchestrationService.getArticlesFiltre(new ArticleStatus[]{PAS_COMMENCEE}, pseudo, nomArticle, categorie, null);
 				break;
 			case "mes_ventes_terminees":
-				articles = articlesService.getArticlesFiltre(new ArticleStatus[]{CLOTUREE, LIVREE}, pseudo, nomArticle, categorie, null);
+				articles = articlesOrchestrationService.getArticlesFiltre(new ArticleStatus[]{CLOTUREE, LIVREE}, pseudo, nomArticle, categorie, null);
 				break;
 			default:
-				articles = articlesService.getArticlesFiltre(new ArticleStatus[]{EN_COURS}, pseudo, nomArticle, categorie, null);
+				articles = articlesOrchestrationService.getArticlesFiltre(new ArticleStatus[]{EN_COURS}, pseudo, nomArticle, categorie, null);
 		}
 		model.addAttribute("select", select);
 		return articles;
@@ -144,7 +144,7 @@ public class EnchereController {
 			return "view-creer-compte";
 		} else {
 			try {
-				utilisateursService.registerUtilisateur(utilisateur);
+				utilisateursOrchestrationService.registerUtilisateur(utilisateur);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -162,7 +162,7 @@ public class EnchereController {
 		if (principal != null && principal.getName().equals(pseudo)) {
 			return "redirect:/profil";
 		}
-		Utilisateur utilisateur = utilisateursService.getUtilisateur(pseudo);
+		Utilisateur utilisateur = utilisateursOrchestrationService.getUtilisateur(pseudo);
 		profilModel(model, utilisateur, false, null);
 		return "view-profil";
 	}
@@ -193,7 +193,7 @@ public class EnchereController {
 	private String handleModifierAction(Principal principal, Model model,
 										@RequestParam Map<String, String> params) {
 		try {
-			Utilisateur utilisateur = utilisateursService.getUtilisateur(principal.getName());
+			Utilisateur utilisateur = utilisateursOrchestrationService.getUtilisateur(principal.getName());
 			updateField(utilisateur, params);
 			BindingResult bindingResult = valider(utilisateur, Modifier.class);
 
@@ -203,7 +203,7 @@ public class EnchereController {
 				return "view-profil";
 			}
 			// Enregistrer les modifications en base de données
-			utilisateursService.updateUtilisateur(utilisateur);
+			utilisateursOrchestrationService.updateUtilisateur(utilisateur);
 			return "redirect:/profil";
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -1,7 +1,7 @@
 package fr.eni.site.bll.impl;
 
-import fr.eni.site.bll.ArticlesService;
-import fr.eni.site.bll.UtilisateursService;
+import fr.eni.site.bll.ArticlesOrchestrationService;
+import fr.eni.site.bll.UtilisateursOrchestrationService;
 import fr.eni.site.bll.services.ArticleAVendreService;
 import fr.eni.site.bll.services.CategorieService;
 import fr.eni.site.bll.services.EnchereService;
@@ -11,24 +11,22 @@ import fr.eni.site.bo.CategorieArticle;
 import fr.eni.site.bo.Enchere;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Stream;
 
 import static fr.eni.site.bo.ArticleStatus.EN_COURS;
 
 @Service
-public class ArticlesServiceImpl implements ArticlesService {
+public class ArticlesOrchestrationServiceImpl implements ArticlesOrchestrationService {
 
 	private final ArticleAVendreService articleAVendreService;
 	private final CategorieService categorieService;
-	private final UtilisateursService utilisateursService;
+	private final UtilisateursOrchestrationService utilisateursOrchestrationService;
 	private final EnchereService enchereService;
 
-	public ArticlesServiceImpl(ArticleAVendreService articleAVendreService, CategorieService categorieService, UtilisateursService utilisateursService, EnchereService enchereService) {
+	public ArticlesOrchestrationServiceImpl(ArticleAVendreService articleAVendreService, CategorieService categorieService, UtilisateursOrchestrationService utilisateursOrchestrationService, EnchereService enchereService) {
 		this.articleAVendreService = articleAVendreService;
 		this.categorieService = categorieService;
-		this.utilisateursService = utilisateursService;
+		this.utilisateursOrchestrationService = utilisateursOrchestrationService;
 		this.enchereService = enchereService;
 	}
 
@@ -73,11 +71,11 @@ public class ArticlesServiceImpl implements ArticlesService {
 	}
 
 	public void chargeAdresseDansArticle(ArticleAVendre article) {
-		article.setAdresseRetrait(utilisateursService.getAdresse(article.getAdresseRetrait().getId()));
+		article.setAdresseRetrait(utilisateursOrchestrationService.getAdresse(article.getAdresseRetrait().getId()));
 	}
 
 	public void chargeUtilisateurDansArticle(ArticleAVendre article) {
-		article.setVendeur(utilisateursService.getUtilisateur(article.getVendeur().getPseudo()));
+		article.setVendeur(utilisateursOrchestrationService.getUtilisateur(article.getVendeur().getPseudo()));
 	}
 
 

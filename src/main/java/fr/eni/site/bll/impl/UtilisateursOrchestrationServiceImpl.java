@@ -1,6 +1,6 @@
 package fr.eni.site.bll.impl;
 
-import fr.eni.site.bll.UtilisateursService;
+import fr.eni.site.bll.UtilisateursOrchestrationService;
 import fr.eni.site.bll.services.AdresseService;
 import fr.eni.site.bll.services.ArticleAVendreService;
 import fr.eni.site.bll.services.UtilisateurService;
@@ -18,13 +18,13 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 @Service
-public class UtilisateursServiceImpl implements UtilisateursService {
+public class UtilisateursOrchestrationServiceImpl implements UtilisateursOrchestrationService {
 
 	private final UtilisateurService utilisateurService;
 	private final AdresseService adresseService;
 	private final ArticleAVendreService articleAVendreService;
 
-	public UtilisateursServiceImpl(UtilisateurService utilisateurService, AdresseService adresseService, ArticleAVendreService articleAVendreService) {
+	public UtilisateursOrchestrationServiceImpl(UtilisateurService utilisateurService, AdresseService adresseService, ArticleAVendreService articleAVendreService) {
 		this.utilisateurService = utilisateurService;
 		this.adresseService = adresseService;
 		this.articleAVendreService = articleAVendreService;
