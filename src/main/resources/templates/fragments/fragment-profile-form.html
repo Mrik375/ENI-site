@@ -5,19 +5,19 @@
 
     <div data-th-replace="~{:: inputField('__#{frag-profile-form.div.pseudo}__', 'pseudo', ~{}, false)}"></div>
 
-    <div data-th-replace="~{:: inputField('Nom :', 'nom', ~{}, false)}" data-th-text="#{frag-profile-form.div.nom}"></div>
+    <div data-th-replace="~{:: inputField('__#{frag-profile-form.div.nom}__', 'nom', ~{}, false)}"></div>
 
-    <div data-th-replace="~{:: inputField('Prénom :', 'prenom', ~{}, false)}" data-th-text="#{frag-profile-form.div.prenom}"></div>
+    <div data-th-replace="~{:: inputField('__#{frag-profile-form.div.prenom}__', 'prenom', ~{}, false)}"></div>
 
-    <div data-th-replace="~{:: inputField('Email :', 'email', 'email', false)}" data-th-text="#{frag-profile-form.div.mail}"></div>
+    <div data-th-replace="~{:: inputField('__#{frag-profile-form.div.mail}__', 'email', 'email', false)}"></div>
 
-    <div data-th-replace="~{:: inputField('Téléphone :', 'telephone', ~{}, false)}" data-th-text="#{frag-profile-form.div.tel}"></div>
+    <div data-th-replace="~{:: inputField('__#{frag-profile-form.div.tel}__', 'telephone', ~{}, false)}"></div>
 
     <fieldset>
         <label data-th-text="#{frag-profile.label}"></label>
-        <div data-th-replace="~{:: inputField('Rue :', 'adresse.rue', ~{}, true)}" data-th-text="#{frag-profile-form.div.rue}"></div>
-        <div data-th-replace="~{:: inputField('Code Postal :', 'adresse.codePostal', ~{}, true)}" data-th-text="#{frag-profile-form.div.code}"></div>
-        <div data-th-replace="~{:: inputField('Ville :', 'adresse.ville', ~{}, true)}" data-th-text="#{frag-profile-form.div.}"></div>
+        <div data-th-replace="~{:: inputField('__#{frag-profile-form.div.rue}__', 'adresse.rue', ~{}, true)}"></div>
+        <div data-th-replace="~{:: inputField('__#{frag-profile-form.div.code}__', 'adresse.codePostal', ~{}, true)}"></div>
+        <div data-th-replace="~{:: inputField('__#{frag-profile-form.div.ville}__', 'adresse.ville', ~{}, true)}"></div>
         <div data-th-replace="~{:: inputField('', 'adresse', ~{}, true)}"></div>
     </fieldset>
 
@@ -26,16 +26,6 @@
         <button type="submit" name="action" value="modifier" data-th-text="#{frag-profile.button.en}"></button>
         <button type="submit" name="action" value="annuler" data-th-text="#{frag-profile.button.an}"></button>
     </div>
-
-
-    <div id="div-mdp" data-th-if="${action == '/creercompte'}">
-        <label for="motDePasse">Mot de passe (*):</label>
-        <input type="password" id="motDePasse" data-th-field="*{motDePasse}" required><br><br>
-<div data-th-replace="~{fragments/errors/fragment-error :: frag-error('motDePasse')}"></div>
-
-        <label for="confirmMDP">Confirmation (*):</label>
-        <input type="password" id="confirmMDP" name="confirmMDP" required><br>
-        <p id="p-erreur"></p><br>
 
     <div id="div-mdp" data-th-if="${action == '/creercompte'}">
         <label for="motDePasse" data-th-text="#{frag-profile.label.mdp}"></label>
