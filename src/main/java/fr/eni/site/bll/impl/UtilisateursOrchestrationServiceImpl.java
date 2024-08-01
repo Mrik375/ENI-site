@@ -73,29 +73,25 @@ public class UtilisateursOrchestrationServiceImpl implements UtilisateursOrchest
 
 	@Override
 	public void updateUtilisateur(Utilisateur utilisateur, String field, String oldPseudo) {
-		if(field.equals("pseudo")) {
-		utilisateurService.updatePseudo(utilisateur.getPseudo(), oldPseudo);
-		}else if(field.equals("adresse")) {		
-		adresseService.update(utilisateur.getAdresse());
-		}else {
-		utilisateurService.update(utilisateur);				
+		if (field.equals("pseudo")) {
+			utilisateurService.updatePseudo(utilisateur.getPseudo(), oldPseudo);
+		} else if (field.equals("adresse")) {
+			adresseService.update(utilisateur.getAdresse());
+		} else {
+			utilisateurService.update(utilisateur);
 		}
 		updatePrincipal(utilisateur);
 	}
 
 	public void updatePrincipal(Utilisateur utilisateur) {
-		Optional<String> currentUserLogin = SecurityUtils.getCurrentUserLogin();
+		UserDetails updatedUserDetails = loadUserByUsername(utilisateur.getPseudo());
 
-		if (currentUserLogin.isPresent() && currentUserLogin.get().equals(utilisateur.getPseudo())) {
-			UserDetails updatedUserDetails = loadUserByUsername(utilisateur.getPseudo());
+		Authentication newAuth = new UsernamePasswordAuthenticationToken(
+				updatedUserDetails,
+				null,
+				updatedUserDetails.getAuthorities()
+		);
 
-			Authentication newAuth = new UsernamePasswordAuthenticationToken(
-					updatedUserDetails,
-					null,
-					updatedUserDetails.getAuthorities()
-			);
-
-			SecurityContextHolder.getContext().setAuthentication(newAuth);
-		}
+		SecurityContextHolder.getContext().setAuthentication(newAuth);
 	}
 }

@@ -215,6 +215,7 @@ public class EnchereController {
 			return "redirect:/profil";
 		} catch (Exception e) {
 			e.printStackTrace();
+			profilModel(model, new Utilisateur(), true, params.get("field"));
 			model.addAttribute("error", "Une erreur s'est produite lors de la mise à jour du profil. Veuillez réessayer.");
 			return "view-profil";
 		}

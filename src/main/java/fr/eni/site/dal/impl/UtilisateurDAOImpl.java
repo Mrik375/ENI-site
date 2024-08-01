@@ -105,6 +105,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
         params.addValue("email", utilisateur.getEmail());
         params.addValue("telephone", utilisateur.getTelephone());
 
+		params.addValue("pseudo", utilisateur.getPseudo());
         jdbcTemplate.update(SQL_UPDATE, params);
     }
 	
