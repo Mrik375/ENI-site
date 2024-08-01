@@ -140,7 +140,7 @@ public class EnchereController {
 	//CREER NOUVEAU COMPTE(Page5 PDF - Leo)
 	@GetMapping("/creercompte")
 	public String creerCompte(Model model) {
-		profilModel(model, new Utilisateur(), true, null);
+		profilModel(model, new Utilisateur(), false, null);
 		return "view-creer-compte";
 	}
 
