@@ -4,21 +4,17 @@
     <h3 data-th-unless="${action == '/creercompte'}" data-th-text="#{frag-profile.h3}"></h3>
 
     <div data-th-replace="~{:: inputField('__#{frag-profile-form.div.pseudo}__', 'pseudo', ~{}, false)}"></div>
-
     <div data-th-replace="~{:: inputField('__#{frag-profile-form.div.nom}__', 'nom', ~{}, false)}"></div>
-
     <div data-th-replace="~{:: inputField('__#{frag-profile-form.div.prenom}__', 'prenom', ~{}, false)}"></div>
-
     <div data-th-replace="~{:: inputField('__#{frag-profile-form.div.mail}__', 'email', 'email', false)}"></div>
-
     <div data-th-replace="~{:: inputField('__#{frag-profile-form.div.tel}__', 'telephone', ~{}, false)}"></div>
 
     <fieldset>
-        <label data-th-text="#{frag-profile.label}"></label>
+        <label>Adresse :</label>
         <div data-th-replace="~{:: inputField('__#{frag-profile-form.div.rue}__', 'adresse.rue', ~{}, true)}"></div>
         <div data-th-replace="~{:: inputField('__#{frag-profile-form.div.code}__', 'adresse.codePostal', ~{}, true)}"></div>
         <div data-th-replace="~{:: inputField('__#{frag-profile-form.div.ville}__', 'adresse.ville', ~{}, true)}"></div>
-        <div data-th-replace="~{:: inputField('', 'adresse', ~{}, true)}"></div>
+        <button data-th-if="${editable && editField != 'adresse' && editField != 'pseudo' && editField != 'nom' && editField != 'prenom' && editField != 'email' && editField != 'telephone'}" type="submit" data-th-name="'editField'" data-th-value="'adresse'">Modifier Adresse</button>
     </fieldset>
 
     <div data-th-if="${editable && editField != null}">
@@ -30,7 +26,7 @@
     <div data-th-if="${action == '/creercompte'}">
         <label for="motDePasse" data-th-text="#{frag-profile.label.mdp}"></label>
         <input type="password" id="motDePasse" data-th-field="*{motDePasse}" required><br><br>
-<div data-th-replace="~{fragments/errors/fragment-error :: frag-error('motDePasse')}"></div>
+        <div data-th-replace="~{fragments/errors/fragment-error :: frag-error('motDePasse')}"></div>
 
         <label for="confirmMDP" data-th-text="#{frag-profile.label.conf}"></label>
         <input type="password" id="confirmMDP" name="confirmMDP" required><br><br>
@@ -43,27 +39,29 @@
 </form>
 
 <div data-th-fragment="inputField(label, field, type='text', isAddress)">
-    <!-- Label toujours présent-->
+    <!-- Label toujours présent -->
     <label data-th-for="${field}" data-th-text="${label}"></label>
 
-    <!--    Section création de compte-->
+    <!-- Page création de compte -->
     <div data-th-if="${action == '/creercompte' && label != ''}">
-        <!--data-th-field="*{__${field}__}" ne fonctionne pas si le fragment a plus de 1 attribut -->
-        <!--<input data-th-type="${type}" data-th-id="${field}" data-th-field="*{__${field}__}" required><br><br>-->
         <div data-th-replace="~{:: creercompte(${field})}"></div>
     </div>
 
-    <!--    Profil-->
+    <!-- Page de profil -->
     <div data-th-unless="${action == '/creercompte'}">
-        <!--Profil non editable -->
-        <span data-th-if="${!editable && label != ''}" data-th-id="${field}" data-th-text="${utilisateur.__${field}__}"></span>
+        <!-- Profil non editable -->
+        <span data-th-if="${!editable}" data-th-id="${field}" data-th-text="${utilisateur.__${field}__}"></span>
 
-        <!--Profil editable -->
+        <!-- Profil editable -->
         <div data-th-if="${editable}">
-            <span data-th-if="${editField != field && field != 'adresse'}" data-th-id="${field}" data-th-text="${#authentication.getPrincipal().__${field}__}"></span>
-            <input data-th-if="${label != '' && (editField == field || (editField == 'adresse' && isAddress))}" data-th-type="${type}" data-th-id="${field}" data-th-name="${field}" data-th-value="${#authentication.getPrincipal().__${field}__}"/>
-            <button data-th-if="${editField != field && action == '/profil' && !isAddress}" type="submit" data-th-name="editField" data-th-value="${field}">Modifier</button>
-            <button data-th-if="${field == 'adresse' && action == '/profil' && isAddress}" type="submit" data-th-name="editField" data-th-value="${field}">Modifier Adresse</button>
+            <!-- pas en train de modifier -->
+            <div data-th-if="${editField != field && (!isAddress || editField != 'adresse')}">
+                <span data-th-id="${field}" data-th-text="${#authentication.getPrincipal().__${field}__}"></span>
+                <!-- Modifier button for non-address fields -->
+                <button data-th-if="${action == '/profil' && !isAddress}" type="submit" data-th-name="editField" data-th-value="${field}">Modifier</button>
+            </div>
+            <!-- en train de modifier -->
+            <input data-th-if="${editField == field || (isAddress && editField == 'adresse')}" data-th-type="${type}" data-th-id="${field}" data-th-name="${field}" data-th-value="${#authentication.getPrincipal().__${field}__}"/>
         </div>
     </div>
 
