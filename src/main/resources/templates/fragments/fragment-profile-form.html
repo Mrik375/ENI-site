@@ -32,7 +32,7 @@
         <input type="password" id="confirmMDP" name="confirmMDP" required><br><br>
         
         <!-- balise <p> pour afficher le message d'erreur du script JS sur la validation de correspondance de motDePasse et confirmMDP -->
-		<p id="js-erreur"></p><br>
+		<p id="js-erreur" data-th-text="#{frag-profile.confirmError}"></p><br>
 
         <button type="submit" data-th-text="#{frag-profile.button}"></button>
     </div>

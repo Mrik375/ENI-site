@@ -148,7 +148,7 @@ public class EnchereController {
 	public String creerCompte(@Validated(Enregistrer.class) @ModelAttribute("utilisateur") Utilisateur utilisateur, BindingResult bindingResult, Model model,
 							  @RequestParam(name = "confirmMDP") String confirmMDP) {
 		if (bindingResult.hasErrors()) {
-			profilModel(model, utilisateur, true, null);
+			profilModel(model, utilisateur, false, null);
 			return "view-creer-compte";
 		} else {
 			try {

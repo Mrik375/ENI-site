@@ -14,3 +14,8 @@ fieldset {
 	border-style: none;
 	padding : 20px;
 }
+
+#js-erreur{
+	color: #ff6a6a;
+	display: none;
+}
