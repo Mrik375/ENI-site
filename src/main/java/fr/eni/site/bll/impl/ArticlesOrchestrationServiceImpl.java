@@ -11,6 +11,7 @@ import fr.eni.site.bo.CategorieArticle;
 import fr.eni.site.bo.Enchere;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 import static fr.eni.site.bo.ArticleStatus.EN_COURS;
@@ -55,7 +56,10 @@ public class ArticlesOrchestrationServiceImpl implements ArticlesOrchestrationSe
 	public List<ArticleAVendre> getMesEncheresEnCours(String pseudo, String nomArticle, CategorieArticle categorie) {
 		List<Enchere> encheres = enchereService.getEncheresByPseudo(pseudo);
 		long[] idArticles = encheres.stream().mapToLong(Enchere::getArticleAVendreId).toArray();
-		List<ArticleAVendre> articles = getArticlesFiltre(new ArticleStatus[]{EN_COURS}, pseudo, nomArticle, categorie, idArticles);
+		if (idArticles.length == 0) {
+			return Collections.emptyList();
+		}
+		List<ArticleAVendre> articles = getArticlesFiltre(new ArticleStatus[]{EN_COURS}, null, nomArticle, categorie, idArticles);
 		articles.forEach(this::chargerDependencesDansArticle);
 		return articles;
 	}

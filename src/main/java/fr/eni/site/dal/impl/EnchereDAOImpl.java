@@ -20,6 +20,19 @@ public class EnchereDAOImpl implements EnchereDAO {
 	private static final String SQL_SELECT_BY_ID = "SELECT id_utilisateur, no_article, montant_enchere, date_enchere FROM ENCHERES WHERE id_utilisateur = :id_utilisateur AND no_article = :no_article AND montant_enchere = :montant_enchere";
 	private static final String SQL_SELECT_ALL = "SELECT id_utilisateur, no_article, montant_enchere, date_enchere FROM ENCHERES";
 	private static final String SQL_SELECT_BY_UTILISATEUR = "SELECT id_utilisateur, no_article, montant_enchere, date_enchere FROM ENCHERES WHERE id_utilisateur = :id_utilisateur";
+	private static final String SQL_SELECT_BY_UTILISATEUR_ARTICLE_UNIQUE = """
+			WITH EncheresWithRowNumber AS (
+                                               SELECT id_utilisateur, no_article, montant_enchere, date_enchere,
+                                                      ROW_NUMBER() OVER (PARTITION BY no_article ORDER BY date_enchere DESC) AS rn
+                                               FROM ENCHERES
+                                               WHERE id_utilisateur = :id_utilisateur
+                                           )
+                                           SELECT id_utilisateur, no_article, montant_enchere, date_enchere
+                                           FROM EncheresWithRowNumber
+                                           WHERE rn = 1
+                                           
+			""";
+
 	private static final String SQL_SELECT_BY_ARTICLE = "SELECT id_utilisateur, no_article, montant_enchere, date_enchere FROM ENCHERES WHERE no_article = :no_article";
 	private static final String SQL_SELECT_HIGHEST_BY_ARTICLE = "SELECT TOP 1 id_utilisateur, no_article, montant_enchere, date_enchere FROM ENCHERES WHERE no_article = :no_article ORDER BY montant_enchere DESC";
 
@@ -61,7 +74,7 @@ public class EnchereDAOImpl implements EnchereDAO {
 	public List<Enchere> findByUtilisateur(String pseudo) {
 		MapSqlParameterSource params = new MapSqlParameterSource();
 		params.addValue("id_utilisateur", pseudo);
-		return jdbcTemplate.query(SQL_SELECT_BY_UTILISATEUR, params, new EnchereRowMapper());
+		return jdbcTemplate.query(SQL_SELECT_BY_UTILISATEUR_ARTICLE_UNIQUE, params, new EnchereRowMapper());
 	}
 
 	@Override
