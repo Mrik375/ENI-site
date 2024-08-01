@@ -23,7 +23,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	private static final String SQL_SELECT_ALL = "SELECT pseudo, nom, prenom, email, telephone, mot_de_passe, credit, administrateur, no_adresse FROM UTILISATEURS";
 	private static final String SQL_EXISTS_BY_PSEUDO = "SELECT CASE WHEN EXISTS (SELECT 1 FROM UTILISATEURS WHERE pseudo = :pseudo) THEN 1 ELSE 0 END AS RowExists";
 	private static final String SQL_UPDATE = "UPDATE UTILISATEURS SET nom = :nom, prenom = :prenom, email = :email, telephone = :telephone WHERE pseudo = :pseudo";
-	private static final String SQL_UPDATE_PSEUDO = "UPDATE UTILISATEUR SET pseudo= :pseudo WHERE pseudo = :oldPseudo";
+	private static final String SQL_UPDATE_PSEUDO = "UPDATE UTILISATEURS SET pseudo= :pseudo WHERE pseudo = :oldPseudo";
 
 	private final NamedParameterJdbcTemplate jdbcTemplate;
 

@@ -70,6 +70,6 @@
 </div>
 
 <div data-th-fragment="creercompte(field)">
-    <input data-th-unless="${field == 'email'}" data-th-type="text" data-th-id="pseudo" data-th-field="*{__${field}__}" required>
-    <input data-th-if="${field == 'email'}" data-th-type="email" data-th-id="pseudo" data-th-field="*{__${field}__}" required>
+    <input data-th-unless="${field == 'email'}" data-th-type="text" data-th-id="${field}" data-th-field="*{__${field}__}" required>
+    <input data-th-if="${field == 'email'}" data-th-type="email" data-th-id="${field}" data-th-field="*{__${field}__}" required>
 </div>
