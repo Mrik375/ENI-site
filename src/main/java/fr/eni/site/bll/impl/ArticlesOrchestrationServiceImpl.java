@@ -40,14 +40,14 @@ public class ArticlesOrchestrationServiceImpl implements ArticlesOrchestrationSe
 
 	@Override
 	public List<ArticleAVendre> getAllActiveArticles() {
-		List<ArticleAVendre> articles = getArticlesFiltre(new ArticleStatus[]{EN_COURS}, null, null, null, null);
+		List<ArticleAVendre> articles = getArticlesFiltre(new ArticleStatus[]{EN_COURS}, null, null, null, null, false);
 		articles.forEach(this::chargerDependencesDansArticle);
 		return articles;
 	}
 
 	@Override
-	public List<ArticleAVendre> getArticlesFiltre(ArticleStatus[] status, String pseudo, String nomArticle, CategorieArticle categorie, long[] idArticle) {
-		List<ArticleAVendre> articles = articleAVendreService.getStatusByFiltre(status, pseudo, nomArticle, categorie, idArticle);
+	public List<ArticleAVendre> getArticlesFiltre(ArticleStatus[] status, String pseudo, String nomArticle, CategorieArticle categorie, long[] idArticle, boolean notPseudo) {
+		List<ArticleAVendre> articles = articleAVendreService.getStatusByFiltre(status, pseudo, nomArticle, categorie, idArticle, notPseudo);
 		articles.forEach(this::chargerDependencesDansArticle);
 		return articles;
 	}
@@ -59,7 +59,7 @@ public class ArticlesOrchestrationServiceImpl implements ArticlesOrchestrationSe
 		if (idArticles.length == 0) {
 			return Collections.emptyList();
 		}
-		List<ArticleAVendre> articles = getArticlesFiltre(new ArticleStatus[]{EN_COURS}, null, nomArticle, categorie, idArticles);
+		List<ArticleAVendre> articles = getArticlesFiltre(new ArticleStatus[]{EN_COURS}, null, nomArticle, categorie, idArticles, false);
 		articles.forEach(this::chargerDependencesDansArticle);
 		return articles;
 	}

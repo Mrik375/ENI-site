@@ -17,6 +17,6 @@ public interface ArticleAVendreService {
 
 	void setArticleStatus(long id, ArticleStatus statutEnchere);
 
-	List<ArticleAVendre> getStatusByFiltre(ArticleStatus[] articleStatus, String pseudo, String nomArticle, CategorieArticle categorie, long[] idArticles);
+	List<ArticleAVendre> getStatusByFiltre(ArticleStatus[] articleStatus, String pseudo, String nomArticle, CategorieArticle categorie, long[] idArticles, boolean notPseudo);
 }
 

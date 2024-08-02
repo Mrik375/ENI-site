@@ -25,6 +25,7 @@ public class ArticleAVendreDAOImpl implements ArticleAVendreDAO {
 	private static final String SQL_WHERE = " WHERE ";
 	private static final String SQL_AND = " AND ";
 	private static final String SQL_OR = " OR ";
+	private static final String SQL_NOT = "NOT ";
 	private static final String SQL_STATUT_ENCHERE = "statut_enchere = :statut_enchere";
 	private static final String SQL_ID_UTILISATEUR = "id_utilisateur = :id_utilisateur";
 	private static final String SQL_NOM_ARTICLE = "nom_article LIKE :nom_article";
@@ -85,7 +86,12 @@ public class ArticleAVendreDAOImpl implements ArticleAVendreDAO {
 	}
 
 	@Override
-	public List<ArticleAVendre> findByFiltre(ArticleStatus[] articleStatuses, String pseudo, String nomArticle, CategorieArticle categorie, long[] idArticles) {
+	public List<ArticleAVendre> findByFiltre(ArticleStatus[] articleStatuses,
+											 String pseudo,
+											 String nomArticle,
+											 CategorieArticle categorie,
+											 long[] idArticles,
+											 boolean notPseudo) {
 		StringBuilder sql = new StringBuilder(SQL_SELECT_ALL).append(SQL_WHERE);
 
 		MapSqlParameterSource params = new MapSqlParameterSource();
@@ -108,6 +114,9 @@ public class ArticleAVendreDAOImpl implements ArticleAVendreDAO {
 		if (pseudo != null && !pseudo.isEmpty()) {
 			if (!firstRequest) {
 				sql.append(SQL_AND);
+			}
+			if (notPseudo) {
+				sql.append(SQL_NOT);
 			}
 			sql.append(SQL_ID_UTILISATEUR);
 			params.addValue("id_utilisateur", pseudo);

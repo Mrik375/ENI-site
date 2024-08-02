@@ -43,8 +43,8 @@ public class ArticleAVendreServiceImpl implements ArticleAVendreService {
 	}
 
 	@Override
-	public List<ArticleAVendre> getStatusByFiltre(ArticleStatus[] articleStatus, String pseudo, String nomArticle, CategorieArticle categorie, long[] idArticles) {
-		return articleAVendreDAO.findByFiltre(articleStatus, pseudo, nomArticle, categorie, idArticles);
+	public List<ArticleAVendre> getStatusByFiltre(ArticleStatus[] articleStatus, String pseudo, String nomArticle, CategorieArticle categorie, long[] idArticles, boolean notPseudo) {
+		return articleAVendreDAO.findByFiltre(articleStatus, pseudo, nomArticle, categorie, idArticles, notPseudo);
 	}
 
 }

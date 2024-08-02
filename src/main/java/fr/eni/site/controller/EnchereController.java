@@ -10,6 +10,7 @@ import static fr.eni.site.bo.ArticleStatus.PAS_COMMENCEE;
 import java.security.Principal;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -44,9 +45,12 @@ public class EnchereController {
 	}
 
 	@GetMapping({"/accueil", "/"})
-	public String accueil(Model model) {
-		// TODO : remplacer getAllArticles() par getAllActiveArticles()
-		List<ArticleAVendre> articles = articlesOrchestrationService.getAllArticles();
+	public String accueil(Model model, Principal principal) {
+		if (principal != null) {
+			articles = articlesOrchestrationService.getArticlesFiltre(new ArticleStatus[]{EN_COURS}, principal.getName(), null, null, null, true);
+		} else {
+			articles = articlesOrchestrationService.getAllActiveArticles();
+		}
 		model.addAttribute("articles", articles);
 		return "index";
 	}
@@ -82,7 +86,7 @@ public class EnchereController {
 	}
 
 	private List<ArticleAVendre> filtre(String nomArticle, CategorieArticle categorie) {
-		return articlesOrchestrationService.getArticlesFiltre(new ArticleStatus[]{EN_COURS}, null, nomArticle, categorie, null);
+		return articlesOrchestrationService.getArticlesFiltre(new ArticleStatus[]{EN_COURS}, null, nomArticle, categorie, null, false);
 	}
 
 	public List<ArticleAVendre> filtreAchats(Model model,
@@ -93,7 +97,7 @@ public class EnchereController {
 	) {
 		switch (select) {
 			case "encheres_ouvertes":
-				articles = articlesOrchestrationService.getArticlesFiltre(new ArticleStatus[]{EN_COURS}, null, nomArticle, categorie, null);
+				articles = articlesOrchestrationService.getArticlesFiltre(new ArticleStatus[]{EN_COURS}, pseudo, nomArticle, categorie, null, true);
 				break;
 			case "mes_encheres_en_cours":
 				articles = articlesOrchestrationService.getMesEncheresEnCours(pseudo, nomArticle, categorie);
@@ -102,7 +106,7 @@ public class EnchereController {
 				//articles = articlesService.getMesEncheresRemportees(pseudo, nomArticle, categorie);
 				break;
 			default:
-				articles = articlesOrchestrationService.getArticlesFiltre(new ArticleStatus[]{EN_COURS}, null, nomArticle, categorie, null);
+				articles = articlesOrchestrationService.getArticlesFiltre(new ArticleStatus[]{EN_COURS}, null, nomArticle, categorie, null, false);
 		}
 		model.addAttribute("select", select);
 		return articles;
@@ -116,16 +120,16 @@ public class EnchereController {
 	) {
 		switch (select) {
 			case "mes_ventes_en_cours":
-				articles = articlesOrchestrationService.getArticlesFiltre(new ArticleStatus[]{EN_COURS}, pseudo, nomArticle, categorie, null);
+				articles = articlesOrchestrationService.getArticlesFiltre(new ArticleStatus[]{EN_COURS}, pseudo, nomArticle, categorie, null, false);
 				break;
 			case "mes_ventes_non_debutees":
-				articles = articlesOrchestrationService.getArticlesFiltre(new ArticleStatus[]{PAS_COMMENCEE}, pseudo, nomArticle, categorie, null);
+				articles = articlesOrchestrationService.getArticlesFiltre(new ArticleStatus[]{PAS_COMMENCEE}, pseudo, nomArticle, categorie, null, false);
 				break;
 			case "mes_ventes_terminees":
-				articles = articlesOrchestrationService.getArticlesFiltre(new ArticleStatus[]{CLOTUREE, LIVREE}, pseudo, nomArticle, categorie, null);
+				articles = articlesOrchestrationService.getArticlesFiltre(new ArticleStatus[]{CLOTUREE, LIVREE}, pseudo, nomArticle, categorie, null, false);
 				break;
 			default:
-				articles = articlesOrchestrationService.getArticlesFiltre(new ArticleStatus[]{EN_COURS}, pseudo, nomArticle, categorie, null);
+				articles = articlesOrchestrationService.getArticlesFiltre(new ArticleStatus[]{EN_COURS}, pseudo, nomArticle, categorie, null, false);
 		}
 		model.addAttribute("select", select);
 		return articles;
