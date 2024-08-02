@@ -8,10 +8,8 @@ document.addEventListener("DOMContentLoaded", function() {
     // État initial
     if (radioAchats.checked) {
         ventesDropdown.disabled = true;
-        achatsDropdown.selectedIndex = 0;
     } else if (radioVentes.checked) {
         achatsDropdown.disabled = true;
-        achatsDropdown.selectedIndex = 0;
     }
 
     radioAchats.addEventListener("change", function() {
@@ -19,7 +17,6 @@ document.addEventListener("DOMContentLoaded", function() {
             radioVentes.checked = false;
             ventesDropdown.disabled = true;
             achatsDropdown.disabled = false;
-            achatsDropdown.selectedIndex = 0;
         }
     });
 
@@ -28,7 +25,6 @@ document.addEventListener("DOMContentLoaded", function() {
             radioAchats.checked = false;
             achatsDropdown.disabled = true;
             ventesDropdown.disabled = false;
-            achatsDropdown.selectedIndex = 0;
         }
     });
 });
