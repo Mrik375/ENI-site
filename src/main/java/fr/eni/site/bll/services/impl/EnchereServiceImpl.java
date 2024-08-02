@@ -49,4 +49,9 @@ public class EnchereServiceImpl implements EnchereService {
 	public List<Enchere> getEncheresByPseudo(String pseudo) {
 		return enchereDAO.findByUtilisateur(pseudo);
 	}
+
+	@Override
+	public List<Long> getNoArticleByUtilisateur(String pseudo) {
+		return enchereDAO.findNoArticleByUtilisateur(pseudo);
+	}
 }

@@ -46,7 +46,7 @@ public class ArticlesOrchestrationServiceImpl implements ArticlesOrchestrationSe
 	}
 
 	@Override
-	public List<ArticleAVendre> getArticlesFiltre(ArticleStatus[] status, String pseudo, String nomArticle, CategorieArticle categorie, long[] idArticle, boolean notPseudo) {
+	public List<ArticleAVendre> getArticlesFiltre(ArticleStatus[] status, String pseudo, String nomArticle, CategorieArticle categorie, List<Long> idArticle, boolean notPseudo) {
 		List<ArticleAVendre> articles = articleAVendreService.getStatusByFiltre(status, pseudo, nomArticle, categorie, idArticle, notPseudo);
 		articles.forEach(this::chargerDependencesDansArticle);
 		return articles;
@@ -54,9 +54,8 @@ public class ArticlesOrchestrationServiceImpl implements ArticlesOrchestrationSe
 
 	@Override
 	public List<ArticleAVendre> getMesEncheresEnCours(String pseudo, String nomArticle, CategorieArticle categorie) {
-		List<Enchere> encheres = enchereService.getEncheresByPseudo(pseudo);
-		long[] idArticles = encheres.stream().mapToLong(Enchere::getArticleAVendreId).toArray();
-		if (idArticles.length == 0) {
+		List<Long> idArticles = enchereService.getNoArticleByUtilisateur(pseudo);
+		if (idArticles.isEmpty()) {
 			return Collections.emptyList();
 		}
 		List<ArticleAVendre> articles = getArticlesFiltre(new ArticleStatus[]{EN_COURS}, null, nomArticle, categorie, idArticles, false);

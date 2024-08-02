@@ -12,7 +12,7 @@ public interface ArticlesOrchestrationService {
 
 	List<ArticleAVendre> getAllActiveArticles();
 
-	List<ArticleAVendre> getArticlesFiltre(ArticleStatus[] status, String pseudo, String filtre, CategorieArticle categorie, long[] idArticle, boolean notPseudo);
+	List<ArticleAVendre> getArticlesFiltre(ArticleStatus[] status, String pseudo, String filtre, CategorieArticle categorie, List<Long> idArticle, boolean notPseudo);
 
 	List<ArticleAVendre> getMesEncheresEnCours(String pseudo, String nomArticle, CategorieArticle categorie);
 }

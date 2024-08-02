@@ -13,6 +13,8 @@ public interface EnchereDAO {
 
 	List<Enchere> findByUtilisateur(String pseudo);
 
+	List<Long> findNoArticleByUtilisateur(String pseudo);
+
 	List<Enchere> findByArticle(long noArticle);
 
 	Enchere findHighestMontantByArticle(long noArticle);

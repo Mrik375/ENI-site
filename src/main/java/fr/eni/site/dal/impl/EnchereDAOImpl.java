@@ -22,17 +22,25 @@ public class EnchereDAOImpl implements EnchereDAO {
 	private static final String SQL_SELECT_BY_UTILISATEUR = "SELECT id_utilisateur, no_article, montant_enchere, date_enchere FROM ENCHERES WHERE id_utilisateur = :id_utilisateur";
 	private static final String SQL_SELECT_BY_UTILISATEUR_ARTICLE_UNIQUE = """
 			WITH EncheresWithRowNumber AS (
-                                               SELECT id_utilisateur, no_article, montant_enchere, date_enchere,
-                                                      ROW_NUMBER() OVER (PARTITION BY no_article ORDER BY date_enchere DESC) AS rn
-                                               FROM ENCHERES
-                                               WHERE id_utilisateur = :id_utilisateur
-                                           )
-                                           SELECT id_utilisateur, no_article, montant_enchere, date_enchere
-                                           FROM EncheresWithRowNumber
-                                           WHERE rn = 1
-                                           
+			                                            SELECT id_utilisateur, no_article, montant_enchere, date_enchere,
+			                                                   ROW_NUMBER() OVER (PARTITION BY no_article ORDER BY date_enchere DESC) AS rn
+			                                            FROM ENCHERES
+			                                            WHERE id_utilisateur = :id_utilisateur
+			                                        )
+			                                        SELECT id_utilisateur, no_article, montant_enchere, date_enchere
+			                                        FROM EncheresWithRowNumber
+			                                        WHERE rn = 1
 			""";
-
+	private static final String SQL_SELECT_NO_ARTICLE_BY_UTILISATEUR_ARTICLE_UNIQUE = """
+			    SELECT no_article
+			    FROM (
+			        SELECT no_article,
+			               ROW_NUMBER() OVER (PARTITION BY no_article ORDER BY date_enchere DESC) AS rn
+			        FROM ENCHERES
+			        WHERE id_utilisateur = :id_utilisateur
+			    ) AS ranked
+			    WHERE rn = 1
+			""";
 	private static final String SQL_SELECT_BY_ARTICLE = "SELECT id_utilisateur, no_article, montant_enchere, date_enchere FROM ENCHERES WHERE no_article = :no_article";
 	private static final String SQL_SELECT_HIGHEST_BY_ARTICLE = "SELECT TOP 1 id_utilisateur, no_article, montant_enchere, date_enchere FROM ENCHERES WHERE no_article = :no_article ORDER BY montant_enchere DESC";
 
@@ -75,6 +83,13 @@ public class EnchereDAOImpl implements EnchereDAO {
 		MapSqlParameterSource params = new MapSqlParameterSource();
 		params.addValue("id_utilisateur", pseudo);
 		return jdbcTemplate.query(SQL_SELECT_BY_UTILISATEUR_ARTICLE_UNIQUE, params, new EnchereRowMapper());
+	}
+
+	@Override
+	public List<Long> findNoArticleByUtilisateur(String pseudo) {
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("id_utilisateur", pseudo);
+		return jdbcTemplate.query(SQL_SELECT_NO_ARTICLE_BY_UTILISATEUR_ARTICLE_UNIQUE, params, (rs, rowNum) -> rs.getLong("no_article"));
 	}
 
 	@Override

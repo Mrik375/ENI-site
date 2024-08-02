@@ -18,5 +18,7 @@ public interface EnchereService {
 	Enchere getHighestMontantByArticle(long noArticle);
 
 	List<Enchere> getEncheresByPseudo(String pseudo);
+
+	List<Long> getNoArticleByUtilisateur(String pseudo);
 }
 

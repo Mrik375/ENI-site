@@ -17,5 +17,5 @@ public interface ArticleAVendreDAO {
 
 	void setStatus(long id, ArticleStatus statutEnchere);
 
-	List<ArticleAVendre> findByFiltre(ArticleStatus[] articleStatus, String pseudo, String nomArticle, CategorieArticle categorie, long[] idArticles, boolean notPseudo);
+	List<ArticleAVendre> findByFiltre(ArticleStatus[] articleStatus, String pseudo, String nomArticle, CategorieArticle categorie, List<Long> idArticles, boolean notPseudo);
 }

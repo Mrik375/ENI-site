@@ -90,7 +90,7 @@ public class ArticleAVendreDAOImpl implements ArticleAVendreDAO {
 											 String pseudo,
 											 String nomArticle,
 											 CategorieArticle categorie,
-											 long[] idArticles,
+											 List<Long> idArticles,
 											 boolean notPseudo) {
 		StringBuilder sql = new StringBuilder(SQL_SELECT_ALL).append(SQL_WHERE);
 
@@ -141,17 +141,17 @@ public class ArticleAVendreDAOImpl implements ArticleAVendreDAO {
 			firstRequest = false;
 		}
 
-		if (idArticles != null && idArticles.length > 0) {
+		if (idArticles != null && !idArticles.isEmpty()) { // Changed from idArticles.length > 0 to idArticles.isEmpty()
 			if (!firstRequest) {
 				sql.append(SQL_AND);
 			}
 			sql.append("(");
-			for (int i = 0; i < idArticles.length; i++) {
+			for (int i = 0; i < idArticles.size(); i++) { // Changed from idArticles.length to idArticles.size()
 				if (i > 0) {
 					sql.append(SQL_OR);
 				}
 				sql.append(SQL_NO_ARTICLE).append(i);
-				params.addValue("id_article" + i, idArticles[i]);
+				params.addValue("id_article" + i, idArticles.get(i)); // Changed from idArticles[i] to idArticles.get(i)
 			}
 			sql.append(")");
 		}
